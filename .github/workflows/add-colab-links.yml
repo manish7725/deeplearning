@@ -40,6 +40,24 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Run Class 8 walkthrough fixes
+        run: python scripts/student_walkthrough_fixes.py
+
+      - name: Add chapter-specific experiments
+        run: python scripts/upgrade_notebooks.py
+
+      - name: Add beginner-friendly code explanations
+        run: python scripts/upgrade_notebook_tutorials.py
+
+      - name: Add visualization and animation guidance
+        run: python scripts/enrich_notebooks.py
+
+      - name: Normalize experimental-branch navigation
+        shell: bash
+        run: |
+          find blogs notebooks README.md SYLLABUS.md -type f -print0 2>/dev/null | xargs -0 sed -i 's#github.com/manish7725/deeplearning/blob/main/#github.com/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/#g'
+          find blogs notebooks README.md SYLLABUS.md -type f -print0 2>/dev/null | xargs -0 sed -i 's#colab.research.google.com/github/manish7725/deeplearning/blob/main/#colab.research.google.com/github/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/#g'
+
       - name: Validate curriculum structure
         run: python scripts/curriculum_quality.py
 
@@ -63,16 +81,16 @@ jobs:
             exit 1
           fi
 
-      - name: Commit generated quality report on curriculum branch only
+      - name: Commit generated curriculum changes on experimental branch only
         if: github.event_name != 'pull_request'
         shell: bash
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add CURRICULUM_QUALITY.md
+          git add blogs notebooks CURRICULUM_QUALITY.md
           if git diff --cached --quiet; then
-            echo 'No generated report changes.'
+            echo 'No generated curriculum changes.'
             exit 0
           fi
-          git commit -m 'Update curriculum quality report'
+          git commit -m 'Complete Class 8 to PhD chapter labs'
           git push origin HEAD:reorg/class8-to-phd-curriculum
