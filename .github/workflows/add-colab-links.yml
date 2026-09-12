@@ -23,7 +23,7 @@ jobs:
       - name: Merge labs into notebooks and remove obsolete labs
         run: python scripts/merge_labs_into_notebooks.py
 
-      - name: Add notebook and Colab links to blogs
+      - name: Normalize all blog notebook navigation
         shell: bash
         run: |
           python - <<'PY'
@@ -33,6 +33,9 @@ jobs:
           repo = 'manish7725/deeplearning'
           branch = 'main'
           marker = '<!-- NOTEBOOK-LAB-NAV -->'
+          colab_pattern = re.compile(r'>\s*🧪\s*\*\*\[Run this code in Google Colab\]\([^\n]+\)\*\*\s*\n?', re.MULTILINE)
+          lab_pattern = re.compile(r'^.*\]\([^\n]*?/labs/[^\n]*\)\s*\n?', re.MULTILINE)
+          feature_colab_pattern = re.compile(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/[^)]+')
 
           for path in sorted(Path('blogs').glob('*.md')):
               match = re.match(r'^(\d{2})-', path.name)
@@ -47,37 +50,62 @@ jobs:
               colab_url = f'https://colab.research.google.com/github/{repo}/blob/{branch}/{notebook.as_posix()}'
 
               text = path.read_text(encoding='utf-8')
-              text = re.sub(
-                  r'^> 🧪 \*\*\[Run this code in Google Colab\]\([^\n]+\)\*\*\n\n',
-                  '', text, flags=re.MULTILINE
-              )
+
+              # Remove every legacy per-code-block Colab link, including old feature-branch links.
+              text = colab_pattern.sub('', text)
+              text = feature_colab_pattern.sub('', text)
+
+              # Remove references to the deleted standalone labs directory.
+              text = lab_pattern.sub('', text)
 
               nav = (
                   f'{marker}\n\n'
                   '## 🧪 Interactive Lab\n\n'
-                  'The explanation and the hands-on experiment now live together: '
-                  'the notebook contains the complete runnable lab for this lesson.\n\n'
+                  'The matching notebook is the complete hands-on laboratory for this lesson. '
+                  'It contains the runnable code, experiments, visualizations, and challenges.\n\n'
                   f'**[📓 Open the notebook on GitHub]({notebook_url})**  '
                   f'· **[▶ Open the notebook in Google Colab]({colab_url})**\n\n'
-                  'Run the cells, change the values, observe the result, and then return '
-                  'to this blog to connect the experiment back to the idea.\n\n'
               )
 
               if marker in text:
                   start = text.index(marker)
                   rest = text[start:]
+                  # Replace only the existing navigation block, stopping at the next normal heading.
                   next_heading = re.search(r'(?m)^## (?!🧪 Interactive Lab)', rest)
-                  if next_heading:
-                      suffix = rest[next_heading.start():]
-                  else:
-                      suffix = ''
+                  suffix = rest[next_heading.start():] if next_heading else ''
                   text = text[:start] + nav + suffix
               else:
                   lines = text.splitlines(True)
                   insert_at = 1 if lines and lines[0].lstrip().startswith('#') else 0
                   text = ''.join(lines[:insert_at]) + '\n' + nav + ''.join(lines[insert_at:])
 
+              # Collapse accidental repeated blank lines created during cleanup.
+              text = re.sub(r'\n{4,}', '\n\n\n', text)
               path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Validate blog navigation
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          errors = []
+          for path in sorted(Path('blogs').glob('*.md')):
+              text = path.read_text(encoding='utf-8')
+              if text.count('<!-- NOTEBOOK-LAB-NAV -->') != 1:
+                  errors.append(f'{path}: expected exactly one navigation marker')
+              if '/labs/' in text:
+                  errors.append(f'{path}: stale labs link remains')
+              if 'feature/01-deeplearning-syllabus' in text:
+                  errors.append(f'{path}: stale feature-branch link remains')
+              links = re.findall(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/main/notebooks/[^)]+', text)
+              if len(links) != 1:
+                  errors.append(f'{path}: expected exactly one main Colab link, found {len(links)}')
+          if errors:
+              print('\n'.join(errors))
+              raise SystemExit(1)
+          print('All blog posts have exactly one clean notebook/Colab navigation block.')
           PY
 
       - name: Commit reorganized learning units
@@ -89,5 +117,5 @@ jobs:
             echo 'No generated changes.'
             exit 0
           fi
-          git commit -m 'Merge labs into notebooks and simplify blog navigation'
+          git commit -m 'Normalize blog notebook navigation'
           git push origin HEAD:main
