@@ -1,4 +1,4 @@
-name: Rebuild notebooks from blogs
+name: Rebuild complete blog notebooks
 on:
   push:
     branches: [feature/blog-synced-notebooks]
@@ -6,14 +6,14 @@ on:
     branches: [main]
     paths:
       - 'blogs/**'
+      - 'scripts/rebuild_complete_blog_notebooks.py'
       - 'scripts/rebuild_blog_synced_notebooks.py'
-      - 'scripts/rebuild_notebooks_from_blogs.py'
       - '.github/workflows/rebuild-notebooks-from-blogs.yml'
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: blog-synced-notebooks
+  group: complete-blog-notebooks
   cancel-in-progress: false
 jobs:
   rebuild:
@@ -26,32 +26,33 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Rebuild every notebook from its matching blog
+      - name: Rebuild all 37 notebooks as complete single-file lessons
         run: python scripts/rebuild_blog_synced_notebooks.py
-      - name: Validate the 37 curriculum notebook pairs
+      - name: Validate notebook structure, source mapping, and code syntax
         run: |
           python - <<'PY'
-          import json
+          import ast, json
           from pathlib import Path
           blogs=sorted([p for p in Path('blogs').glob('[0-9][0-9]-*.md') if 1 <= int(p.name[:2]) <= 37])
           assert len(blogs)==37, len(blogs)
           for b in blogs:
               n=Path('notebooks')/(b.stem+'.ipynb')
               assert n.exists(), f'Missing {n}'
-              data=json.loads(n.read_text())
-              assert data['metadata']['blog_source']==b.name
+              data=json.loads(n.read_text(encoding='utf-8'))
+              assert data['metadata']['blog_source']==f'blogs/{b.name}'
               text='\n'.join(''.join(c.get('source',[])) for c in data['cells'])
-              for required in ['Hand calculation','PyTorch','Visualization','Change exactly one variable','Intentional failure','Blog-synchronized exercises','Mini-project','Research bridge','Mastery check']:
-                  assert required.lower() in text.lower(),f'{n}: {required}'
-              assert 'Set broken_value' not in text
-              assert 'Add the chapter calculation here' not in text
-          print('PASS: all 37 expected blog-notebook pairs are synchronized and contain no old placeholder labs.')
+              for required in ['Blog context','Hand calculation','NumPy','PyTorch','Visualization','Change exactly one variable','Intentional failure','Blog-synchronized exercises','Mini-project','Research bridge','Mastery check']:
+                  assert required.lower() in text.lower(), f'{n}: {required}'
+              assert 'Set broken_value' not in text and 'Add the chapter calculation here' not in text
+              for c in data['cells']:
+                  if c['cell_type']=='code': ast.parse(''.join(c['source']))
+          print('PASS: all 37 notebooks are complete source-driven lessons and all code cells compile.')
           PY
-      - name: Commit rebuilt notebooks
+      - name: Commit regenerated notebooks
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add notebooks
           if git diff --cached --quiet; then echo 'No notebook changes.'; exit 0; fi
-          git commit -m 'Synchronize notebooks with source blogs'
+          git commit -m 'Rebuild notebooks as complete blog companions'
           git push origin HEAD:feature/blog-synced-notebooks
