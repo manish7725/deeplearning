@@ -20,8 +20,8 @@ was priced in Chapter 1 is the house that becomes a vector in Chapter 2.
 |---|---|---|---|---|---|
 | 01 | What Does It Mean for a Machine to Learn? | — (the start) | model with dials, loss, landscape, slope, update rule | one number cannot describe a house | 4 house sales |
 | 02 | Numbers Become Vectors | How do we hold many measurements as one object? | vector, dot product, norm, cosine, feature scaling | one house is a vector; how do we do *all* houses at once? | same houses, 3 features |
-| 03 | Matrices: The Spreadsheet of Mathematics | How do we compute over a whole dataset at once? | matrix as stacked vectors, matrix–vector product, shapes | a matrix also *does* something to space | the house table |
-| 04 | A Matrix Can Transform Space | What does a matrix *do*, not just store? | linear maps, rotation/scale/shear, composition | composition of linear maps is still linear — so depth buys nothing yet | a drawn square |
+| 03 | Matrices: The Spreadsheet of Mathematics | How do we compute over a whole dataset at once? | matrix, matrix×vector, matrix×matrix, transpose, shape rule, **scalar→vector→matrix→tensor ladder**, rank/axes, batch axis | a matrix also *does* something to space | the house table |
+| 04 | A Matrix Can Transform Space | What does a matrix *do*, not just store? | linear maps, columns as basis images, basis/span, rotation/scale/shear/projection, **composition = matrix multiplication**, determinant, matrix rank & null space, eigenvector preview | composition of linear maps is still linear — so depth buys nothing yet | a drawn square |
 | 05 | Meet the Smallest Neural Network | What is the smallest unit that computes? | the neuron: weighted sum + bias | stacking neurons collapses back to one line | one neuron on the house data |
 | 06 | Why Does a Neuron Need an Activation Function | Why does stacking gain nothing? | non-linearity, sigmoid/tanh/ReLU, why the collapse stops | which shapes can a network now represent? | XOR |
 | 07 | *(see Sequencing Issues)* | | | | |
@@ -72,6 +72,78 @@ was priced in Chapter 1 is the house that becomes a vector in Chapter 2.
 | 37 | Preference Learning and Policy Optimization | How do we optimize for what people want? | reward models, DPO/RLHF, objective mismatch | *the course ends where research begins* | preference pairs |
 
 ---
+
+## The linear-algebra arc: Chapters 02–04
+
+These three chapters together must leave the reader able to read every equation in the rest
+of the course. Nothing later re-teaches them, so the split is fixed:
+
+| | Chapter 02 — Vectors | Chapter 03 — Matrices & Tensors | Chapter 04 — Transformations |
+|---|---|---|---|
+| **Object** | scalar → vector | matrix → tensor | matrix as a *function* |
+| **Core operation** | **dot product** — the heart of a neuron | **matrix multiplication** — the heart of a layer | **composition** — the heart of depth |
+| **Also covers** | norm, distance, cosine similarity, orthogonality, feature scaling and conditioning | matrix×vector, transpose, the shape rule, rank as *number of axes*, the batch axis | columns as basis images, basis and span, rotation/scale/shear/projection, determinant, matrix rank, null space |
+| **Geometry** | points and arrows | rows and columns as axes of a table | what happens to a whole grid |
+| **Ends by asking** | how do we do this for every house at once? | what does a matrix *do* to space? | why does stacking layers gain nothing? |
+
+The payoff arrives in Chapter 04's final section: composing linear maps produces another
+linear map, so a deep stack of matrices collapses into one matrix. That is the precise
+problem Chapters 05–06 exist to solve, and it is why activation functions are *necessary*
+rather than decorative.
+
+**Deferred on purpose.** Eigenvectors and SVD get an intuition-level preview in Chapter 04
+("directions a transformation does not rotate") and their full treatment when a chapter
+actually needs them — Chapter 27 for representation geometry, Chapter 36 for measurement.
+Tensor *mechanics* — broadcasting, reshaping, permuting, axis reductions — are introduced by
+name in Chapter 03 and developed in Chapter 11, where convolution forces the issue.
+
+## Concept coverage map
+
+Where each core concept is actually taught. Use this before adding material to a chapter: if
+a concept already has a home, link to it instead of re-teaching it.
+
+| Concept | Chapter | Concept | Chapter |
+|---|---|---|---|
+| model, parameters, dials | 01 | tensors, rank, batch axis | 03 |
+| loss, MSE | 01 | linear transformation | 04 |
+| loss landscape, slope | 01 | composition, determinant, null space | 04 |
+| gradient descent, learning rate | 01, 09 | neuron = dot product + bias | 05 |
+| prediction vs learning | 01 | activation, non-linearity | 06 |
+| overfitting (first contact) | 01, 12 | loss functions, cross-entropy | **07 — pending** |
+| vectors, dot product | 02 | derivatives, chain rule | 08 |
+| norm, distance, cosine | 02 | backpropagation, dW/db/dX | 10 |
+| feature scaling, conditioning | 02 | broadcasting, axis reductions | 11 |
+| matrix, matmul, transpose | 03 | train/validation/test | 12 |
+| shape reasoning | 03 | convolution, filters, pooling | 13 |
+| sequences, memory | 14 | embeddings | 15 |
+| attention | 16 | transformers | 17 |
+| tokenization, perplexity | 18 | generative models | 19, 29 |
+| build-from-scratch | 20 | autodiff engine | 21 |
+| universal approximation | 22 | inductive bias, equivariance | 23 |
+| generalization theory | 25 | optimizers SGD→Adam, normalization | 26 |
+| representation learning | 27 | contrastive learning | 28 |
+| robustness, distribution shift | 30 | transfer learning, LoRA | 31 |
+| scaling laws | 32 | inference, KV cache, decoding | 33 |
+| training diagnostics | 34 | preference learning, RLHF | 37 |
+
+## Gaps: what these 37 chapters do *not* teach
+
+[`SYLLABUS.md`](SYLLABUS.md) lists these as required (Levels 0–2), but no chapter currently
+delivers them. They are real holes in the path, not oversights in the table above:
+
+| Missing | Why it matters | Suggested home |
+|---|---|---|
+| **Loss functions beyond MSE** — BCE, cross-entropy | Chapter 18 uses cross-entropy without ever deriving it | repurpose slot **07** (see below) |
+| **Classical ML** — logistic regression, kNN, trees, random forests, boosting, SVM | Logistic regression is the bridge: $\sigma(\mathbf{w}\cdot\mathbf{x}+b)$ is literally a one-neuron network. Trees and ensembles teach generalization more clearly than deep nets do. | a new Part between 12 and 13 |
+| **Probability & statistics** — distributions, Bayes, expectation, variance, MLE | Needed to say *why* cross-entropy, why MSE, what a probabilistic output means | before the loss chapter |
+| **Evaluation metrics** — confusion matrix, precision/recall, F1, ROC-AUC | Chapter 12 measures generalization with loss alone; accuracy can be 99% and worthless | fold into 12, or a chapter after it |
+| **Data preprocessing** — encoding, missing values, outliers, leakage | Chapter 2 raises feature scaling and Chapter 2's Level-5 exercise raises categorical encoding, but nothing develops either | fold into 12 |
+| **Eigenvalues, SVD** | Previewed in 04; needed properly for PCA and representation geometry | expand 27, or a dedicated chapter |
+
+**Recommendation:** finish the 02–04 arc first, since everything else depends on it, then
+decide whether the classical-ML and statistics material becomes new chapters (the course
+grows past 37) or an explicitly separate track. Do not silently skip it — the pyramid has
+those layers underneath deep learning for a reason.
 
 ## Sequencing issues to resolve
 
