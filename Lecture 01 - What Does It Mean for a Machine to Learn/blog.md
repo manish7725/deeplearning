@@ -1,845 +1,697 @@
-# Chapter 01 — What Does It Mean for a Machine to Learn?
+# Lecture 01 — What Does It Mean for a Machine to Learn?
 
-> **Big question:** How can a machine improve its answers without us writing every rule?
+> **The Big Question:** How can a machine discover a rule that nobody ever told it?
 
-<!-- NOTEBOOK-LAB-NAV -->
+▶️ **Run the code:** [Open in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2001%20-%20What%20Does%20It%20Mean%20for%20a%20Machine%20to%20Learn/notebook.ipynb) · [`notebook.ipynb`](<notebook.ipynb>)
 
-## 🧪 Laboratory
+## Where We Are
 
-The matching notebook is the hands-on laboratory for this chapter.
-
-- 📓 [Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/Lecture%2001%20-%20What%20Does%20It%20Mean%20for%20a%20Machine%20to%20Learn/notebook.ipynb)
-- ▶️ [Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2001%20-%20What%20Does%20It%20Mean%20for%20a%20Machine%20to%20Learn/notebook.ipynb)
-
----
-
-## 🧭 Where we are in the journey
-
-**Before this chapter:** nothing. This is our starting point.
-
-**Today:** we build the smallest possible picture of machine learning.
-
-**Next:** we need a language for describing information with numbers. That leads to **vectors**.
-
-The journey begins with one deceptively simple question:
-
-> If we can write a program that makes a prediction, have we taught it to learn?
-
-**No.** Prediction and learning are different things. By the end of this chapter, you will see exactly why.
+**Previously:** Nothing. This is where the road starts.
+**Today:** We watch a machine discover a rule from four examples — and we build every piece of the mathematics that makes it possible.
+**Next:** We will describe a house with *one* number today. Real things need many. That forces us into **vectors**.
 
 ---
 
-# 1. The King's Question 👑
+## 1. The Problem: Four Houses and a Question
 
-Imagine a king asks an engineer:
+You work at a small property office. Your manager drops four sales on your desk and asks for a program that prices houses.
 
-> “Build me a machine that can recognize cats and dogs.”
-
-There are two ways to attack the problem.
-
-### Way A — Write rules
-
-We might try:
-
-```text
-IF ears are pointed
-AND body has fur
-AND nose has a certain shape
-THEN CAT
-```
-
-But real life immediately fights us.
-
-What if the dog has pointed ears?
-What if the cat is sitting in darkness?
-What if the photograph is blurry?
-What if the animal is partly hidden?
-
-We could keep adding rules forever.
-
-### Way B — Show examples
-
-Instead, we could show the machine examples:
-
-```text
-picture → CAT
-picture → DOG
-picture → CAT
-picture → DOG
-...
-```
-
-Then give it a picture it has never seen:
-
-```text
-new picture → ?
-```
-
-The machine uses the examples to discover a pattern that can help it make a new prediction.
-
-That is the basic idea behind **machine learning**.
-
-But “learn a pattern” needs to become mathematics.
-
----
-
-# 2. What exactly is an example?
-
-A computer works with numbers.
-
-So suppose we describe a fruit using three measurements:
-
-| Feature | Example |
-|---|---:|
-| Weight | 150 g |
-| Color score | 8 |
-| Roundness | 9 |
-
-We can turn the fruit into a list of numbers:
-
-$$
-\mathbf{x}=\begin{bmatrix}150\\8\\9\end{bmatrix}
-$$
-
-This is called a **vector**.
-
-For now, don't worry about the fancy word. Think of it as a box containing measurements.
-
-```text
-real object
-    ↓
-measure it
-    ↓
-[150, 8, 9]
-    ↓
-computer can calculate with it
-```
-
-This creates our first important bridge:
-
-> **Machine learning begins by turning useful observations into numbers.**
-
-We will study vectors properly in Chapter 02.
-
----
-
-# 3. Many examples make a dataset
-
-One example is rarely enough.
-
-Suppose we collect many fruits:
-
-```text
-x₁ = [150, 8, 9]
-x₂ = [170, 7, 8]
-x₃ = [ 80, 9, 6]
-x₄ = [160, 8, 9]
-...
-```
-
-These examples together form a **dataset**.
-
-If we also know the correct answer for every example, we have labelled examples:
-
-| Input | Correct answer |
-|---|---|
-| `[150, 8, 9]` | orange |
-| `[170, 7, 8]` | orange |
-| `[80, 9, 6]` | apple |
-
-The learning problem is now more precise:
-
-> Find a mathematical rule that maps inputs to useful predictions.
-
-We can write that idea as
-
-$$
-\hat y=f_\theta(\mathbf{x})
-$$
-
-Read this as:
-
-```text
-input x
-  ↓
-model f with parameters θ
-  ↓
-prediction ŷ
-```
-
-The little hat on $\hat y$ means **prediction**, not the true answer.
-
-The symbol $\theta$ represents the values the model can learn.
-
----
-
-# 4. Our first learning machine
-
-Let's make the machine tiny enough to understand completely.
-
-Suppose the true data follows this pattern:
-
-| $x$ | $y$ |
+| Rooms | Price (₹ lakh) |
 |---:|---:|
 | 1 | 3 |
 | 2 | 5 |
 | 3 | 7 |
 | 4 | 9 |
 
-You may notice:
+Then she asks the question that matters:
 
-$$
-y=2x+1
-$$
+> **A five-room house just came on the market. What should we ask for it?**
 
-But pretend the machine does **not** know that.
+Sit with that for a moment. Nobody has told you a pricing rule. There is no formula in the file. There are four facts and a question about a house that is *not among them*.
 
-We give it a model with two unknown numbers:
-
-$$
-\hat y=wx+b
-$$
-
-Here:
-
-- $w$ controls the **slope**;
-- $b$ controls the **starting height**.
-
-The machine's job is to discover $w$ and $b$.
-
-If it discovers
-
-$$
-w=2,\qquad b=1
-$$
-
-then its model becomes
-
-$$
-\hat y=2x+1.
-$$
-
-It has captured the pattern.
+This is the entire problem of machine learning, and it is already here in four rows.
 
 ---
 
-# 5. Prediction is not learning
+## 2. What Would a Solution Need?
 
-Suppose we start with:
+Before inventing anything, let us reason about what we actually require. A useful solution must:
 
-$$
-w=1,\qquad b=0.
-$$
+1. **Answer for inputs it has never seen.** The five-room house is the whole point.
+2. **Come from the data, not from us.** If we supply the rule, the machine has learned nothing.
+3. **Be compact.** Four rows fit on a desk. Four million do not.
+4. **Be improvable.** When it is wrong, there must be a way to make it *less* wrong.
 
-Our machine predicts
-
-$$
-\hat y=x.
-$$
-
-For $x=3$:
-
-$$
-\hat y=3.
-$$
-
-But the correct answer is
-
-$$
-y=7.
-$$
-
-So the machine can **predict**, but it has not yet **learned** the desired relationship.
-
-This distinction is fundamental:
-
-> **Prediction is what the model does. Learning is the process of changing the model so its predictions improve.**
-
-Now we need a way to measure “improve.”
+Keep these four requirements in view. Every idea in this chapter exists because one of them was violated.
 
 ---
 
-# 6. Loss: a mistake meter 📏
+## 3. First Attempt: Write Down the Answers
 
-We need a number that tells us how bad a prediction is.
-
-For our first lesson, use squared error:
-
-$$
-L=(y-\hat y)^2
-$$
-
-Suppose:
-
-$$
-y=7,\qquad \hat y=3.
-$$
-
-Then
-
-$$
-L=(7-3)^2=16.
-$$
-
-Now imagine the model predicts $6$:
-
-$$
-L=(7-6)^2=1.
-$$
-
-Smaller loss means a better prediction for this example.
-
-For $n$ examples, we can average the errors:
-
-$$
-\mathrm{MSE}=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat y_i)^2.
-$$
-
-This is called **mean squared error**.
-
-Notice what just happened.
-
-We turned the vague idea “the machine should become better” into a number we can calculate.
-
-That is a major theme of deep learning:
-
-> **If we can measure improvement, we can try to optimize it.**
-
----
-
-# 7. Learning becomes a search problem 🔎
-
-Our model has two unknown parameters:
-
-$$
-\theta=(w,b).
-$$
-
-Every choice of $w$ and $b$ produces a different line.
-
-Every line produces predictions.
-
-Every set of predictions produces a loss.
-
-So we can imagine a giant search:
+The simplest possible program stores what we saw:
 
 ```text
-choose w,b
-   ↓
-predict
-   ↓
-measure loss
-   ↓
-choose better w,b
-   ↓
-measure again
-   ↓
-repeat
+IF rooms = 1 THEN price = 3
+IF rooms = 2 THEN price = 5
+IF rooms = 3 THEN price = 7
+IF rooms = 4 THEN price = 9
 ```
 
-For a model with only two parameters, we could even imagine trying many possibilities by hand.
+Test it on the four known houses: perfect, every time. A flawless score.
 
-For a neural network with millions or billions of parameters, guessing is hopeless.
+Now ask it about five rooms.
 
-We need something smarter.
+Silence. There is no matching line. The program has no opinion, because it never had an *idea* — it had a list. Ask it about a three-and-a-half room house and it fails again.
 
-That something is the **gradient**.
+> ⚠️ **A Tempting Wrong Idea**
+>
+> *"It scored 100% on the data, so it is a great model."*
+>
+> It scored 100% because it memorized the answers. Requirement 1 is violated completely. **Perfect performance on examples you have already seen is not evidence of learning** — it is the one result you can always achieve by writing things down.
+
+A second tempting fix: take the average of all four prices, ₹6 lakh, and quote that for every house. Now we always have an answer — requirement 1 satisfied! But a one-room flat and a four-room house get the same price. The rule ignores the very thing we were asked about. Remember this ₹6 lakh model; it comes back in §7 to teach us something sharp.
+
+Both attempts fail the same way: **neither one captured the relationship between rooms and price.**
+
+> 📜 **History Lens — Arthur Samuel, IBM, 1950s**
+>
+> Arthur Samuel faced exactly this wall, with checkers. He wanted a program that played well, but he could not write down the rules for good play — expert players themselves cannot fully articulate them. So in the 1950s he built a program that adjusted its own evaluation of board positions from the outcomes of games it played, and published the results in 1959 as *"Some Studies in Machine Learning Using the Game of Checkers."* The program eventually beat him.
+>
+> The idea that changed everything: **when you cannot write the rule, write the process that finds the rule.**
+>
+> Nearly forty years later Tom Mitchell made it precise in his 1997 textbook *Machine Learning*:
+>
+> > "A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E."
+>
+> Read it against our problem: **T** is pricing houses, **E** is the four sales, **P** is how close our prices are. Learning is improvement of **P** on **T** through **E** — nothing more mystical than that.
+>
+> *(A popular one-line definition about computers learning "without being explicitly programmed" is widely attributed to Samuel, but it is a later paraphrase rather than a sentence from his paper. We quote only what is verifiable.)*
 
 ---
 
-# 8. The learning loop
+## 4. The Discovery: A Rule With Adjustable Dials
 
-Here is the entire idea in one picture:
+We stopped looking at the four prices as four separate facts. Let us look at how they *change*.
+
+```text
+rooms:   1  →  2  →  3  →  4
+price:   3  →  5  →  7  →  9
+change:     +2    +2    +2
+```
+
+Every extra room adds exactly ₹2 lakh. That is not four facts — that is one fact, repeated.
+
+And if each room is worth ₹2 lakh, what is the ₹1 lakh left over at one room? One room costs ₹3 lakh, of which ₹2 lakh is the room itself. Something costs ₹1 lakh before any room exists: **the land**.
+
+So the relationship is:
+
+```text
+price  =  price-per-room × rooms  +  base cost of the plot
+```
+
+Now we generalize. We do *not* yet know that a room is worth ₹2 lakh — we want the machine to find that out. So we leave the two numbers blank and give them names:
+
+$$
+\hat{y} = w x + b
+$$
+
+| Level | The same idea |
+|---|---|
+| 💡 **Intuition** | A machine with two dials. One dial sets how steeply price climbs per room; the other sets the price of an empty plot. Turn the dials until the machine agrees with reality. |
+| ✏️ **Numbers** | With $w=2$ and $b=1$: a 3-room house costs $2(3) + 1 = 7$. ✓ matches the data. |
+| 🎓 **Abstraction** | $\hat{y} = wx + b$, where $w, b \in \mathbb{R}$ are *learned from data*, not supplied by us. |
+
+Every symbol, in English:
+
+| Symbol | Read it as | Meaning here | In code |
+|---|---|---|---|
+| $x$ | "the input" | number of rooms | `x` |
+| $y$ | "the true answer" | the price the house actually sold for | `y` |
+| $\hat{y}$ | "y-hat", *our guess* of $y$ | the price our rule predicts | `y_hat` |
+| $w$ | "weight" | ₹ lakh added per room | `w` |
+| $b$ | "bias" | ₹ lakh before any rooms — the plot | `b` |
+
+The hat matters. $y$ is what the world did. $\hat{y}$ is what we claim. **Learning is the business of closing the gap between them.**
+
+Notice what we bought: two numbers now stand in for the whole table, and unlike the lookup table, $\hat{y} = wx + b$ has an answer for five rooms, for 3.5 rooms, for any $x$ at all. Requirements 1 and 3, satisfied.
+
+---
+
+## 5. Prediction Is Not Learning
+
+We have the *form* of the rule. We do not have the two numbers. The machine must find them, so it cannot start from the answer. Let it start ignorant:
+
+$$
+w = 1, \qquad b = 0 \qquad \Longrightarrow \qquad \hat{y} = x
+$$
+
+Ask it about a three-room house:
+
+$$
+\hat{y} = 1(3) + 0 = 3 \quad \text{but the house sold for} \quad y = 7.
+$$
+
+The machine answered. The machine was wrong by ₹4 lakh. And notice — it will be wrong in exactly the same way tomorrow, and the day after. It has no mechanism to improve.
+
+> 🧠 **Think** — This is the distinction the whole chapter turns on:
+>
+> **Prediction** is what a model *does*: run the input through the current dials.
+> **Learning** is what changes the *dials themselves*, using evidence.
+>
+> A calculator predicts. It never learns.
+
+To change the dials we need to know *how wrong* we are — not as a feeling, but as a number. Requirement 4 has arrived, and we cannot satisfy it yet.
+
+---
+
+## 6. What Would a Measure of Wrongness Need?
+
+Again, reason before inventing. A useful measure must:
+
+1. Be **one number** for the whole dataset — not four complaints, one verdict.
+2. Be **zero** when every prediction is perfect.
+3. **Grow** as predictions get worse.
+4. **Never let a miss in one direction cancel a miss in the other.**
+
+That fourth requirement looks fussy. §7 is about to show you why it is the one that matters.
+
+---
+
+## 7. Second Attempt: Just Average the Errors
+
+The obvious move. For each house, compute $\hat{y} - y$, then average.
+
+Return to that ₹6 lakh model from §3 — the one that quotes the same price for every house:
+
+| Rooms $x$ | Prediction $\hat{y}$ | Truth $y$ | Error $\hat{y}-y$ |
+|---:|---:|---:|---:|
+| 1 | 6 | 3 | **+3** |
+| 2 | 6 | 5 | **+1** |
+| 3 | 6 | 7 | **−1** |
+| 4 | 6 | 9 | **−3** |
+
+Average error:
+
+$$
+\frac{(+3) + (+1) + (-1) + (-3)}{4} = \frac{0}{4} = 0.
+$$
+
+**Zero.** By this measure, a model that completely ignores the number of rooms is *flawless*.
+
+> ⚠️ **A Tempting Wrong Idea**
+>
+> Averaging signed errors lets overcharging on small flats pay for undercharging on large houses. The books balance; every individual customer is still quoted the wrong price. Requirement 4, violated exactly as promised.
+
+The problem is the minus signs. We need the size of each mistake, with its direction thrown away.
+
+---
+
+## 8. The Discovery: Squared Error and the Loss Function
+
+Two honest ways to discard a sign. Take the absolute value, or square it.
+
+| Rooms | Error | $\lvert \text{error} \rvert$ | $\text{error}^2$ |
+|---:|---:|---:|---:|
+| 1 | +3 | 3 | 9 |
+| 2 | +1 | 1 | 1 |
+| 3 | −1 | 1 | 1 |
+| 4 | −3 | 3 | 9 |
+| | **avg** | **2** | **5** |
+
+Both refuse to report zero. Both do the job. So why does this course — and most of deep learning — reach for the square?
+
+1. **Big misses hurt more than small ones.** Doubling an error quadruples its cost: being ₹3 lakh wrong contributes $9$, while being ₹1 lakh wrong contributes $1$. Squaring says *one catastrophic quote is worse than three small ones*, which is usually what we believe about pricing houses.
+2. **It is smooth.** $\lvert e \rvert$ has a sharp corner at zero where its slope is undefined. From §11 onward, slopes are the only tool we have for improving the dials — so a kink is a genuine obstacle. $e^2$ is smooth everywhere.
+
+> ⚠️ Squaring is a **choice**, not a law. It is unusually sensitive to outliers: one wildly mispriced mansion can dominate the whole average. Mean absolute error is a perfectly respectable alternative, used precisely when outliers should not dominate. We square because of the two reasons above, not because the universe demands it.
+
+Write it for one house — the **squared error**:
+
+$$
+L = (\hat{y} - y)^2
+$$
+
+and for the whole dataset, the **mean squared error**:
+
+$$
+\mathrm{MSE} = \frac{1}{n}\sum_{i=1}^{n} (\hat{y}_i - y_i)^2
+$$
+
+If $\sum$ is new, read it left to right as an instruction:
+
+$$
+\sum_{i=1}^{n} (\hat{y}_i - y_i)^2
+\quad\longrightarrow\quad
+\text{"start at house } i=1 \text{, square its error, add it on, move to the next, stop at } n \text{."}
+$$
+
+The subscript $i$ is just a house number; $n$ is how many houses there are. With $n = 4$ it unpacks to
+$(\hat{y}_1-y_1)^2 + (\hat{y}_2-y_2)^2 + (\hat{y}_3-y_3)^2 + (\hat{y}_4-y_4)^2$, divided by 4. Nothing more.
+
+This number has a name: the **loss**. And something quietly enormous just happened —
+
+> 💡 We turned the vague wish *"the machine should get better"* into a quantity we can compute. Anything we can compute, we can try to make small.
+
+Check the measure against our models:
+
+| Model | What it does | MSE |
+|---|---|---:|
+| $w=0, b=6$ | ignores rooms | 5 |
+| $w=2, b=0$ | right slope, forgot the land | 1 |
+| $w=2, b=1$ | the truth | **0** |
+
+The ranking matches our judgement. The measure works.
+
+---
+
+## 9. Learning Becomes a Search
+
+Now the problem has a shape. Every pair $(w, b)$ defines a line; every line produces predictions; every set of predictions produces one loss. So:
+
+$$
+\text{learning} \;=\; \text{find the } (w,b) \text{ that makes } L \text{ smallest.}
+$$
+
+With two dials you could hunt by hand. Try $w = 1$, try $w = 2$, keep what is better.
+
+But count what happens when the model grows. A small image model has millions of dials; a large language model has hundreds of billions. Testing ten values of each is $10^{\text{billions}}$ combinations. There is not enough time in the universe.
+
+> 🔭 **Next Question** — Guessing does not scale. Is there a way to know **which direction to turn a dial** without trying every value?
+
+---
+
+## 10. The Discovery: The Loss Landscape
+
+Let us look at what the loss actually *does* as a dial turns. Hold $b = 1$ and walk $w$ through some values, computing MSE on our four houses by hand:
+
+| $w$ | Predictions | Loss $L$ |
+|---:|---|---:|
+| 0 | 1, 1, 1, 1 | 30.0 |
+| 1 | 2, 3, 4, 5 | 7.5 |
+| 1.5 | 2.5, 4, 5.5, 7 | 1.875 |
+| **2** | **3, 5, 7, 9** | **0** |
+| 2.5 | 3.5, 6, 8.5, 11 | 1.875 |
+| 3 | 4, 7, 10, 13 | 7.5 |
+| 4 | 5, 9, 13, 17 | 30.0 |
+
+Look at the shape: falling, bottoming out at $w = 2$, rising again — and *symmetric* around the bottom. That symmetry is a clue. Let us find the exact formula.
+
+With $b = 1$ and true prices $y_i = 2x_i + 1$, the error on house $i$ is
+
+$$
+\hat{y}_i - y_i = (w x_i + 1) - (2 x_i + 1) = (w - 2)x_i .
+$$
+
+The $+1$ cancels — a fixed offset that both lines share. Now square and average:
+
+$$
+L(w) = \frac{1}{n}\sum_{i=1}^{n} \big[(w-2)x_i\big]^2
+     = (w-2)^2 \cdot \frac{1}{n}\sum_{i=1}^{n} x_i^2 .
+$$
+
+$(w-2)^2$ came out of the sum because it does not depend on which house we are looking at. The leftover piece is a property of our data alone:
+
+$$
+\frac{1}{n}\sum x_i^2 = \frac{1^2+2^2+3^2+4^2}{4} = \frac{30}{4} = 7.5 .
+$$
+
+$$
+\boxed{\;L(w) = 7.5\,(w-2)^2\;}
+$$
+
+Check it against the table: $L(0) = 7.5(4) = 30$ ✓, $L(1) = 7.5(1) = 7.5$ ✓, $L(2) = 0$ ✓. The hand calculations and the algebra agree exactly.
+
+This is a **parabola** — a valley with exactly one bottom, at the correct answer $w = 2$.
+
+---
+
+## 11. Which Way Is Downhill?
+
+Stand at $w = 0$, blindfolded, somewhere on that valley wall. You cannot see the bottom. But you *can* feel the ground under your feet: is it tilting up or down, and how steeply?
+
+Measure the tilt the obvious way — take a tiny step $h$ and see how much the loss changed, per unit of step:
+
+$$
+\text{tilt} \approx \frac{L(w+h) - L(w)}{h}
+$$
+
+Let us actually compute it for $L(w) = 7.5(w-2)^2$. Expand the top:
+
+$$
+L(w+h) - L(w) = 7.5\Big[(w + h - 2)^2 - (w-2)^2\Big]
+$$
+
+Write $(w - 2 + h)^2 = (w-2)^2 + 2(w-2)h + h^2$ and the $(w-2)^2$ terms cancel:
+
+$$
+= 7.5\Big[2(w-2)h + h^2\Big]
+$$
+
+Divide by $h$:
+
+$$
+\frac{L(w+h)-L(w)}{h} = 7.5\big[2(w-2) + h\big] = 15(w-2) + 7.5h
+$$
+
+Now the key move. Our step $h$ was arbitrary — so make it smaller and smaller. The term $7.5h$ shrinks away to nothing, and what survives is the tilt at the point itself:
+
+$$
+\text{slope at } w \;=\; 15(w-2)
+$$
+
+No calculus was assumed. We expanded a square, divided, and watched what refused to disappear. *(The notation for "shrink $h$ to nothing" is $h \to 0$, and the machinery around it is the derivative — Chapter 08 builds it properly, Chapter 09 turns it into an algorithm.)*
+
+Read the answer:
+
+| Position | Slope $15(w-2)$ | Meaning | Move |
+|---:|---:|---|---|
+| $w = 0$ | $-30$ | ground falls away to the right | **increase** $w$ |
+| $w = 1$ | $-15$ | still downhill to the right, less steeply | increase $w$ |
+| $w = 2$ | $0$ | flat — the bottom | stop |
+| $w = 3$ | $+15$ | ground rises to the right | **decrease** $w$ |
+
+> 💡 **Intuition** — The slope is a compass. Its **sign** says which way is downhill; its **size** says how steep the ground is. Move *against* the slope and the loss falls.
+
+"Move against the slope" is a rule we can write down. It is the rule the entire field runs on:
+
+$$
+\theta \;\leftarrow\; \theta - \eta \,\nabla_\theta L
+$$
+
+Every symbol, in English:
+
+| Symbol | Read it as | Meaning |
+|---|---|---|
+| $\theta$ | "theta" | all the dials at once — here, $\theta = (w, b)$ |
+| $\leftarrow$ | "is replaced by" | this is an update, not an equation to solve |
+| $\nabla_\theta L$ | "grad L" | the collection of slopes, one per dial |
+| $\eta$ | "eta" | the **learning rate** — what fraction of a step we take |
+| $-$ | the crucial minus | downhill is *against* the slope |
+
+For our two dials the slopes are (Chapter 10 derives these; here, take the form and check it numerically in the lab):
+
+$$
+\frac{\partial L}{\partial w} = \frac{1}{n}\sum 2(\hat{y}_i - y_i)\,x_i,
+\qquad
+\frac{\partial L}{\partial b} = \frac{1}{n}\sum 2(\hat{y}_i - y_i)
+$$
+
+Read $\frac{\partial L}{\partial w}$ as: *"if I nudge $w$ by a tiny amount and leave $b$ alone, how much does the loss move?"*
+
+---
+
+## 12. The Geometry: A Valley With a Single Bottom
+
+With one dial, the loss is a curve — the parabola of §10.
+
+```text
+  L
+  │   ╲                     ╱
+  │     ╲                 ╱
+  │       ╲             ╱
+  │         ╲___⭐___╱          ⭐ = w is 2, L is 0
+  └────────────────────────── w
+      0     1     2     3
+```
+
+With two dials, $L(w, b)$ is a **surface** — a bowl in three dimensions, with $(w, b) = (2, 1)$ at the lowest point. Training is a ball released on the inside of that bowl.
+
+This picture is worth holding onto, because almost everything later is a complication of it: deep networks have landscapes in millions of dimensions, full of ridges, plateaus and saddle points. But the move is always the same — **feel the slope, step downhill, repeat.**
+
+> ⚠️ Our bowl has exactly one bottom because $\hat{y} = wx + b$ is linear and the loss is squared; this combination is *convex*. Deep networks are not convex, and that is a genuine difference, not a detail. Chapter 25 takes it seriously.
+
+---
+
+## 13. The Learning Loop
+
+Everything so far assembles into one cycle:
 
 ```mermaid
 flowchart LR
-    A[Examples] --> B[Model]
-    B --> C[Prediction]
-    C --> D[Loss]
-    D --> E[Gradient]
-    E --> F[Update parameters]
+    A[Data<br/>x, y] --> B[Model<br/>ŷ = wx + b]
+    B --> C[Prediction<br/>ŷ]
+    C --> D[Loss<br/>mean of ŷ−y squared]
+    D --> E[Slopes<br/>∂L/∂w, ∂L/∂b]
+    E --> F[Update<br/>θ ← θ − ηL]
     F --> B
 ```
 
-The loop is:
+> ✏️ **Hand Calculation — one full step of learning**
+>
+> Start ignorant: $w = 0$, $b = 0$, and choose $\eta = 0.01$.
+>
+> **Predict.** $\hat{y} = 0 \cdot x + 0 = 0$ for every house: $[0, 0, 0, 0]$.
+>
+> **Measure.** Errors $\hat{y}-y = [-3, -5, -7, -9]$, so
+> $L = \frac{9 + 25 + 49 + 81}{4} = \frac{164}{4} = \mathbf{41}$.
+>
+> **Slopes.**
+> $\dfrac{\partial L}{\partial w} = \dfrac{2\big[(-3)(1) + (-5)(2) + (-7)(3) + (-9)(4)\big]}{4} = \dfrac{2(-70)}{4} = \mathbf{-35}$
+>
+> $\dfrac{\partial L}{\partial b} = \dfrac{2\big[(-3) + (-5) + (-7) + (-9)\big]}{4} = \dfrac{2(-24)}{4} = \mathbf{-12}$
+>
+> Both slopes are negative: both dials are too small. The compass says *turn them up*.
+>
+> **Update.**
+> $w \leftarrow 0 - 0.01(-35) = \mathbf{0.35}$
+> $b \leftarrow 0 - 0.01(-12) = \mathbf{0.12}$
+>
+> **Check.** New predictions $[0.47,\, 0.82,\, 1.17,\, 1.52]$ give $L = \mathbf{28.45}$.
+>
+> The loss fell from 41 to 28.45 in a single step, and nobody told the machine that a room is worth ₹2 lakh.
 
-### Step 1 — Give the model data
-
-$$
-\mathbf{x}
-$$
-
-### Step 2 — Make a prediction
-
-$$
-\hat y=f_\theta(\mathbf{x})
-$$
-
-### Step 3 — Measure the mistake
-
-$$
-L(y,\hat y)
-$$
-
-### Step 4 — Ask how each parameter affects the loss
-
-$$
-\nabla_\theta L
-$$
-
-### Step 5 — Move the parameters
+Repeat that step 2000 times and the dials arrive at $w = 2.0002$, $b = 0.9993$ — the machine has *discovered* ₹2 lakh per room and ₹1 lakh for the land. Asked about the five-room house it finally answers:
 
 $$
-\theta\leftarrow\theta-\eta\nabla_\theta L
+\hat{y} = 2.0002(5) + 0.9993 \approx \textbf{₹11 lakh}
 $$
 
-Here $\eta$ is the **learning rate**.
-
-Then we repeat.
+There is no function called `learn()` anywhere in this. Learning is arithmetic, repeated:
 
 ```text
-predict → measure → calculate direction → move → repeat
+predict → measure → find the slope → step downhill → repeat
 ```
-
-This simple loop will reappear throughout the entire course.
 
 ---
 
-# 9. Why the gradient points us somewhere useful
+## 14. 🔬 The Experiment: How Big Should a Step Be?
 
-Let's temporarily forget $w$ and $b$ and study one parameter.
+$\eta$ is ours to choose — the machine cannot learn it from the data. So what happens if we choose badly?
 
-Suppose the loss is
+> 🧠 **Predict before you read on.** Three runs, 200 steps each, identical in every way except $\eta$: one at $0.001$, one at $0.01$, one at $0.13$. Which reaches $w=2, b=1$? What does failure look like — a wrong answer, or something else?
 
-$$
-L(w)=(w-3)^2.
-$$
+Here is what the arithmetic does (reproduce every row in Step 9 of the notebook):
 
-The best value is clearly $w=3$, because
+| $\eta$ | After 200 steps | Loss | Verdict |
+|---:|---|---:|---|
+| 0.001 | $w=2.020,\; b=0.706$ | 0.061 | crawling — $b$ is still far from 1 |
+| 0.01 | $w=2.054,\; b=0.843$ | 0.004 | working |
+| 0.05 | $w=2.005,\; b=0.986$ | 0.00003 | working well |
+| 0.13 | $w \to \pm\infty$ | overflow | **exploded** |
 
-$$
-L(3)=0.
-$$
-
-The derivative is
-
-$$
-\frac{dL}{dw}=2(w-3).
-$$
-
-At $w=0$:
-
-$$
-\frac{dL}{dw}=2(0-3)=-6.
-$$
-
-The negative sign tells us that, locally, increasing $w$ moves us toward lower loss.
-
-At $w=5$:
-
-$$
-\frac{dL}{dw}=2(5-3)=4.
-$$
-
-Now the positive sign tells us that decreasing $w$ is the useful direction.
-
-So the derivative acts like a compass:
+The failure is the interesting one. Watch the first four steps at $\eta = 0.13$:
 
 ```text
-negative gradient → move right
-positive gradient → move left
-near zero         → near a flat/best point
+step 0:  w = 0.00   loss = 41
+step 1:  w = 4.55   loss = 56     ← overshot past 2, landed further out
+step 2:  w = -0.79  loss = 77     ← overshot back, worse again
+step 3:  w = 5.46   loss = 106    ← each swing is bigger
 ```
 
-Chapter 08 will build this idea carefully from the meaning of slope. Chapter 09 will turn it into gradient descent.
+It is not drifting to a wrong answer. It is **oscillating across the valley**, overshooting a little further every time, until the numbers overflow. The step is so long that it jumps from one wall of the valley to a higher point on the opposite wall.
+
+And this threshold is not mysterious — it is predictable from the curvature we computed in §10. The mathematics says instability begins near $\eta \approx 0.12$, and the experiment breaks between $0.11$ (converges) and $0.12$ (diverges). Theory and machine agree.
+
+> 💡 Too small and you never arrive. Too large and you are thrown out of the valley. $\eta$ is a **hyperparameter** — chosen by us, not learned from data.
 
 ---
 
-# 10. The smallest possible training program
+## 15. How It Breaks
 
-Now we can implement the idea without PyTorch.
+Learning is not automatic. Five ways this exact setup fails:
 
-```python
-import numpy as np
+| Failure | What it looks like | Why |
+|---|---|---|
+| **Wrong model class** | loss stops falling while still large | A straight line cannot fit a curved relationship. No $(w,b)$ exists that works. |
+| **Wrong loss** | loss small, users unhappy | You optimized what you measured, and you measured the wrong thing. |
+| **Bad learning rate** | crawling, or overflow | §14. |
+| **Uninformative input** | no better than guessing | If rooms genuinely do not affect price, no method recovers a signal that is not there. |
+| **Memorization** | perfect on training data, poor on new houses | The §3 lookup table in a more sophisticated costume. This is **overfitting**; Chapter 12 builds train/test splits to detect it. |
 
-x = np.array([1., 2., 3., 4.])
-y = np.array([3., 5., 7., 9.])
+> ⚠️ **Common Mistake** — treating a falling loss as proof of success. A falling *training* loss only proves you are fitting the data you already have. The question is always the five-room house you have not seen.
 
-w = 0.0
-b = 0.0
-learning_rate = 0.01
+---
 
-for step in range(2000):
-    # 1. Predict
-    prediction = w * x + b
+## 16. Shapes: A Habit Worth Starting Now
 
-    # 2. Measure error
-    error = prediction - y
-    loss = np.mean(error ** 2)
-
-    # 3. Calculate how w and b affect the loss
-    dw = np.mean(2 * error * x)
-    db = np.mean(2 * error)
-
-    # 4. Improve the model
-    w -= learning_rate * dw
-    b -= learning_rate * db
-
-print("weight:", w)
-print("bias:", b)
-```
-
-The learned values should approach
+Our four houses are not four separate numbers — they are one array:
 
 $$
-w\approx2,\qquad b\approx1.
+\mathbf{x} = [1, 2, 3, 4] \in \mathbb{R}^{4},
+\qquad
+\mathbf{y} = [3, 5, 7, 9] \in \mathbb{R}^{4}
 $$
 
-And therefore the model should predict approximately
-
-$$
-\hat y\approx11
-$$
-
-when $x=5$.
-
-### A very important observation
-
-There is no magic word such as `learn()` in this program.
-
-Learning is just a sequence of mathematical operations:
+$\mathbb{R}^4$ reads as *"four real numbers in a row."* When we write $\hat{\mathbf{y}} = w\mathbf{x} + b$, one line multiplies all four houses at once:
 
 ```text
-numbers
-→ prediction
-→ error
-→ loss
-→ gradient
-→ parameter update
-→ better prediction
+   x: (4,)        w: scalar
+       ↓ multiply every entry, add b to every entry
+   ŷ: (4,)
 ```
 
-Later, PyTorch will automate many of these calculations. But we will first understand what the calculations mean.
+Shape in, shape out. It looks trivial with four numbers and one dial. By Chapter 17 you will be tracking `(batch, tokens, heads, dim)` through an attention block, and the reader who started checking shapes in Chapter 1 will be the one who survives it.
 
 ---
 
-# 11. What deep learning adds
+## 17. 🎯 Machine Learning Connection
 
-Our first model is tiny:
+What we built in this chapter is not a warm-up for deep learning. It **is** deep learning, at the smallest size that still works.
 
-$$
-\hat y=wx+b.
-$$
+| This chapter | A modern neural network |
+|---|---|
+| $\hat{y} = wx + b$ | $\hat{y} = f_\theta(\mathbf{x})$ — many such transformations composed |
+| 2 parameters | $10^{6}$ to $10^{12}$ parameters |
+| MSE | cross-entropy, contrastive, preference losses… |
+| slope by hand | backpropagation (Chapter 10) |
+| gradient descent | Adam, AdamW (Chapter 26) |
+| 4 houses | terabytes of text |
 
-A neural network composes many transformations:
+The loop does not change. A language model predicting the next word is running §13: predict, measure the loss, compute slopes, step downhill, repeat — a few hundred billion dials instead of two.
 
-$$
-\mathbf h_1=\sigma(W_1\mathbf{x}+\mathbf b_1)
-$$
-
-$$
-\mathbf h_2=\sigma(W_2\mathbf h_1+\mathbf b_2)
-$$
-
-$$
-\hat y=W_3\mathbf h_2+\mathbf b_3.
-$$
-
-$$
-$$
-
-The model now has many parameters and can represent much more complicated relationships.
-
-Conceptually:
-
-```text
-simple input
-    ↓
-transformation
-    ↓
-new representation
-    ↓
-transformation
-    ↓
-new representation
-    ↓
-prediction
-```
-
-For images, people often use the helpful mental picture:
-
-```text
-pixels → edges → shapes → parts → objects
-```
-
-But this is a **mental model**, not a guarantee that every network learns exactly this clean hierarchy.
-
-The essential mechanism remains the same:
-
-> **A model has parameters. Data produces a loss. Gradients tell us how to change the parameters.**
+> **A model has parameters. Data produces a loss. Slopes say how to change the parameters.** Everything else in this course is a refinement of that sentence.
 
 ---
 
-# 12. What can go wrong?
+## 18. Distinctions That Matter
 
-Learning is not automatically successful.
-
-### Failure 1 — Bad representation
-
-If the input does not contain useful information, the model may have little chance of solving the task.
-
-### Failure 2 — Wrong model
-
-A straight line cannot perfectly represent every possible relationship.
-
-### Failure 3 — Wrong loss
-
-If we measure the wrong thing, the model may optimize the wrong goal.
-
-### Failure 4 — Bad learning rate
-
-A learning rate that is too small can make learning painfully slow.
-
-A learning rate that is too large can cause unstable updates.
-
-### Failure 5 — Memorization
-
-A model can perform extremely well on examples it has seen while performing poorly on new examples.
-
-Later we will call this **overfitting** and study train/test splits.
-
-So “loss became smaller” is useful—but it is not the entire definition of success.
+| | |
+|---|---|
+| **Prediction** — running the current model | **Learning** — changing the model using evidence |
+| **Error** — signed, $\hat{y}-y$, has direction | **Loss** — a chosen function of error, built to be minimized |
+| **Parameter** — $w, b$, learned from data | **Hyperparameter** — $\eta$, chosen by you |
+| **Memorizing** — perfect on seen data | **Generalizing** — correct on unseen data |
+| $y$ — what the world did | $\hat{y}$ — what the model claims |
 
 ---
 
-# 13. The three questions to ask about every model
+## 19. What We Discovered
 
-Whenever you meet a new machine-learning algorithm, ask:
-
-### Question 1 — What goes in?
-
-What information does the model receive?
-
-$$
-\mathbf{x}
-$$
-
-### Question 2 — What calculation happens?
-
-What function transforms the input?
-
-$$
-\hat y=f_\theta(\mathbf{x})
-$$
-
-### Question 3 — How does it improve?
-
-What loss is measured, and how are the parameters changed?
-
-$$
-L(y,\hat y)
-$$
-
-and
-
-$$
-\theta\leftarrow\theta-\eta\nabla_\theta L.
-$$
-
-These three questions will become our permanent mental toolkit.
+1. Writing rules by hand fails whenever the rule is unknown or too complicated to state — so we write the *process that finds the rule* instead.
+2. A model is a formula with adjustable dials. The dials carry meaning: ₹ per room, ₹ per plot.
+3. Predicting and learning are different acts. Only one of them changes the dials.
+4. "How wrong are we?" must become a single computable number, and signed errors cancel — so we square them.
+5. Once wrongness is a number, learning becomes a search for its minimum.
+6. The loss forms a landscape. Its slope is a compass: sign gives direction, size gives steepness.
+7. Step against the slope, repeatedly, and the dials find values nobody supplied.
+8. Step size is ours to choose, and choosing badly breaks the whole thing.
 
 ---
 
-# 14. 🧪 Interactive mathematical playground
+## 20. Mathematics We Built
 
-The notebook lets you change the model parameters and watch the loss change.
+$$
+\hat{y} = wx + b
+$$
 
-The most important visual we will build later is a **loss landscape**:
+$$
+\mathrm{MSE} = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2
+$$
 
-```text
-loss
- ↑
- |          •
- |       •     •
- |    •           •
- |  •      ★        •
- | •                 •
- +------------------------→ parameter
-          best region
-```
+$$
+L(w) = 7.5\,(w-2)^2 \quad \text{(this dataset, } b=1\text{)}
+$$
 
-Imagine the star is the bottom of a valley.
+$$
+\text{slope} = \lim_{h \to 0}\frac{L(w+h)-L(w)}{h} = 15(w-2)
+$$
 
-Gradient descent is like a hiker trying to walk downhill without seeing the entire mountain.
+$$
+\frac{\partial L}{\partial w} = \frac{1}{n}\sum 2(\hat{y}_i-y_i)x_i
+\qquad
+\frac{\partial L}{\partial b} = \frac{1}{n}\sum 2(\hat{y}_i-y_i)
+$$
 
-Change the learning rate and watch what happens:
+$$
+\theta \leftarrow \theta - \eta\nabla_\theta L
+$$
 
-- tiny steps → slow progress;
-- sensible steps → convergence;
-- huge steps → overshooting or instability.
+## 21. What Each Symbol Means
 
-The notebook is where you should **predict first, run second, explain third**.
+| Symbol | English | In code |
+|---|---|---|
+| $x$ | input (rooms) | `x` |
+| $y$ | true answer (actual price) | `y` |
+| $\hat{y}$ | prediction | `y_hat` |
+| $w$ | weight — ₹ lakh per room | `w` |
+| $b$ | bias — ₹ lakh for the plot | `b` |
+| $n$ | number of examples | `n` |
+| $L$ | loss — one number for total wrongness | `loss` |
+| $\sum_{i=1}^{n}$ | "add up over all examples" | `.sum()` |
+| $\theta$ | all parameters together | `(w, b)` |
+| $\nabla_\theta L$ | the slopes, one per parameter | `dw, db` |
+| $\eta$ | learning rate — step size | `learning_rate` |
+| $\partial L/\partial w$ | "nudge $w$ only; how much does $L$ move?" | `dw` |
+
+## 22. One-Minute Explanation
+
+Explain to someone with no mathematics, using no equations:
+
+> Why can a machine price a house it has never seen, when all it was given was four old sales?
+
+If you need the word "gradient" to get through it, you have not finished understanding it.
 
 ---
 
-# 15. Hand calculation challenge ✍️
+## 23. Exercises
 
-Do this before opening the notebook.
+**Level 1 — Observe.** Look at the §10 loss table. Why are $L(1)$ and $L(3)$ both exactly 7.5? What does that symmetry say about the shape of the landscape — and would it still hold if the four houses had prices $3, 5, 7, 20$?
 
-Suppose:
+**Level 2 — Calculate (by hand, no code).** A model has $w = 3$, $b = 0$. For the four houses: write the four predictions, the four errors, and the MSE. Is this model better or worse than $w=0, b=6$? Then do one gradient-descent step with $\eta = 0.01$ and confirm the loss went down.
 
-$$
-w=2,
-\qquad b=0,
-\qquad x=4,
-\qquad y=10.
-$$
+**Level 3 — Derive.** We showed $L(w) = 7.5(w-2)^2$ with $b$ pinned to 1. Now redo it with $b$ pinned to $0$: prove that
+$L(w) = 7.5w^2 - 19w + 16$, and find the $w$ that minimizes it by setting the slope to zero. Why is the answer **not** exactly 2? What is the model doing to compensate for a plot price it is forbidden to use?
 
-### Step 1 — Prediction
+**Level 4 — Investigate** (notebook Steps 8–11). Find the largest $\eta$ that still converges, to two decimal places. Then change the data to $x = [10, 20, 30, 40]$ with the same prices and find the threshold again. It moves sharply — explain why, using $\frac{1}{n}\sum x_i^2$ from §10.
 
-$$
-\hat y=wx+b=2(4)+0=8.
-$$
-
-### Step 2 — Error
-
-Using prediction minus target:
-
-$$
-e=\hat y-y=8-10=-2.
-$$
-
-### Step 3 — Squared loss
-
-$$
-L=e^2=(-2)^2=4.
-$$
-
-Now change the prediction to $9$.
-
-What is the new loss?
-
-Answer:
-
-$$
-(9-10)^2=1.
-$$
-
-The model became better because the loss became smaller.
-
-This tiny calculation contains the seed of the training loop used by modern neural networks.
+**Level 5 — Design.** Your loss is now used to price houses for real families. Squared error treats a ₹4 lakh overcharge and a ₹4 lakh undercharge as identical mistakes — but they are not, to the buyer or the seller. Design a loss function that punishes overcharging more heavily. Write it mathematically. What properties must it keep to remain usable (think about §8 and §11)? What does your choice do to the machine's behaviour?
 
 ---
 
-# 16. 🧠 Misconceptions to remove early
+## 24. Common Mistakes
 
-### “Machine learning means the computer understands.”
+| Mistake | Why it is wrong |
+|---|---|
+| "Training loss went down, so the model is good." | It proves fitting, not generalizing. Ask about the unseen house. |
+| "The model understands houses." | It found two numbers that fit four rows. There is no concept of *house* in it. |
+| "More parameters means better learning." | More dials can fit more shapes — and memorize more noise. Chapter 25. |
+| "The error is zero on average, so we are accurate." | §7. Cancellation hides every individual mistake. |
+| "$\eta$ can just be set very small to be safe." | Then you never arrive. Slowness is a failure too. |
+| "Deep learning is something different from this." | It is this loop, with a bigger model and better slopes. |
 
-Not necessarily. A model performs mathematical operations learned from data.
+## 25. Socratic Questions
 
-### “A model learns because we call a training API.”
+Answers are deliberately not given. Sit with them.
 
-The API is a tool. Underneath it are predictions, losses, derivatives and parameter updates.
-
-### “Lower training loss always means a better model.”
-
-No. We ultimately care about useful performance, including behaviour on data the model did not train on.
-
-### “More parameters automatically means better learning.”
-
-No. Data, architecture, optimization, regularization and evaluation all matter.
-
-### “Deep learning is completely different from simple regression.”
-
-The models can be vastly more powerful, but the core loop is surprisingly similar.
-
----
-
-# 17. What you should be able to explain
-
-Before moving on, explain these sentences without looking at the chapter:
-
-1. A dataset contains examples.
-2. A model maps inputs to predictions.
-3. Parameters control the model.
-4. A loss function measures error according to a chosen objective.
-5. A gradient tells us how changing parameters changes the loss locally.
-6. Training repeatedly updates parameters to improve the objective.
-7. Prediction is an operation; learning is parameter improvement through data and an objective.
-
-If you can explain those seven ideas, you have the foundation for the rest of the course.
+1. Why do we divide by $n$ in the MSE? What breaks if we merely sum?
+2. Why does squaring feel more "natural" than cubing the error? What would $|e|^3$ do?
+3. The slope at the bottom of the valley is zero. Is every point with zero slope a bottom?
+4. We chose $\eta$ ourselves. Could a machine learn $\eta$ too? What would that even mean?
+5. Our four houses lay *exactly* on a line. Real data never does. What is the machine minimizing then — and is "the true rule" still something it can find?
+6. If the lookup table in §3 had contained a million houses, would it still be wrong to call it learning?
 
 ---
 
-# 18. 🧩 Mini-project: teach a machine a rule
+## 26. 🔭 Bridge to Chapter 02
 
-Create your own tiny dataset following a rule such as
+We just built a working learner. But look closely at what we let ourselves get away with: we described an entire house with **one number**.
 
-$$
-y=3x+2.
-$$
+Real houses have area, age, floor, distance to the station, quality of construction. A photograph has millions of pixels. A sentence has thousands of possible words in each position.
 
-Then:
+The moment a house needs three measurements instead of one, $\hat{y} = wx + b$ is no longer enough — we need a way to hold many numbers as a *single object*, and to multiply a whole collection of dials against a whole collection of measurements at once.
 
-1. create five training examples;
-2. start $w$ and $b$ at zero;
-3. calculate predictions;
-4. calculate MSE;
-5. derive or verify the gradients;
-6. train for several hundred steps;
-7. plot the loss;
-8. plot the learned line against the data;
-9. predict the answer for an unseen $x$;
-10. deliberately make the learning rate too large and explain what happens.
+> **How do we turn a list of numbers into one mathematical object we can compute with?**
 
-**Research extension:** add noise to the targets. Does the model recover the original rule exactly? What does “best fit” mean when the data is imperfect?
+That object is the **vector**, and it is where Chapter 02 begins.
 
----
-
-# 19. The bigger map
-
-We have now uncovered the central machine-learning loop:
-
-```text
-WORLD
-  ↓
-measure useful information
-  ↓
-NUMBERS
-  ↓
-MODEL
-  ↓
-prediction
-  ↓
-LOSS
-  ↓
-GRADIENT
-  ↓
-PARAMETER UPDATE
-  ↓
-BETTER MODEL
-```
-
-But one piece is still mysterious.
-
-We casually wrote
-
-$$
-\mathbf{x}
-$$
-
-for our input.
-
-How do we represent something complicated—such as a fruit, image, sentence or sound—as a collection of numbers that mathematics can manipulate?
-
-That is our next chapter.
-
----
-
-# ➡️ Next: Numbers Become Vectors
-
-**Chapter 02** will answer:
-
-> **How can a list of numbers become a meaningful mathematical object?**
-
-We will learn vectors by hand, visualize them as arrows, calculate with them, and discover why vectors become the basic language of modern machine learning.
+➡️ **Next:** [Chapter 02 — Numbers Become Vectors](<../Lecture 02 - Numbers Become Vectors/blog.md>)

@@ -38,7 +38,9 @@ LEVEL 10 PhD research
 
 ## Blog and laboratory
 
-The numbered blogs are the conceptual spine. Matching Jupyter notebooks are the laboratory.
+Each chapter is two files: `blog.md` carries the theory and mathematics, `notebook.ipynb`
+carries the runnable code. Neither repeats the other — see [`FORMAT.md`](FORMAT.md) for the
+layout both files follow and [`templates/`](templates/) for the starting points.
 
 For each lesson:
 
@@ -59,6 +61,7 @@ The repository already contains the 37-lesson mathematical spine from learning a
 
 - 📚 **Chapters:** [`CHAPTERS.md`](CHAPTERS.md) — each numbered `Lecture NN - Title/` folder holds that chapter's `blog.md` and `notebook.ipynb` together
 - 🧭 **Master syllabus:** [`SYLLABUS.md`](SYLLABUS.md)
+- 📄 **Chapter format:** [`FORMAT.md`](FORMAT.md) — how `blog.md` and `notebook.ipynb` are laid out
 - 📐 **Learning contract:** [`LEARNING_CONTRACT.md`](LEARNING_CONTRACT.md)
 - 🧪 **Interactive playground plan:** [`INTERACTIVE_PLAYGROUND.md`](INTERACTIVE_PLAYGROUND.md)
 - 🧠 **Research methodology:** [`RESEARCH_PLAYBOOK.md`](RESEARCH_PLAYBOOK.md)
