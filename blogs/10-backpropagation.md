@@ -303,3 +303,92 @@ We have now seen vectors, matrices, neurons, activations, loss, derivatives, gra
 Next we need a larger mathematical container capable of representing images, batches, sequences and much more.
 
 > **Next: tensors — numbers in many dimensions.**
+
+---
+
+# 🧪 Hands-on Lab — Backpropagation by Hand and by PyTorch
+
+Use [`../labs/10-backpropagation-lab.md`](../labs/10-backpropagation-lab.md).
+
+Do the manual derivation before calling `.backward()`.
+
+```python
+import torch
+
+x = torch.tensor(2.0)
+w = torch.tensor(3.0, requires_grad=True)
+v = torch.tensor(4.0, requires_grad=True)
+y = torch.tensor(30.0)
+
+z = w * x
+y_hat = v * z
+loss = (y_hat - y) ** 2
+loss.backward()
+
+print(w.grad, v.grad)
+```
+
+### Challenge 1 — verify by hand
+
+Derive both
+
+$$
+\frac{\partial L}{\partial w}
+$$
+
+and
+
+$$
+\frac{\partial L}{\partial v}
+$$
+
+and compare them with PyTorch.
+
+### Challenge 2 — numerical gradient checking
+
+Perturb one parameter slightly:
+
+$$
+\frac{\partial L}{\partial w}
+\approx
+\frac{L(w+h)-L(w-h)}{2h}
+$$
+
+Compare this numerical estimate with autograd.
+
+### Challenge 3 — add another layer
+
+Create
+
+$$
+x\rightarrow w_1x\rightarrow w_2z_1\rightarrow w_3z_2\rightarrow L
+$$
+
+Derive the gradient for $w_1$.
+
+You will discover that the chain rule naturally grows into backpropagation.
+
+---
+
+# 📚 Go Deeper — Backpropagation From Multiple Angles
+
+**Welch Labs** is particularly valuable for this exact topic: its backpropagation material explicitly derives the algorithm using high-school-level calculus and provides supporting code and equations. citeturn0search8
+
+**3Blue1Brown** is the visual companion for understanding what gradients mean inside a network and how the algebra maps onto the architecture. citeturn0youtube30turn0youtube31
+
+Use **MrJensenMath10** for chain-rule and calculus fluency, and **Frame Zero** for another intuitive ML explanation.
+
+Later, **ZacharyLLM** and **Visual Kernel** can help you connect the same computational-graph idea to attention and transformer systems.
+
+### The key distinction to preserve
+
+Never collapse these four concepts into one:
+
+```text
+Forward pass       → what does the network predict?
+Loss               → how wrong is it?
+Backpropagation    → how does each parameter affect the loss?
+Optimizer          → how should parameters change?
+```
+
+That separation will make PyTorch training loops much easier to understand later.
