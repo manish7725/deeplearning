@@ -1,6 +1,22 @@
 # Class 8 → PhD Deep Learning Master Curriculum
 
-This is the **master curriculum** for the repository. It is intentionally larger than the existing 37-blog spine. The 37 first-principles lessons remain the core mathematical backbone; this roadmap supplies the missing mathematics, classical machine learning, modern foundation-model topics, systems, theory and research practice around it.
+This is the **master curriculum** for the repository. It is intentionally larger than the current 37-blog spine. The 37 first-principles lessons remain the central computational backbone; this roadmap supplies the missing mathematics, classical machine learning, modern foundation-model topics, systems, theory and research practice around it.
+
+## Learner-facing five-stage spine
+
+The current 37 first-principles chapters are taught as five **gated stages**. A learner progresses only after passing the previous stage's mastery gate.
+
+| Stage | Focus | Chapters |
+|---:|---|---:|
+| 1 | Foundations of Learning | 01–07 |
+| 2 | Mathematics of Learning | 08–12 |
+| 3 | Core Deep Learning | 13–20 |
+| 4 | Deep Learning Theory & Modern Learning | 21–30 |
+| 5 | Advanced Deep Learning & Research | 31–37 |
+
+See [`STAGES.md`](STAGES.md) for the detailed goals and gates.
+
+The numbered modules below remain the **full Class 8 → PhD expansion roadmap**. They are not a replacement for the five-stage learner-facing spine.
 
 ## How to use this syllabus
 
@@ -671,106 +687,17 @@ The existing 37 blogs form the central spine here.
 496. Formulate a precise research question
 497. Define measurable hypotheses
 498. Establish baselines
-499. Build an experimental harness
-500. Design ablations before running them
-501. Quantify uncertainty
-502. Investigate negative results
-503. Distinguish correlation from mechanism
-504. Develop theory where useful
-505. Develop new algorithms where useful
-506. Test generalization across datasets
-507. Test scaling behaviour
-508. Stress-test conclusions
-509. Reproduce your own result
-510. Release code/data when possible
-511. Write a technical report
-512. Write a conference-style paper
-513. Present and defend the work
-514. Build a thesis narrative
-515. Identify the next research problem
+499. Build a minimal intervention
+500. Design a falsification test
+501. Pre-register the experiment
+502. Run controlled studies
+503. Analyze mechanisms
+504. Quantify uncertainty
+505. Stress-test conclusions
+506. Reproduce independently
+507. Compare competing explanations
+508. Write a research paper
+509. Release code and data
+510. Defend the work
 
----
-
-# CAPSTONE PROJECTS
-
-## Capstone A — Learn a line
-
-Build linear regression from arithmetic → NumPy → PyTorch. Animate gradient descent.
-
-## Capstone B — Neural network from scratch
-
-Build forward propagation, loss, backpropagation and SGD without autograd.
-
-## Capstone C — Vision laboratory
-
-Build a CNN, visualize filters/receptive fields, and compare it with a simple MLP.
-
-## Capstone D — Tiny language model
-
-Train a small transformer, inspect attention and implement decoding.
-
-## Capstone E — Representation laboratory
-
-Train an encoder with contrastive learning and measure embedding geometry.
-
-## Capstone F — Generative laboratory
-
-Implement a tiny VAE and diffusion model and compare their objectives and failure modes.
-
-## Capstone G — Systems laboratory
-
-Profile a model, measure memory/latency/throughput, quantize it, and serve it.
-
-## Capstone H — Research reproduction
-
-Choose a paper, reproduce one central result, document deviations, run an ablation and write a reproduction report.
-
-## Capstone I — Original research
-
-Propose, test and defend one falsifiable hypothesis. The goal is not to make a large model; the goal is to discover something reliable.
-
----
-
-# THE COMPLETE LEARNING CONTRACT
-
-For a normal lesson:
-
-```text
-story
- ↓
-intuition
- ↓
-tiny numerical example
- ↓
-mathematical definition
- ↓
-hand derivation
- ↓
-matrix/tensor form
- ↓
-NumPy implementation
- ↓
-PyTorch implementation
- ↓
-visualization / animation
- ↓
-controlled experiment
- ↓
-failure mode
- ↓
-exercise
- ↓
-mini-project
- ↓
-next lesson
-```
-
-For an advanced lesson:
-
-```text
-concept → derivation → implementation → benchmark
-→ paper → reproduction → ablation → uncertainty
-→ failure analysis → research question
-```
-
-**The standard is understanding, not completion percentage.**
+**PhD gate:** independently identify a non-trivial open question, build a defensible literature map, formulate testable hypotheses, establish strong baselines, run reproducible experiments, analyze failure modes, and communicate what the evidence does—and does not—support.
