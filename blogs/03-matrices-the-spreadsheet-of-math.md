@@ -441,7 +441,7 @@ If you can derive that answer from dot products, you have understood the computa
 
 ### Build it
 
-**Welch Labs** is useful when you want to connect the mathematics to actual neural-network code. Its neural-network sequence explicitly progresses through architecture, forward propagation, gradient descent, backpropagation, numerical gradient checking, training and overfitting. citeturn0search0turn0search8turn0search5
+**Welch Labs** is useful when you want to connect the mathematics to actual neural-network code. Its neural-network sequence explicitly progresses through architecture, forward propagation, gradient descent, backpropagation, numerical gradient checking, training and overfitting.
 
 ### Strengthen the mathematics
 
