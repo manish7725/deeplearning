@@ -1,81 +1,246 @@
 # Blog 13 — How a Neural Network Learns to See: Convolution
 
-A photograph can contain millions of pixel values.
+A photograph contains millions of pixels.
 
-Giving all those numbers to a giant layer is possible, but it ignores an important fact about images: nearby pixels are related.
+Does a neural network need to look at every pixel independently every time?
 
-Convolution gives neural networks a clever way to use that structure.
+Not necessarily.
 
-## 1. A tiny image
+Images have a powerful property: **nearby pixels often form local patterns**.
 
-Imagine this grayscale image:
+Edges, corners and textures are local.
+
+Convolutional neural networks exploit this structure.
+
+---
+
+## 1. Start with a tiny image
+
+Imagine a grayscale image represented by
+
+$$
+X=
+\begin{bmatrix}
+1&1&1\\
+0&0&0\\
+0&0&0
+\end{bmatrix}
+$$
+
+The top row is bright and the bottom rows are dark.
+
+That looks like a horizontal edge.
+
+---
+
+## 2. A filter looks at a small patch
+
+Consider a filter
+
+$$
+K=
+\begin{bmatrix}
+1&1&1\\
+0&0&0\\
+-1&-1&-1
+\end{bmatrix}
+$$
+
+At a location, convolution-like computation multiplies corresponding values and adds them.
+
+For a patch $P$:
+
+$$
+S=\sum_{i,j}P_{ij}K_{ij}
+$$
+
+The filter produces a strong response when the local pattern resembles what the filter detects.
+
+---
+
+## 3. Sliding the filter
+
+The filter moves across the image:
 
 ```text
-1 1 1 0 0
-1 1 1 0 0
-1 1 1 0 0
-0 0 0 1 1
-0 0 0 1 1
+image
+┌───────────────┐
+│ █ █ █         │
+│ ░ ░ ░         │
+│               │
+│       filter  │
+│       ┌───┐   │
+│       │× ×│   │
+│       │× ×│   │
+│       └───┘   │
+└───────────────┘
+          ↓
+       next patch
 ```
 
-We can look at small regions instead of the whole image at once.
+At every location we calculate a number.
 
-## 2. A small filter
+The collection of these numbers forms a **feature map**.
 
-Consider a 3×3 filter:
+---
+
+## 4. Why local connectivity helps
+
+A fully connected layer could connect every output to every pixel.
+
+For a large image, that creates a huge number of parameters.
+
+A convolution uses a small kernel repeatedly across positions.
+
+This gives two important ideas:
+
+- **local connectivity**
+- **weight sharing**
+
+The same filter can detect the same type of pattern in different parts of an image.
+
+---
+
+## 5. The mathematics
+
+For a simple 2D cross-correlation operation, one common deep-learning convention is
+
+$$
+Y(i,j)=\sum_{m}\sum_{n}K(m,n)X(i+m,j+n)
+$$
+
+Many deep-learning libraries call this operation “convolution” even though the kernel is not flipped as in the strict mathematical definition of convolution.
+
+Understanding the convention prevents confusion when comparing textbooks and code.
+
+---
+
+## 6. Stride and padding
+
+Two important settings control the output.
+
+### Stride
+
+How far the filter moves each time.
+
+### Padding
+
+Extra values added around the border so that edge information can be handled and output size can be controlled.
+
+For a 1D example, a common output-size formula is
+
+$$
+\text{output}=
+\left\lfloor
+\frac{N+2P-K}{S}
+\right\rfloor+1
+$$
+
+where:
+
+- $N$ = input size
+- $P$ = padding
+- $K$ = kernel size
+- $S$ = stride
+
+---
+
+## 7. From edges to objects
+
+A single filter may learn an edge.
+
+Several filters can learn different patterns.
+
+Stack multiple convolutional layers and the representations can become progressively more abstract:
+
+```mermaid
+flowchart LR
+    A[Pixels] --> B[Edges]
+    B --> C[Textures and corners]
+    C --> D[Parts]
+    D --> E[Object-level patterns]
+```
+
+This hierarchy is learned from data; it is not a rule that every CNN must follow identically.
+
+---
+
+## 8. PyTorch example
+
+```python
+import torch
+import torch.nn as nn
+
+conv = nn.Conv2d(
+    in_channels=1,
+    out_channels=4,
+    kernel_size=3,
+    padding=1
+)
+
+x = torch.randn(8, 1, 28, 28)
+y = conv(x)
+
+print(x.shape)
+print(y.shape)
+```
+
+Input:
 
 ```text
-1 0 1
-0 1 0
-1 0 1
+8 × 1 × 28 × 28
 ```
 
-The filter moves across the image.
+Output:
 
-At every position, we multiply corresponding numbers and add them.
+```text
+8 × 4 × 28 × 28
+```
 
-That produces one output number.
+Because padding and stride were chosen to preserve spatial size, the height and width remain 28 while the number of channels changes from 1 to 4.
 
-Repeating this creates a **feature map**.
+---
 
-## 3. What can a filter discover?
+## 9. Pooling and modern CNNs
 
-Different filters can respond strongly to different patterns:
+Older CNN architectures often used pooling layers to reduce spatial resolution.
 
-- vertical edges
-- horizontal edges
-- corners
-- textures
-- simple shapes
+For example, max pooling keeps the largest value in a local window.
 
-Early layers often detect simple structures. Deeper layers can combine them into more complex patterns.
+```python
+pool = nn.MaxPool2d(kernel_size=2)
+```
 
-A network might progress conceptually like:
+Modern architectures use many variations of downsampling, strided convolution and other mechanisms. The broader idea is to trade some spatial resolution for a more compact representation.
 
-`edges → shapes → parts → objects`
+---
 
-## 4. Why sharing matters
+## Think Like a Scientist 🧠
 
-The same filter is reused across the image.
+Take a tiny binary image and invent a filter that detects a vertical edge.
 
-That means the network does not need a completely different detector for an edge in the top-left and an edge in the bottom-right.
+Test your filter on:
 
-One learned filter can search everywhere.
+1. a blank image;
+2. a vertical edge;
+3. a horizontal edge.
 
-This is called **weight sharing**.
+Which produces the strongest response?
 
-## 5. Convolution is still multiplication and addition
+You have just designed a feature detector.
 
-The operation may look sophisticated, but underneath it is the familiar pattern:
+---
 
-`multiply → add → move → repeat`
+## What you should remember
 
-That is one of the recurring themes of deep learning.
+> **Convolution lets a network inspect local image patterns using small, shared filters.**
 
-Simple mathematics becomes powerful when repeated systematically.
+The core operation is a weighted sum over a local patch.
 
-## 6. The bigger idea
+CNNs become powerful because layers can build representations from local patterns into larger structures.
 
-A convolutional neural network, or CNN, uses local patterns and shared filters to build useful visual representations.
+But images are not the only kind of data.
 
-> **A CNN learns what visual patterns are useful instead of requiring a human to write every visual rule by hand.**
+In language, music and time-series data, **order matters**.
+
+> **Next: sequences and memory.**

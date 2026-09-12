@@ -1,73 +1,258 @@
 # Blog 12 — How Do We Know If Our Model Really Learned?
 
-Imagine a student memorizes the answers to 100 questions.
+Imagine a student memorizes every question in a practice book.
 
-You give exactly those 100 questions in an exam, and the student gets 100/100.
+Give the exact same questions again and the student gets everything right.
 
 Did the student understand the subject?
 
-Maybe. But we need new questions to know.
+Maybe. Maybe not.
 
-Machine learning has the same problem.
+Machine learning has exactly the same problem.
 
-## 1. Training data
+---
 
-The examples used to adjust the model's parameters are called the **training data**.
+## 1. Training accuracy can fool us
 
-The model sees these examples many times while learning.
+Suppose a model sees 1,000 training examples.
 
-## 2. Test data
+It eventually predicts all 1,000 correctly.
 
-We keep some examples hidden during training.
+Training performance is excellent.
 
-Later, we show them to the trained model.
+But what happens on examples it has never seen?
 
-These examples form part of the **test data**.
+That is where **generalization** matters.
 
-The test asks a powerful question:
+---
 
-> Can the model work on examples it has never seen before?
+## 2. Split the data
 
-## 3. Memorization versus understanding
+A common conceptual split is:
 
-Suppose a model sees:
+```mermaid
+flowchart LR
+    D[Full dataset] --> T[Training set]
+    D --> V[Validation set]
+    D --> E[Test set]
+```
 
-`2 + 2 = 4`
+### Training set
+Used to learn parameters.
 
-`3 + 3 = 6`
+### Validation set
+Used to make development choices such as hyperparameters, architecture or training duration.
 
-`4 + 4 = 8`
+### Test set
+Used for a final, less-biased estimate after model-development choices have been made.
 
-If it has learned the underlying pattern, it should also understand:
+The exact protocol depends on the problem, but the principle is crucial: **do not let evaluation data quietly become training data.**
 
-`10 + 10 = 20`
+---
 
-But if it merely memorized the training examples, it may fail.
+## 3. Overfitting
 
-## 4. Overfitting
+Suppose a model is extremely flexible.
 
-When a model performs extremely well on training examples but poorly on new examples, we call this **overfitting**.
+It may learn real patterns:
 
-It is like memorizing the textbook without understanding the ideas.
+```text
+useful signal
+```
 
-A good model should learn useful patterns rather than simply remember individual examples.
+but also memorize accidental details:
 
-## 5. Validation data
+```text
+noise + peculiarities of training examples
+```
 
-In practical machine learning, we often divide data into:
+Then training error becomes very small while validation error starts increasing.
 
-- training set — learn parameters
-- validation set — choose models and settings
-- test set — final evaluation
+That is **overfitting**.
 
-The exact split depends on the problem.
+---
 
-## 6. Why this matters
+## 4. Underfitting
 
-A model is not valuable because it can reproduce yesterday's answers.
+The opposite can happen.
 
-It is valuable because it can make useful predictions tomorrow.
+A model that is too simple may fail even on the training set.
 
-That is called **generalization**.
+So we have three useful ideas:
 
-> **The real goal of machine learning is not memorization. It is useful generalization to new examples.**
+| Situation | Training error | Validation error |
+|---|---:|---:|
+| Underfitting | high | high |
+| Good generalization | low | low |
+| Overfitting | very low | high |
+
+These are conceptual patterns, not rigid laws.
+
+---
+
+## 5. A simple learning curve
+
+Imagine training for more epochs.
+
+```text
+error
+ ^
+ |\\ training
+ | \\
+ |  \\
+ |   \\
+ |    \\
+ |     \\
+ |      
+ |   validation
+ |  /\\
+ | /  \\
+ +------------------> epochs
+```
+
+Training error often decreases as optimization continues.
+
+Validation error may decrease at first, then increase if the model starts fitting the training data too specifically.
+
+---
+
+## 6. Accuracy is not always enough
+
+Suppose 99 out of 100 examples are healthy and only 1 is sick.
+
+A model that always predicts “healthy” gets 99% accuracy.
+
+Yet it detects none of the sick cases.
+
+For classification we may also need:
+
+- precision
+- recall
+- F1 score
+- confusion matrix
+- ROC-AUC or PR-AUC, depending on the problem
+
+Metric choice should match the actual cost of mistakes.
+
+---
+
+## 7. Confusion matrix
+
+For binary classification:
+
+| | Predicted positive | Predicted negative |
+|---|---:|---:|
+| Actual positive | TP | FN |
+| Actual negative | FP | TN |
+
+From these counts:
+
+$$
+\text{Precision}=\frac{TP}{TP+FP}
+$$
+
+$$
+\text{Recall}=\frac{TP}{TP+FN}
+$$
+
+The formulas are simple. The difficult part is deciding which errors matter most for the application.
+
+---
+
+## 8. Data leakage: the silent disaster
+
+Suppose a feature accidentally contains information created **after** the outcome we are trying to predict.
+
+The model may appear brilliant during testing.
+
+But the information would not actually be available at prediction time.
+
+This is called **data leakage**.
+
+A model can have an impressive score and still be scientifically invalid.
+
+---
+
+## 9. A tiny PyTorch evaluation pattern
+
+```python
+model.eval()
+
+with torch.no_grad():
+    predictions = model(x_test)
+    loss = loss_fn(predictions, y_test)
+
+print(loss.item())
+```
+
+`eval()` tells modules such as dropout and batch normalization to use evaluation behavior.
+
+`no_grad()` avoids storing gradients when we only want inference.
+
+---
+
+## 10. The scientific mindset
+
+A good ML engineer should constantly ask:
+
+> “Could my evaluation be giving me a false sense of success?”
+
+Ask:
+
+- Was the test data truly unseen?
+- Did preprocessing leak information?
+- Is the metric appropriate?
+- Does the data represent real deployment conditions?
+- Is the model robust to distribution changes?
+
+Evaluation is not a celebration at the end.
+
+It is part of the scientific method.
+
+---
+
+## Think Like a Scientist 🧠
+
+Imagine a model gets:
+
+```text
+Training accuracy   = 99.9%
+Validation accuracy = 72%
+Test accuracy       = 70%
+```
+
+What might be happening?
+
+Now imagine:
+
+```text
+Training accuracy   = 72%
+Validation accuracy = 71%
+Test accuracy       = 70%
+```
+
+What might be happening there?
+
+Do not immediately change the model. First form a hypothesis.
+
+---
+
+## What you should remember
+
+> **A model is useful only if it generalizes to the situations where we will actually use it.**
+
+Training asks:
+
+$$
+\text{Can I fit these examples?}
+$$
+
+Evaluation asks:
+
+$$
+\text{Can I perform well on appropriate unseen examples?}
+$$
+
+Now we can move from abstract numbers to one of the richest sources of data humans have: images.
+
+> **Next: convolution — how a neural network learns to see local patterns.**

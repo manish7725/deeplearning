@@ -82,11 +82,11 @@ For every fruit, we measure three things:
 
 We can represent one fruit using numbers:
 
-```text
-x = [150, 8, 9]
-```
+$$
+\mathbf{x}=\begin{bmatrix}150\\8\\9\end{bmatrix}
+$$
 
-This is called a **feature vector**.
+This is a **feature vector**.
 
 A feature is simply a measurable property of something.
 
@@ -142,91 +142,72 @@ The machine's task is to discover a mathematical relationship between the input 
 
 # 2. The mathematical view
 
-Here is where the programmer and mathematician inside us enters the room. 🧑‍💻➕📐
-
 We can think of a machine-learning model as a function:
 
-```text
-f(x) → y
-```
+$$
+\hat y=f_\theta(\mathbf x)
+$$
 
-This is exactly like a function you may have seen in mathematics.
+Here $\theta$ represents the model's learnable parameters.
 
-For example:
+For a simple model,
 
-```text
-f(x) = 2x + 1
-```
+$$
+\hat y=wx+b
+$$
 
-If `x = 3`:
+If $x=3$, $w=2$, and $b=1$:
 
-```text
-f(3) = 2(3) + 1
-     = 7
-```
+$$
+\hat y=2(3)+1=7
+$$
 
 A machine-learning model is also a function.
 
 The difference is important:
 
-> **We don't always know the best function beforehand. The machine learns its parameters from data.**
+> **We don't always know the best parameters beforehand. The machine learns them from data.**
 
 ---
 
 # 3. A tiny learning machine
 
-Let's make the problem ridiculously small.
-
 Suppose we want a machine to learn this pattern:
 
-```text
-x = 1 → y = 3
-x = 2 → y = 5
-x = 3 → y = 7
-```
+| $x$ | $y$ |
+|---:|---:|
+| 1 | 3 |
+| 2 | 5 |
+| 3 | 7 |
+| 4 | 9 |
 
-Can you see the rule?
+The hidden rule is
 
-```text
-multiply by 2
-then add 1
-```
-
-So:
-
-```text
-y = 2x + 1
-```
+$$
+y=2x+1
+$$
 
 But imagine the machine does **not** know that.
 
 We give it a model:
 
-```text
-ŷ = wx + b
-```
+$$
+\hat y=wx+b
+$$
 
-The symbols are simple:
+The machine must discover good values for $w$ and $b$.
 
-- `x` → input
-- `w` → weight
-- `b` → bias
-- `ŷ` → prediction
+If it eventually finds
 
-The machine must discover good values for `w` and `b`.
+$$
+w=2,\qquad b=1
+$$
 
-If it eventually finds:
+then
 
-```text
-w = 2
-b = 1
-```
-
-then:
-
-```text
-ŷ = 2x + 1
-```
+$$
+\hat y=2x+1
+$$
 
 and the pattern is captured.
 
@@ -236,19 +217,33 @@ and the pattern is captured.
 
 The equation
 
-```text
-y = 2x + 1
-```
+$$
+y=2x+1
+$$
 
 creates a straight line.
 
-genui{"graph":{"expressions":[{"latex":"y=2x+1","restrictions":["-2\\le x\\le 5"]}]}}
+A useful way to visualize it is to plot the training points and the learned line:
 
-The amazing thing is that **learning a model can mean learning the shape of a mathematical function**.
+```text
+ y
+10|                ●
+ 9|              ●
+ 8|            /
+ 7|          ●
+ 6|        /
+ 5|      ●
+ 4|    /
+ 3|  ●
+ 2|/
+ 1|●
+  +---------------------- x
+    0  1  2  3  4  5
+```
 
-For a simple model, that shape may be a line.
+The points are the examples. The line is the model.
 
-For a neural network, the shape can become enormously more complicated.
+For a simple model, **learning means finding the line that best explains the examples**.
 
 ---
 
@@ -256,28 +251,27 @@ For a neural network, the shape can become enormously more complicated.
 
 Suppose our machine currently has:
 
-```text
-w = 1
-b = 0
-```
+$$
+w=1,\qquad b=0
+$$
 
-Then:
+Then
 
-```text
-ŷ = x
-```
+$$
+\hat y=x
+$$
 
-For `x = 3`:
+For $x=3$:
 
-```text
-prediction = 3
-```
+$$
+\hat y=3
+$$
 
-But the correct answer is:
+But the correct answer is
 
-```text
-y = 7
-```
+$$
+y=7
+$$
 
 The machine made a mistake.
 
@@ -293,100 +287,93 @@ We need a number that tells us how bad a prediction was.
 
 One simple choice is **squared error**:
 
-```text
-L = (y - ŷ)²
-```
+$$
+L=(y-\hat y)^2
+$$
 
-Suppose:
+Suppose
 
-```text
-y  = 7
-ŷ  = 3
-```
+$$
+y=7,\qquad\hat y=3
+$$
 
-Then:
+Then
 
-```text
-L = (7 - 3)²
-  = 4²
-  = 16
-```
+$$
+L=(7-3)^2=16
+$$
 
-So the model receives a loss of `16`.
+If the prediction improves to $\hat y=6$:
 
-Now imagine the prediction improves:
-
-```text
-ŷ = 6
-```
-
-Then:
-
-```text
-L = (7 - 6)²
-  = 1
-```
+$$
+L=(7-6)^2=1
+$$
 
 The loss became smaller.
 
-So the machine has a direction:
+For many examples we can use mean squared error:
 
-```text
-large loss  ───────────────→  small loss
-     😞                         🙂
-```
+$$
+MSE=\frac1n\sum_{i=1}^{n}(y_i-\hat y_i)^2
+$$
 
-Learning is the process of finding parameters that make this number smaller.
+Learning becomes an optimization problem: find parameters that make the loss small.
 
 ---
 
-# 6. The real learning loop
+# 6. A tiny learning loop
 
 Now we can reveal the complete idea.
 
 ```mermaid
 flowchart LR
-    A[Training Data] --> B[Model]
+    A[Training data] --> B[Model]
     B --> C[Prediction]
-    C --> D[Loss / Error]
-    D --> E[Change Parameters]
-    E --> B
-    C --> F[Final Prediction]
+    C --> D[Loss / error]
+    D --> E[Calculate gradients]
+    E --> F[Change parameters]
+    F --> B
 ```
 
 The machine repeatedly does this:
 
 ### Step 1 — Predict
 
-```text
-ŷ = f(x)
-```
+$$
+\hat y=f_\theta(x)
+$$
 
 ### Step 2 — Compare with the correct answer
 
-```text
-y - ŷ
-```
+$$
+e=y-\hat y
+$$
 
 ### Step 3 — Measure the mistake
 
-```text
-L(y, ŷ)
-```
+$$
+L(y,\hat y)
+$$
 
-### Step 4 — Change the parameters
+### Step 4 — Calculate how parameters affect the loss
 
-```text
-w, b → better values
-```
+$$
+\nabla_\theta L
+$$
 
-### Step 5 — Try again
+### Step 5 — Change the parameters
+
+$$
+\theta\leftarrow\theta-\eta\nabla_\theta L
+$$
+
+### Step 6 — Try again
 
 And again.
 
 And again.
 
-Millions or billions of times for modern neural networks.
+Modern neural networks can repeat this process over enormous datasets.
 
 ---
 
@@ -394,32 +381,75 @@ Millions or billions of times for modern neural networks.
 
 This is where **calculus** enters deep learning.
 
-Suppose the machine has a parameter `w`.
+Suppose the machine has one parameter $w$ and a loss
 
-We can imagine the loss as a landscape:
+$$
+L(w)=(w-3)^2
+$$
 
-```text
-Loss
-  ↑
-  |        ●
-  |      /   \
-  |    /       \
-  |  /           \
-  |_/______●______\____→ w
-          best
-```
+Its derivative is
 
-Our goal is to move toward a low point of the loss.
+$$
+\frac{dL}{dw}=2(w-3)
+$$
 
-A derivative tells us something incredibly useful:
+At $w=0$:
 
-> **If I change this parameter slightly, which way does the loss move?**
+$$
+\frac{dL}{dw}=-6
+$$
 
-That question becomes the foundation of **gradient descent**, which we will study carefully later.
+The negative sign tells us that increasing $w$ locally decreases the loss.
+
+This is the foundation of gradient descent.
 
 ---
 
-# 8. Why mathematics matters
+# 8. Code the tiny model
+
+You can implement the same idea directly in Python without a deep-learning framework:
+
+```python
+import numpy as np
+
+x = np.array([1., 2., 3., 4.])
+y = np.array([3., 5., 7., 9.])
+
+w = 0.0
+b = 0.0
+learning_rate = 0.01
+
+for step in range(2000):
+    # Forward pass
+    prediction = w * x + b
+
+    # Loss
+    error = prediction - y
+    loss = np.mean(error ** 2)
+
+    # Gradients
+    dw = np.mean(2 * error * x)
+    db = np.mean(2 * error)
+
+    # Update
+    w -= learning_rate * dw
+    b -= learning_rate * db
+
+print("weight:", w)
+print("bias:", b)
+```
+
+The learned values should approach
+
+$$
+w\approx2,\qquad b\approx1
+$$
+
+This tiny program already contains the essential training loop used by much larger models.
+
+---
+
+# 9. Why mathematics matters
 
 A machine does not understand the word “better.”
 
@@ -435,7 +465,7 @@ Mathematics gives us a language for describing learning:
 | Mistake | Loss function |
 | Direction of improvement | Derivative / gradient |
 | Repeated improvement | Optimization |
-| Many layers of models | Neural network |
+| Many transformations | Neural network |
 
 This is why deep learning is not magic.
 
@@ -444,56 +474,48 @@ Underneath image recognition, speech recognition, recommendation systems, and la
 ```text
 Data
   ↓
-Mathematics
+Representation
   ↓
-Functions
-  ↓
-Parameters
+Mathematical function
   ↓
 Prediction
   ↓
 Loss
   ↓
-Gradients
+Gradient
   ↓
-Parameter updates
+Parameter update
   ↓
 Better predictions
 ```
 
 ---
 
-# 9. Why deep learning becomes powerful
+# 10. Why deep learning becomes powerful
 
-Our tiny model was:
+Our tiny model was
 
-```text
-ŷ = wx + b
-```
+$$
+\hat y=wx+b
+$$
 
-That is just one simple mathematical transformation.
+Now imagine many transformations:
 
-Now imagine putting many such transformations together:
+$$
+\mathbf h_1=\sigma(W_1\mathbf x+\mathbf b_1)
+$$
 
-```text
-Input
-  ↓
-[neurons]
-  ↓
-[neurons]
-  ↓
-[neurons]
-  ↓
-Output
-```
+$$
+\mathbf h_2=\sigma(W_2\mathbf h_1+\mathbf b_2)
+$$
 
-Each layer transforms the information.
+$$
+\hat y=W_3\mathbf h_2+\mathbf b_3
+$$
 
-Early layers may learn simple patterns.
+Each layer transforms the representation.
 
-Later layers can combine those patterns into more useful concepts.
-
-For an image, you can imagine the progression:
+For an image, you can imagine a hierarchy such as
 
 ```text
 pixels
@@ -507,21 +529,9 @@ parts
 objects
 ```
 
-This idea of **learning representations through layers** is one of the central ideas behind deep learning. The 3Blue1Brown neural-network series illustrates this progression visually, including neurons, layers, weights, biases, and the linear-algebra notation behind them. citeturn0youtube30turn0youtube31
+The exact internal features learned by a network depend on the architecture and data; this hierarchy is a useful mental model rather than a guaranteed rule.
 
----
-
-# 10. The most important mental model
-
-Do not think of machine learning as:
-
-> “A computer magically becomes intelligent.”
-
-Think of it as:
-
-> **A mathematical machine with adjustable numbers learns useful values for those numbers by looking at examples and measuring its mistakes.**
-
-That sentence is worth remembering.
+The 3Blue1Brown neural-network series provides an especially useful visual intuition for neurons, layers, weights, biases and the linear-algebra structure behind them. citeturn0youtube30turn0youtube31
 
 ---
 
@@ -550,7 +560,7 @@ A useful measurement gives the model information.
 
 So even before neural networks, we need to learn how to represent the world using numbers.
 
-That takes us naturally to our next lesson:
+That takes us naturally to our next lesson.
 
 # Blog 02 — How Do Numbers Become Vectors?
 

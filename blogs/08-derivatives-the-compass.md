@@ -1,93 +1,340 @@
-# Blog 08 — Derivatives: A Compass for Learning
+# Blog 08 — Derivatives: The Compass for Learning
 
-Suppose you are walking down a hill in fog.
+A model has a loss.
 
-You cannot see the whole landscape, but you can feel whether the ground slopes upward or downward beneath your feet.
+We want the loss to become smaller.
 
-A derivative gives us a similar idea for mathematics.
+But which way should we move the parameters?
 
-## 1. A function changes
+Calculus gives us the answer.
 
-Take:
+---
 
-`y = x²`
+## 1. Start with a simple curve
 
-If `x = 2`, then:
+Consider
 
-`y = 4`
+$$
+f(x)=x^2
+$$
 
-If `x = 3`, then:
+At $x=2$:
 
-`y = 9`
+$$
+f(2)=4
+$$
 
-The output changes when the input changes.
+At $x=3$:
 
-The derivative tells us how quickly it changes.
+$$
+f(3)=9
+$$
 
-For:
+The function rises as $x$ increases.
 
-`y = x²`
+The derivative tells us **how quickly** it rises or falls at a particular point.
 
-we have:
+---
 
-`dy/dx = 2x`
+## 2. Derivative of a square
 
-At `x = 3`:
+For
 
-`dy/dx = 6`
+$$
+f(x)=x^2
+$$
 
-That means a small movement in `x` around 3 causes the output to change roughly six times as much.
+the derivative is
 
-## 2. Derivatives tell us direction
+$$
+f'(x)=2x
+$$
 
-Suppose our loss is a function of a parameter:
+At $x=3$:
 
-`L(w) = (w - 5)²`
+$$
+f'(3)=6
+$$
 
-The best value is `w = 5`, because the loss becomes zero.
+So the curve is increasing with slope 6 at that point.
 
-Different values give larger loss.
+At $x=-3$:
 
-The derivative is:
+$$
+f'(-3)=-6
+$$
 
-`dL/dw = 2(w - 5)`
+The negative sign tells us the function decreases as we move to the right.
 
-At `w = 2`:
+---
 
-`dL/dw = 2(2-5) = -6`
+## 3. The derivative is a direction signal
 
-The negative sign tells us something important: increasing `w` will reduce the loss when we are at `w=2`.
+Think of walking on a hill.
 
-## 3. Think of the derivative as a signpost
+- positive slope → uphill
+- negative slope → downhill
+- zero slope → locally flat
 
-Positive derivative → moving right increases the function.
+For optimization, this is exactly the information we need.
 
-Negative derivative → moving right decreases the function.
+If we want to minimize something, we want to move **against the slope**.
 
-Zero derivative → locally, the function is flat.
+---
 
-This is exactly the information an optimization algorithm needs.
+## 4. A numerical approximation
 
-## 4. From one parameter to thousands
+We can estimate a derivative without knowing calculus first.
 
-A neural network may have millions or billions of parameters.
+$$
+f'(x)\approx\frac{f(x+h)-f(x)}{h}
+$$
 
-For each parameter, we want to know:
+For $f(x)=x^2$, $x=2$, and $h=0.001$:
 
-“How would the loss change if I changed this number slightly?”
+$$
+\frac{2.001^2-2^2}{0.001}\approx4.001
+$$
 
-The answer for every parameter together forms the **gradient**.
+The exact derivative is
 
-The gradient is therefore a giant collection of derivatives.
+$$
+f'(2)=4
+$$
 
-## 5. The deep-learning connection
+The estimate is close.
 
-Training a neural network means reducing its loss.
+---
 
-The gradient tells us how the loss changes with respect to the parameters.
+## 5. Why neural networks care
 
-So derivatives become our mathematical compass.
+Suppose a model has one parameter $w$ and its loss is
 
-> **Calculus turns “make the model better” into a precise numerical direction for changing its parameters.**
+$$
+L(w)=(w-3)^2
+$$
 
-Next we will use that compass to actually walk downhill.
+Then
+
+$$
+\frac{dL}{dw}=2(w-3)
+$$
+
+At $w=5$:
+
+$$
+\frac{dL}{dw}=4
+$$
+
+The positive derivative says increasing $w$ would increase loss locally.
+
+To reduce loss, we should move $w$ downward.
+
+---
+
+## 6. The optimization connection
+
+The update rule will eventually be
+
+$$
+w_{new}=w_{old}-\eta\frac{dL}{dw}
+$$
+
+where $\eta$ is the learning rate.
+
+Notice the minus sign.
+
+We move in the direction opposite the derivative.
+
+This is the core idea behind gradient descent.
+
+---
+
+## 7. Partial derivatives
+
+A neural network has many parameters:
+
+$$
+\theta_1,\theta_2,\ldots,\theta_n
+$$
+
+The loss depends on all of them:
+
+$$
+L=L(\theta_1,\theta_2,\ldots,\theta_n)
+$$
+
+We therefore calculate partial derivatives:
+
+$$
+\frac{\partial L}{\partial\theta_1},
+\frac{\partial L}{\partial\theta_2},
+\ldots,
+\frac{\partial L}{\partial\theta_n}
+$$
+
+Together they form the **gradient**:
+
+$$
+\nabla_\theta L=
+\begin{bmatrix}
+\frac{\partial L}{\partial\theta_1}\\
+\vdots\\
+\frac{\partial L}{\partial\theta_n}
+\end{bmatrix}
+$$
+
+The gradient points toward the direction of steepest local increase.
+
+So $-\nabla L$ points toward steepest local decrease.
+
+---
+
+## 8. The chain rule: the bridge to backpropagation
+
+Suppose
+
+$$
+y=f(g(x))
+$$
+
+Then
+
+$$
+\frac{dy}{dx}=\frac{dy}{dg}\frac{dg}{dx}
+$$
+
+This is the **chain rule**.
+
+It says that when functions are composed, their local effects multiply.
+
+Neural networks are compositions of functions, so the chain rule becomes one of their most important mathematical tools.
+
+---
+
+## 9. A tiny neural example
+
+Suppose
+
+$$
+z=wx
+$$
+
+and
+
+$$
+L=(z-y)^2
+$$
+
+We want $dL/dw$.
+
+By the chain rule:
+
+$$
+\frac{dL}{dw}
+=
+\frac{dL}{dz}\frac{dz}{dw}
+$$
+
+Now
+
+$$
+\frac{dL}{dz}=2(z-y)
+$$
+
+and
+
+$$
+\frac{dz}{dw}=x
+$$
+
+Therefore
+
+$$
+\boxed{\frac{dL}{dw}=2(z-y)x}
+$$
+
+That is already a miniature version of backpropagation.
+
+---
+
+## 10. Code: numerical derivative
+
+```python
+def f(x):
+    return x ** 2
+
+x = 3.0
+h = 1e-5
+
+approx = (f(x + h) - f(x)) / h
+print(approx)
+```
+
+You should get something very close to 6.
+
+---
+
+## 11. PyTorch can calculate derivatives
+
+```python
+import torch
+
+w = torch.tensor(5.0, requires_grad=True)
+loss = (w - 3) ** 2
+
+loss.backward()
+
+print(loss.item())
+print(w.grad.item())
+```
+
+The gradient should be $4$.
+
+PyTorch has automatically performed differentiation for us.
+
+---
+
+## Think Like a Scientist 🧠
+
+For
+
+$$
+L(w)=(w-4)^2
+$$
+
+find
+
+$$
+\frac{dL}{dw}
+$$
+
+Then evaluate it at $w=1$, $w=4$, and $w=6$.
+
+Ask:
+
+- At which point is the slope zero?
+- Which points have a negative gradient?
+- Which direction should we move to reduce loss?
+
+---
+
+## What you should remember
+
+> **A derivative tells us how a quantity changes when an input changes.**
+
+For learning, derivatives tell us how the loss changes when parameters change.
+
+The key bridge is
+
+$$
+\text{parameters}
+\rightarrow
+\text{gradient of loss}
+\rightarrow
+\text{parameter update}
+$$
+
+Next we turn that idea into an algorithm.
+
+> **Next: gradient descent — teaching a model to improve.**

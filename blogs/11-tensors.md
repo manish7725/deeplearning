@@ -1,89 +1,72 @@
 # Blog 11 — Tensors: Numbers in Many Dimensions
 
-You have already met vectors and matrices.
+Vectors are 1-dimensional collections of numbers.
 
-A vector is like a list.
-A matrix is like a table.
+Matrices are 2-dimensional collections.
 
-A **tensor** is a general structure that can organize numbers in many dimensions.
+Deep learning needs more.
 
-## 1. One dimension
+A batch of color images, for example, naturally has dimensions for batch, height, width and color channels.
 
-```text
-[1, 2, 3]
-```
+We need a general container: the **tensor**.
 
-This is a vector.
+---
 
-Its shape is:
+## 1. The family tree
 
-`(3)`
-
-## 2. Two dimensions
+Think of tensors as a hierarchy:
 
 ```text
-[
- [1, 2, 3],
- [4, 5, 6]
-]
+scalar  →  one number
+vector  →  one dimension
+matrix  →  two dimensions
+tensor  →  three or more dimensions
 ```
 
-This is a matrix.
+The word tensor is also used more broadly in mathematics, but in deep-learning programming it commonly means a multidimensional numerical array with a shape and data type.
 
-Its shape is:
+---
 
-`(2, 3)`
+## 2. Scalar, vector, matrix
 
-Two rows, three columns.
+A scalar:
 
-## 3. Three dimensions
+$$
+7
+$$
 
-Now imagine several matrices stacked together:
+A vector:
+
+$$
+\begin{bmatrix}1\\2\\3\end{bmatrix}
+$$
+
+A matrix:
+
+$$
+\begin{bmatrix}1&2\\3&4\end{bmatrix}
+$$
+
+A 3D tensor can be visualized as a stack of matrices.
 
 ```text
-[
-  [[1,2], [3,4]],
-  [[5,6], [7,8]]
-]
+Tensor
+ ├── Matrix 1
+ │    ├── Row 1
+ │    └── Row 2
+ ├── Matrix 2
+ │    ├── Row 1
+ │    └── Row 2
+ └── Matrix 3
+      ├── Row 1
+      └── Row 2
 ```
 
-Its shape is:
+---
 
-`(2, 2, 2)`
+## 3. Shape is the first thing to inspect
 
-You can think of this as two tables, each containing two rows and two columns.
-
-## 4. Images are naturally tensors
-
-A grayscale image can be represented as:
-
-`height × width`
-
-A color image often has:
-
-`height × width × channels`
-
-For example:
-
-`224 × 224 × 3`
-
-The 3 channels can represent red, green, and blue.
-
-A batch of 32 images becomes:
-
-`32 × 224 × 224 × 3`
-
-The first number tells us how many images we have.
-
-## 5. Why deep learning loves tensors
-
-Neural networks process huge collections of numbers.
-
-GPUs are especially good at performing the same mathematical operations on many numbers at once.
-
-Tensors provide the structure needed to organize those numbers.
-
-## 6. PyTorch
+In PyTorch:
 
 ```python
 import torch
@@ -95,22 +78,210 @@ x = torch.tensor([
 
 print(x.shape)
 print(x.ndim)
+print(x.numel())
 ```
 
-You will see:
+Output:
 
-`torch.Size([2, 3])`
+```text
+torch.Size([2, 3])
+2
+6
+```
 
-and:
+So:
 
-`2`
+- `shape` = 2 × 3
+- `ndim` = 2
+- `numel()` = 6 values
 
-So the tensor has two dimensions and shape `(2,3)`.
+These three ideas should become automatic habits.
 
-## 7. The key lesson
+---
 
-Do not think of a tensor as something mysterious.
+## 4. A batch of images
 
-It is simply a disciplined way to organize numbers.
+Suppose we have 32 RGB images.
 
-> **Vectors, matrices, and higher-dimensional tensors are different shapes of the same basic idea: structured numerical information.**
+Each image is 224 × 224 pixels and has 3 channels.
+
+A common tensor shape is
+
+$$
+(32,3,224,224)
+$$
+
+Read it as:
+
+```text
+32  → number of images
+3   → color channels
+224 → height
+224 → width
+```
+
+The total number of values is
+
+$$
+32\times3\times224\times224
+$$
+
+which is 4,816,896 numbers.
+
+One tensor can therefore hold millions of values.
+
+---
+
+## 5. Why GPUs love tensors
+
+Deep learning performs huge amounts of numerical computation.
+
+A GPU contains hardware designed for highly parallel numerical operations.
+
+Instead of thinking about one number at a time, frameworks such as PyTorch express operations on whole tensors.
+
+```mermaid
+flowchart LR
+    A[Tensor data] --> B[Tensor operation]
+    B --> C[GPU parallel computation]
+    C --> D[New tensor]
+```
+
+The programming abstraction stays mathematical while the hardware performs the work in parallel.
+
+---
+
+## 6. Broadcasting
+
+One powerful tensor concept is broadcasting.
+
+Suppose
+
+```python
+x = torch.tensor([
+    [1., 2., 3.],
+    [4., 5., 6.]
+])
+
+b = torch.tensor([10., 20., 30.])
+
+print(x + b)
+```
+
+The vector is added to each row:
+
+$$
+\begin{bmatrix}
+1&2&3\\
+4&5&6
+\end{bmatrix}
++
+\begin{bmatrix}
+10&20&30
+\end{bmatrix}
+=
+\begin{bmatrix}
+11&22&33\\
+14&25&36
+\end{bmatrix}
+$$
+
+Broadcasting is convenient, but it is important to understand the shapes rather than rely on memorized rules.
+
+---
+
+## 7. Tensor operations are the language of deep learning
+
+You will repeatedly see operations such as:
+
+```python
+x @ W       # matrix multiplication
+a + b       # element-wise addition / broadcasting
+x * y       # element-wise multiplication
+x.mean()    # reduction
+x.sum()     # reduction
+x.reshape(...) 
+x.transpose(...)
+```
+
+The key skill is not memorizing commands.
+
+It is being able to predict the shape and mathematical meaning of each operation.
+
+---
+
+## 8. A tensor is not automatically an image
+
+A tensor has no inherent meaning until we define what its dimensions represent.
+
+The shape
+
+$$
+(3,224,224)
+$$
+
+could mean RGB channels × height × width.
+
+But another application could assign completely different meanings.
+
+Always ask:
+
+> **What does each axis represent?**
+
+---
+
+## 9. Code: inspect a tensor
+
+```python
+x = torch.randn(8, 3, 64, 64)
+
+print("shape:", x.shape)
+print("dimensions:", x.ndim)
+print("number of values:", x.numel())
+print("dtype:", x.dtype)
+print("device:", x.device)
+```
+
+These are excellent debugging questions when a model behaves unexpectedly.
+
+---
+
+## Think Like a Scientist 🧠
+
+Suppose
+
+$$
+X\in\mathbb R^{16\times3\times32\times32}
+$$
+
+Explain each number if this represents a batch of RGB images.
+
+Then calculate the total number of values.
+
+Finally ask: what would shape $(16,32,32,3)$ mean?
+
+Both can describe image data, but the axis convention is different.
+
+---
+
+## What you should remember
+
+> **A tensor is the natural numerical container for modern deep learning.**
+
+Remember:
+
+- scalar → 0 dimensions;
+- vector → 1 dimension;
+- matrix → 2 dimensions;
+- higher-dimensional tensors represent richer structures;
+- shape tells us how the axes are arranged;
+- every axis should have a meaning;
+- tensor operations are the language in which neural networks are implemented.
+
+Now we have a model that can learn.
+
+But there is another scientific problem:
+
+> **How do we know whether it learned something useful, rather than simply memorizing the examples?**
+
+That is the problem of training, validation and testing.

@@ -1,65 +1,212 @@
 # Blog 14 — When Order Matters: Learning From Sequences
 
-Consider these two sentences:
+A photograph can often be understood from its pixels.
 
-> The dog chased the cat.
+But consider this sentence:
 
-> The cat chased the dog.
+> “The dog chased the cat.”
 
-They contain the same words, but the meaning changed because the order changed.
+Swap the words:
 
-Images are mostly about spatial relationships. Language, music, and time-series data also depend heavily on order.
+> “The cat chased the dog.”
 
-## 1. A sequence is an ordered collection
+The same words appear, but the meaning changes.
 
-Suppose temperatures are:
+For sequences, **order matters**.
 
-`[20, 22, 25, 27]`
+---
 
-The order tells us something about the change over time.
+## 1. What is a sequence?
 
-If we randomly shuffle them, we lose part of the story.
+A sequence is an ordered collection:
 
-## 2. The memory problem
+$$
+x_1,x_2,x_3,\ldots,x_T
+$$
 
-Imagine reading:
+Examples include:
 
-`I went to the shop because ...`
+- words in a sentence;
+- audio samples;
+- stock measurements over time;
+- sensor readings;
+- user actions.
 
-To predict what comes next, a model may need information from earlier words.
+The model often needs information from earlier positions to interpret later ones.
 
-A sequence model tries to carry useful information forward.
+---
 
-## 3. Recurrent neural networks
+## 2. The basic recurrent idea
 
-An RNN processes one item at a time.
+A recurrent neural network maintains a hidden state:
 
-Conceptually:
+$$
+h_t=f(W_xx_t+W_hh_{t-1}+b)
+$$
 
-`hₜ = f(Wxₜ + Uhₜ₋₁ + b)`
+Read this as:
 
-Here:
+- $x_t$ = current input
+- $h_{t-1}$ = memory from the previous step
+- $h_t$ = updated memory
 
-- `xₜ` is the current input
-- `hₜ₋₁` is the previous hidden state
-- `hₜ` is the new hidden state
+The same weights are reused across time steps.
 
-The hidden state acts like a small memory.
+---
 
-## 4. Why training can be difficult
+## 3. Walk through a sentence
 
-During long sequences, gradients may become extremely small or extremely large as they are repeatedly multiplied through time.
+Imagine the words arrive one at a time:
 
-These are called **vanishing** and **exploding gradients**.
+```text
+The → dog → chased → the → cat
+```
 
-LSTM and GRU architectures were designed to make learning long-range relationships easier.
+The hidden state changes:
 
-## 5. The deeper idea
+```mermaid
+flowchart LR
+    X1[The] --> H1[h1]
+    H1 --> H2[h2]
+    X2[dog] --> H2
+    H2 --> H3[h3]
+    X3[chased] --> H3
+    H3 --> H4[h4]
+    X4[the] --> H4
+    H4 --> H5[h5]
+    X5[cat] --> H5
+```
 
-A sequence model asks:
+The state at each step contains a learned representation of information carried forward from earlier steps.
 
-> “What information from the past should influence my understanding of the present?”
+---
 
-That question leads naturally toward a much more powerful idea: attention.
+## 4. Why ordinary RNNs can struggle
 
-> **Sequence learning is about understanding information together with its order and context.**
+Suppose information from time 1 needs to influence the output at time 100.
+
+During backpropagation through time, gradients are repeatedly multiplied by derivatives and weight matrices.
+
+If typical factors are smaller than 1, repeated multiplication can make gradients extremely small:
+
+$$
+0.5^{100}\approx7.9\times10^{-31}
+$$
+
+This is the intuition behind the **vanishing-gradient problem**.
+
+If factors are repeatedly larger than 1, gradients can instead become extremely large: the **exploding-gradient problem**.
+
+---
+
+## 5. LSTM: a better memory mechanism
+
+Long Short-Term Memory networks introduce a more structured memory state and gates.
+
+A simplified view is:
+
+```mermaid
+flowchart LR
+    X[Current input] --> G[Input / forget / output gates]
+    H[Previous hidden state] --> G
+    C[Previous cell state] --> G
+    G --> C2[Updated cell state]
+    G --> H2[Updated hidden state]
+```
+
+The gates learn what to keep, what to discard and what to expose.
+
+The equations are more involved, but the conceptual goal is simple:
+
+> **Give the network a better way to control information flow across time.**
+
+---
+
+## 6. GRU
+
+A Gated Recurrent Unit provides a simpler gated recurrent design.
+
+It uses fewer states than an LSTM while still providing controlled information flow.
+
+Both LSTM and GRU were important milestones in sequence modeling.
+
+---
+
+## 7. PyTorch RNN example
+
+```python
+import torch
+import torch.nn as nn
+
+rnn = nn.RNN(
+    input_size=16,
+    hidden_size=32,
+    batch_first=True
+)
+
+x = torch.randn(8, 10, 16)
+output, hidden = rnn(x)
+
+print(output.shape)
+print(hidden.shape)
+```
+
+Interpret the input as:
+
+```text
+8  → batch size
+10 → sequence length
+16 → features per time step
+```
+
+The output keeps a hidden representation for every time step.
+
+---
+
+## 8. Why Transformers changed the story
+
+RNNs process sequences step by step.
+
+That creates a natural dependency across time.
+
+Transformers take a different approach: they allow positions in a sequence to directly interact through **attention**.
+
+This makes it much easier to compute many positions in parallel during training.
+
+That is the bridge to modern language models.
+
+---
+
+## Think Like a Scientist 🧠
+
+Consider:
+
+> “I went to the bank to deposit money.”
+
+and
+
+> “I sat beside the river bank.”
+
+The word “bank” is the same, but the surrounding sequence changes its meaning.
+
+Ask yourself:
+
+> What information from the neighboring words should influence the representation of “bank”?
+
+That question leads directly to attention.
+
+---
+
+## What you should remember
+
+> **Sequence models must represent not only what happened, but also where it happened in the sequence.**
+
+RNNs introduce hidden state and recurrence.
+
+LSTM and GRU improve control of information flow.
+
+But a new mechanism offers a radically different idea:
+
+> **Instead of carrying everything through one memory state, let each token look directly at the other tokens it needs.**
+
+> **Next: attention.**

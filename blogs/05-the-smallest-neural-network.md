@@ -1,118 +1,366 @@
 # Blog 05 — Meet the Smallest Neural Network
 
-Let us build a neural network using almost nothing: multiplication, addition, and one adjustable number.
+> A neural network begins with a tiny mathematical machine: multiply, add, and learn the numbers that control the calculation.
 
-## 1. A neuron as a calculator
+Imagine the king asks:
 
-Suppose the input is:
+> “Can we build the smallest possible machine that learns from examples?”
 
-`x = 3`
+The scientist says:
 
-The neuron has a weight:
+> “Yes. We only need a few numbers called **parameters**.”
 
-`w = 2`
+---
 
-It calculates:
+## 1. The smallest possible model
 
-`z = wx`
+Suppose we want to predict a student's final score from a single input.
 
-So:
+Start with
 
-`z = 2 × 3 = 6`
+$$
+\hat y=wx
+$$
 
-That is a neuron doing its first job.
+Here:
+
+- $x$ = input
+- $w$ = weight
+- $\hat y$ = prediction
+
+If $x=3$ and $w=2$:
+
+$$
+\hat y=2(3)=6
+$$
+
+This is already a model.
+
+It is not intelligent yet. It simply follows a rule.
+
+---
 
 ## 2. Add a bias
 
-Now introduce another number called a **bias**:
+A more useful model is
 
-`z = wx + b`
+$$
+\hat y=wx+b
+$$
 
-Suppose:
+Suppose
 
-`w = 2`
+$$
+w=2,\quad x=3,\quad b=1
+$$
 
-`x = 3`
+Then
 
-`b = 1`
+$$
+\hat y=2(3)+1=7
+$$
 
-Then:
+The weight controls how strongly the input changes the output.
 
-`z = 2×3 + 1 = 7`
+The bias shifts the entire relationship up or down.
 
-The weight controls how strongly the input matters. The bias lets the neuron shift its output.
+---
 
-## 3. Two inputs
+## 3. See the model as a line
 
-Real problems usually have many features.
+The equation
 
-Suppose:
+$$
+\hat y=2x+1
+$$
 
-`x = [2, 3]`
+is a straight line.
 
-and:
+```text
+prediction
+   |
+  9|             *
+  7|          *
+  5|       *
+  3|    *
+  1| *
+   +---------------- input
+     0  1  2  3  4
+```
 
-`w = [4, 5]`
+The slope is $2$ and the intercept is $1$.
 
-The neuron computes a dot product:
+So the humble neuron begins life as a line.
 
-`z = 2×4 + 3×5 + b`
+---
 
-If `b = 1`:
+## 4. Multiple inputs
 
-`z = 8 + 15 + 1 = 24`
+Real objects have many features.
 
-That is a complete neuron.
+Suppose
 
-## 4. Why weights are important
+$$
+\mathbf x=\begin{bmatrix}2\\3\end{bmatrix}
+$$
 
-Imagine we are predicting whether a student is likely to enjoy a science experiment.
+and
 
-Maybe:
+$$
+\mathbf w=\begin{bmatrix}4\\5\end{bmatrix}
+$$
 
-- curiosity matters a lot
-- previous science marks matter somewhat
-- drawing ability matters less
+Then
 
-The model can represent these differences using weights.
+$$
+z=\mathbf w^T\mathbf x+b
+$$
 
-A large positive weight means a feature strongly pushes the result upward.
-A small weight means it has less influence.
-A negative weight can push the result downward.
+For $b=1$:
 
-## 5. From one neuron to a layer
+$$
+z=4(2)+5(3)+1=24
+$$
 
-Now imagine 3 neurons receiving the same input.
+The neuron combines several pieces of information into one number.
 
-Each neuron has different weights:
+---
 
-`neuron 1 → pattern A`
+## 5. What does a weight mean?
 
-`neuron 2 → pattern B`
+Suppose the features are:
 
-`neuron 3 → pattern C`
+- hours studied
+- attendance
+- previous score
 
-Together they form a layer.
+and the weights are
 
-In matrix form:
+$$
+\mathbf w=\begin{bmatrix}2\\0.5\\3\end{bmatrix}
+$$
 
-`z = Wx + b`
+A larger positive weight means that, within this model, increasing that feature pushes the pre-activation upward more strongly.
 
-This is why the matrix ideas from our earlier blog suddenly become useful.
+A negative weight would push it downward.
 
-## 6. The surprising part
+A weight of zero means that feature contributes nothing to this particular calculation.
 
-A neuron is not intelligent by itself.
+Be careful: a learned weight is not automatically a causal explanation. It is a parameter in a model.
 
-It is a tiny mathematical function.
+---
 
-The intelligence comes from having:
+## 6. From one neuron to many
 
-- many parameters
-- many examples
-- a useful loss function
-- an algorithm that improves the parameters
+One neuron produces one number.
 
-The neuron is the brick. A neural network is the building.
+Suppose we want three outputs:
 
-> **Deep learning starts with very simple mathematical operations repeated on a very large scale.**
+$$
+\mathbf z=W\mathbf x+\mathbf b
+$$
+
+where
+
+$$
+W=
+\begin{bmatrix}
+1&2\\
+3&4\\
+5&6
+\end{bmatrix}
+$$
+
+and
+
+$$
+\mathbf x=\begin{bmatrix}2\\3\end{bmatrix}
+$$
+
+Then
+
+$$
+W\mathbf x=
+\begin{bmatrix}
+8\\18\\28
+\end{bmatrix}
+$$
+
+Three neurons have effectively worked together.
+
+---
+
+## 7. The architecture is simple
+
+```mermaid
+flowchart LR
+    X1[Feature x1] --> N1[Neuron]
+    X2[Feature x2] --> N1
+    X1 --> N2[Neuron]
+    X2 --> N2
+    X1 --> N3[Neuron]
+    X2 --> N3
+    N1 --> O1[Output 1]
+    N2 --> O2[Output 2]
+    N3 --> O3[Output 3]
+```
+
+Each neuron has its own weights and bias.
+
+The network is therefore a collection of small mathematical functions.
+
+---
+
+## 8. Why is it called a neuron?
+
+The name comes from biological inspiration, but we should not confuse the two.
+
+A biological neuron is a complex living cell.
+
+An artificial neuron is a mathematical function.
+
+A simplified artificial neuron is:
+
+$$
+z=\mathbf w^T\mathbf x+b$$
+
+followed, in modern neural networks, by a nonlinear activation:
+
+$$
+a=f(z)
+$$
+
+The artificial neuron is a useful abstraction, not a complete simulation of biology.
+
+---
+
+## 9. Python: build a neuron yourself
+
+```python
+import numpy as np
+
+x = np.array([2.0, 3.0])
+w = np.array([4.0, 5.0])
+b = 1.0
+
+z = w @ x + b
+
+print(z)
+```
+
+Output:
+
+```text
+24.0
+```
+
+There is no magic here.
+
+It is multiplication + addition.
+
+The magic of deep learning comes later, when we learn how to **change $w$ and $b$ automatically**.
+
+---
+
+## 10. A PyTorch version
+
+```python
+import torch
+
+x = torch.tensor([2., 3.])
+w = torch.tensor([4., 5.])
+b = torch.tensor(1.)
+
+z = w @ x + b
+print(z)
+```
+
+PyTorch represents the same mathematics while providing tools for automatic differentiation and optimization.
+
+---
+
+## 11. Parameters versus inputs
+
+This distinction is essential.
+
+| Quantity | Meaning |
+|---|---|
+| $x$ | data supplied to the model |
+| $w$ | learned parameter |
+| $b$ | learned parameter |
+| $z$ | intermediate calculation |
+| $\hat y$ | model prediction |
+
+During inference, $x$ changes from example to example.
+
+During training, the model changes $w$ and $b$ so that its predictions become better.
+
+That is the beginning of learning.
+
+---
+
+## 12. The network is not intelligent yet
+
+Imagine the model starts with
+
+$$
+w=0,\quad b=0
+$$
+
+For every input it predicts
+
+$$
+\hat y=0
+$$
+
+Clearly this is not useful.
+
+The important question is:
+
+> **How do we know that the prediction is bad, and how should we change $w$ and $b$?**
+
+That leads to the next blog.
+
+---
+
+## Think Like a Scientist 🧠
+
+Take
+
+$$
+\hat y=3x-2
+$$
+
+and calculate the prediction for
+
+$$
+x=0,1,2,3
+$$
+
+Then change the weight from 3 to 1.
+
+What changed: the slope, the intercept, or both?
+
+Now change the bias from $-2$ to $4$.
+
+You have just experimented with the parameters of a model.
+
+---
+
+## What you should remember
+
+> **A neuron is a small mathematical function, not a mysterious piece of intelligence.**
+
+The core calculation is
+
+$$
+z=\mathbf w^T\mathbf x+b
+$$
+
+A neural network is many such calculations organized into layers.
+
+But a model that only calculates a prediction has not necessarily learned anything.
+
+Next we need to define **how wrong the prediction is**.
+
+> **Next: prediction is not the same as learning.**

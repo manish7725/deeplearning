@@ -1,156 +1,418 @@
 # Blog 20 — Build a Tiny Neural Network From Scratch
 
-We have traveled a long road.
-
-We started with numbers.
-Then vectors.
-Then matrices.
-Then neurons.
-Then loss, derivatives, gradient descent, backpropagation, tensors, CNNs, sequences, embeddings, attention, and Transformers.
-
-Now let's put the pieces together.
-
-## 1. Our tiny network
-
-Suppose we have two inputs:
-
-`x = [2, 3]`
-
-We use two weights:
-
-`w = [0.5, 1.0]`
-
-and a bias:
-
-`b = 0.5`
-
-The neuron calculates:
-
-`z = 2×0.5 + 3×1.0 + 0.5`
-
-`z = 4.5`
-
-Suppose we use ReLU:
-
-`a = max(0, 4.5) = 4.5`
-
-We have just performed a forward pass.
-
-## 2. Compare with the answer
-
-Suppose the correct answer is:
-
-`y = 5`
-
-Use squared error:
-
-`L = (5 - 4.5)²`
-
-`L = 0.25`
-
-The model is not perfect, but it is reasonably close.
-
-## 3. Find the direction to improve
-
-Backpropagation calculates how the loss changes with respect to the parameters.
-
-For every weight and bias, we obtain a gradient.
-
-Conceptually:
-
-`gradient = how much this parameter affects the loss`
-
-## 4. Update the parameters
-
-Choose a learning rate, say:
-
-`η = 0.1`
-
-Then update each parameter:
-
-`parameter_new = parameter_old - η × gradient`
-
-The parameters move slightly in a direction expected to reduce the loss.
-
-## 5. Repeat many times
-
-The complete algorithm becomes:
+We have travelled a long way:
 
 ```text
-for each training step:
-    1. read the input
-    2. calculate the prediction
-    3. calculate the loss
-    4. calculate gradients
-    5. update parameters
+numbers
+  ↓
+vectors
+  ↓
+matrix multiplication
+  ↓
+linear transformations
+  ↓
+neurons
+  ↓
+activations
+  ↓
+loss
+  ↓
+derivatives
+  ↓
+gradient descent
+  ↓
+backpropagation
+  ↓
+tensors
+  ↓
+CNNs / sequence models
+  ↓
+attention
+  ↓
+Transformers
+  ↓
+generative models
 ```
 
-After many steps, the model may become much better at the task.
+Now we will remove the framework magic and build a tiny trainable neural network ourselves.
 
-## 6. The PyTorch version
+---
+
+## 1. Our toy problem
+
+Suppose the data follows
+
+$$
+y=2x+1
+$$
+
+Use four examples:
+
+```python
+import numpy as np
+
+x = np.array([1., 2., 3., 4.])
+y = np.array([3., 5., 7., 9.])
+```
+
+We want our model
+
+$$
+\hat y=wx+b
+$$
+
+to discover $w\approx2$ and $b\approx1$.
+
+---
+
+## 2. Start with terrible parameters
+
+```python
+w = 0.0
+b = 0.0
+```
+
+The initial model predicts zero for every input.
+
+For $x=1$:
+
+$$
+\hat y=0
+$$
+
+while the correct answer is 3.
+
+The model needs to learn.
+
+---
+
+## 3. Define the loss
+
+Use mean squared error:
+
+$$
+L=\frac1n\sum_{i=1}^{n}(\hat y_i-y_i)^2
+$$
+
+The smaller the loss, the closer our predictions are to the targets.
+
+---
+
+## 4. Derive the gradients
+
+We have
+
+$$
+\hat y_i=wx_i+b
+$$
+
+and
+
+$$
+L=\frac1n\sum_i(\hat y_i-y_i)^2
+$$
+
+Using the chain rule:
+
+$$
+\frac{\partial L}{\partial w}
+=
+\frac2n\sum_i(\hat y_i-y_i)x_i
+$$
+
+and
+
+$$
+\frac{\partial L}{\partial b}
+=
+\frac2n\sum_i(\hat y_i-y_i)
+$$
+
+These are the exact instructions needed to improve $w$ and $b$.
+
+---
+
+## 5. Write gradient descent
+
+For learning rate $\eta$:
+
+$$
+w\leftarrow w-\eta\frac{\partial L}{\partial w}
+$$
+
+$$
+b\leftarrow b-\eta\frac{\partial L}{\partial b}
+$$
+
+That is the entire learning algorithm for this toy model.
+
+---
+
+## 6. Full NumPy implementation
+
+```python
+import numpy as np
+
+x = np.array([1., 2., 3., 4.])
+y = np.array([3., 5., 7., 9.])
+
+w = 0.0
+b = 0.0
+learning_rate = 0.01
+
+for step in range(2000):
+    # Forward pass
+    prediction = w * x + b
+
+    # Loss
+    error = prediction - y
+    loss = np.mean(error ** 2)
+
+    # Backward pass
+    dw = np.mean(2 * error * x)
+    db = np.mean(2 * error)
+
+    # Update
+    w -= learning_rate * dw
+    b -= learning_rate * db
+
+    if step % 200 == 0:
+        print(step, loss, w, b)
+
+print("final weight:", w)
+print("final bias:", b)
+```
+
+After training, the learned parameters should be close to
+
+$$
+w=2,\qquad b=1
+$$
+
+The exact numerical values depend on the learning rate and number of steps.
+
+---
+
+## 7. What just happened?
+
+Every iteration followed the same scientific loop:
+
+```mermaid
+flowchart TD
+    A[Input x] --> B[Prediction wx + b]
+    B --> C[Error prediction - y]
+    C --> D[Loss]
+    D --> E[Gradients dw and db]
+    E --> F[Update w and b]
+    F --> B
+```
+
+Nothing mysterious happened.
+
+The model started with poor parameters and repeatedly changed them according to the gradient.
+
+---
+
+## 8. Now let PyTorch do the bookkeeping
+
+The same model can be written with PyTorch:
 
 ```python
 import torch
 
-x = torch.tensor([[2.0, 3.0]])
-y = torch.tensor([[5.0]])
+x = torch.tensor([1., 2., 3., 4.])
+y = torch.tensor([3., 5., 7., 9.])
 
-model = torch.nn.Linear(2, 1)
-loss_fn = torch.nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+w = torch.tensor(0.0, requires_grad=True)
+b = torch.tensor(0.0, requires_grad=True)
 
-for step in range(100):
-    prediction = model(x)
-    loss = loss_fn(prediction, y)
+optimizer = torch.optim.SGD([w, b], lr=0.01)
+
+for step in range(2000):
+    prediction = w * x + b
+    loss = torch.mean((prediction - y) ** 2)
 
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
 
-print(model(x))
+print(w.item(), b.item())
 ```
 
-There is a lot hidden inside these few lines.
+Compare this with the NumPy version.
 
-`Linear` contains parameters.
+The mathematics is the same.
 
-`prediction = model(x)` performs the forward computation.
+PyTorch automates the gradient calculation and parameter update machinery.
 
-`loss_fn` measures the mistake.
+---
 
-`loss.backward()` performs automatic differentiation and calculates gradients.
+## 9. From one neuron to a network
 
-`optimizer.step()` updates the parameters.
+Our model had one input and one output.
 
-## 7. What you should remember
+A real neural network may have:
 
-A modern deep-learning system may contain billions of parameters and enormous datasets.
+$$
+\mathbf h=\sigma(W_1\mathbf x+\mathbf b_1)
+$$
 
-Yet the central loop is still remarkably close to our tiny example:
+followed by
 
-**represent information → transform it → predict → measure error → calculate gradients → update parameters → repeat**
+$$
+\hat y=W_2\mathbf h+\mathbf b_2
+$$
 
-That is the mathematical heart of deep learning.
+Training still follows the same conceptual loop:
 
-## Final challenge
+$$
+\text{forward}
+\rightarrow
+\text{loss}
+\rightarrow
+\text{backward}
+\rightarrow
+\text{update}
+$$
 
-Do not stop at understanding these ideas.
+The network becomes more complicated, but the core idea does not disappear.
 
-Implement them.
+---
 
-First with ordinary Python.
-Then with NumPy.
-Then with PyTorch.
-Then inspect every tensor shape and every gradient.
+## 10. What you have actually learned
 
-A strong programmer does not merely memorize the formula.
+You now have the mathematical foundation needed to understand many deep-learning systems:
 
-A strong mathematician asks why the formula works.
+### Representation
 
-A strong data scientist asks whether the model works on unseen data.
+$$
+\mathbf x
+$$
 
-And a strong learner combines all three questions.
+### Transformation
 
-> **Deep learning becomes much less mysterious when you keep reducing every impressive system back to first principles: numbers, functions, matrices, calculus, data, and computation.**
+$$
+W\mathbf x+\mathbf b
+$$
 
-This is only the beginning.
+### Nonlinearity
+
+$$
+\sigma(W\mathbf x+\mathbf b)
+$$
+
+### Prediction
+
+$$
+\hat y=f_\theta(x)
+$$
+
+### Objective
+
+$$
+L(\hat y,y)
+$$
+
+### Gradient
+
+$$
+\nabla_\theta L
+$$
+
+### Optimization
+
+$$
+\theta\leftarrow\theta-\eta\nabla_\theta L
+$$
+
+That is the mathematical skeleton of deep learning.
+
+---
+
+## 11. Your final challenge 🧠
+
+Change the dataset to
+
+$$
+y=3x-2
+$$
+
+and train again.
+
+Then try a two-feature model:
+
+$$
+\hat y=w_1x_1+w_2x_2+b
+$$
+
+Derive the gradients yourself.
+
+Then implement it.
+
+Finally, add a hidden layer and ReLU.
+
+At that point you will no longer be merely reading about neural networks.
+
+You will be constructing them.
+
+---
+
+## The complete mental model
+
+```text
+Real world
+    ↓
+Numerical representation
+    ↓
+Vectors / tensors
+    ↓
+Linear transformations
+    ↓
+Nonlinear transformations
+    ↓
+Prediction
+    ↓
+Loss
+    ↓
+Gradient
+    ↓
+Parameter update
+    ↓
+Better prediction
+    ↺
+```
+
+The most important lesson is not a particular architecture.
+
+It is this:
+
+> **Deep learning is a way of learning useful transformations of numerical representations by optimizing a differentiable objective with data.**
+
+Once you understand that sentence mathematically, CNNs, RNNs, Transformers and generative models stop looking like unrelated magic.
+
+They become different ways of constructing and learning functions.
+
+---
+
+# Where to go next
+
+The natural next stage is to turn this foundation into serious practice:
+
+1. Linear algebra — vectors, matrices, eigenvalues, SVD.
+2. Probability and statistics — distributions, expectation, variance and estimation.
+3. Calculus — derivatives, partial derivatives and chain rule.
+4. Optimization — SGD, Momentum, Adam and learning-rate schedules.
+5. PyTorch — datasets, modules, autograd and training loops.
+6. CNNs — image classification and computer vision.
+7. Sequence models — RNN, LSTM and GRU.
+8. Attention — Q, K, V and masking.
+9. Transformers — encoder, decoder and modern architectures.
+10. Language models — tokenization, pretraining, fine-tuning and inference.
+11. Generative models — VAEs, GANs and diffusion.
+12. Production deep learning — evaluation, monitoring, serving and optimization.
+
+You have reached the end of this first-principles series.
+
+But you have not reached the end of deep learning.
+
+You have reached the point where the next step is to **build**.
