@@ -244,3 +244,74 @@ But images are not the only kind of data.
 In language, music and time-series data, **order matters**.
 
 > **Next: sequences and memory.**
+
+---
+
+# 🧪 Hands-on Lab — Build an Edge Detector
+
+Use [`../labs/13-convolution-lab.md`](../labs/13-convolution-lab.md).
+
+Start with a tiny image and a manually chosen kernel:
+
+```python
+import torch
+
+image = torch.tensor([
+    [0., 0., 0., 0., 0.],
+    [0., 0., 1., 0., 0.],
+    [0., 0., 1., 0., 0.],
+    [0., 0., 1., 0., 0.],
+    [0., 0., 0., 0., 0.]
+])
+
+kernel = torch.tensor([
+    [-1., 0., 1.],
+    [-1., 0., 1.],
+    [-1., 0., 1.]
+])
+```
+
+Implement the sliding-window calculation yourself before using `nn.Conv2d`.
+
+### Challenges
+
+1. Design a horizontal-edge detector.
+2. Design a vertical-edge detector.
+3. Change the stride.
+4. Add padding.
+5. Predict the output shape before running PyTorch.
+6. Visualize the input and feature map.
+
+### Mastery question
+
+Why is weight sharing such a powerful idea for images?
+
+Your answer should mention **locality**, **parameter efficiency**, and **translation-related reuse of patterns**.
+
+---
+
+# 📚 Go Deeper — See Vision From Three Angles
+
+**3Blue1Brown** is useful for the underlying linear-algebra viewpoint: convolution is fundamentally a structured numerical operation. citeturn0youtube30turn0youtube31
+
+**Welch Labs** provides a strong hands-on/visual philosophy for understanding how learned representations develop through neural layers. Its AI material emphasizes graphics, exercises and supporting code. citeturn0search1turn0search3
+
+Use **Frame Zero** for first-principles ML explanations and **Visual Kernel** for additional visual intuition about modern neural computation.
+
+Use **MrJensenMath10** when the underlying arithmetic, matrices or coordinate geometry needs reinforcement.
+
+### A useful mental model
+
+Do not think of a convolution kernel as a magical “edge detector.”
+
+Initially, a CNN kernel is simply a collection of learnable numbers.
+
+Training changes those numbers because useful filters help reduce the model's loss.
+
+That takes us back to the central learning loop:
+
+$$
+\boxed{\text{data}\rightarrow\text{representation}\rightarrow\text{prediction}\rightarrow\text{loss}\rightarrow\text{gradient}\rightarrow\text{better filters}}
+$$
+
+A CNN is therefore not just an image-processing trick. It is another example of learned mathematical representation.
