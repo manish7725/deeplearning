@@ -1,4 +1,4 @@
-name: Enrich deep learning notebooks and add Colab links
+name: Build the blog learning units
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  enrich:
+  build:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -20,38 +20,74 @@ jobs:
       - name: Generate rich notebooks
         run: python scripts/enrich_notebooks.py
 
-      - name: Add Colab links to blog code blocks
+      - name: Merge labs into notebooks and remove obsolete labs
+        run: python scripts/merge_labs_into_notebooks.py
+
+      - name: Add notebook and Colab links to blogs
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
+
           repo = 'manish7725/deeplearning'
           branch = 'main'
-          notebook_map = {
-              '01':'01-what-is-learning.ipynb','02':'02-numbers-become-vectors.ipynb','03':'03-matrices-the-spreadsheet-of-math.ipynb','04':'04-linear-transformations.ipynb','05':'05-the-smallest-neural-network.ipynb','06':'06-why-neurons-need-activation.ipynb','07':'07-prediction-is-not-learning-yet.ipynb','08':'08-derivatives-the-compass.ipynb','09':'09-gradient-descent.ipynb','10':'10-backpropagation.ipynb','11':'11-tensors.ipynb','12':'12-training-and-testing.ipynb','13':'13-convolution.ipynb','14':'14-sequence-models.ipynb','15':'15-word-embeddings.ipynb','16':'16-attention.ipynb','17':'17-transformers.ipynb','18':'18-language-models.ipynb','19':'19-generative-models.ipynb','20':'20-neural-network-from-scratch.ipynb','21':'21-automatic-differentiation.ipynb','22':'22-neural-networks-as-function-approximators.ipynb','23':'23-geometry-invariance-and-equivariance.ipynb','24':'24-graph-neural-networks.ipynb','25':'25-why-neural-networks-generalize.ipynb','26':'26-scaling-rules-for-training.ipynb','27':'27-representation-learning.ipynb','28':'28-contrastive-learning.ipynb','29':'29-conditional-generative-models.ipynb','30':'30-out-of-distribution-and-robustness.ipynb','31':'31-transfer-learning-and-fine-tuning.ipynb','32':'32-scaling-laws.ipynb','33':'33-inference-methods.ipynb','34':'34-hackers-guide-to-deep-learning.ipynb','35':'35-architectural-bias-and-representations.ipynb','36':'36-metrized-deep-learning.ipynb','37':'37-preference-learning-and-policy-optimization.ipynb'}
-          fence = re.compile(r'^(\s*)```(?:python|py|py3)\s*$', re.I)
+          marker = '<!-- NOTEBOOK-LAB-NAV -->'
+
           for path in sorted(Path('blogs').glob('*.md')):
-              m = re.match(r'^(\d{2})-', path.name)
-              if not m or m.group(1) not in notebook_map: continue
-              url = f'https://colab.research.google.com/github/{repo}/blob/{branch}/notebooks/{notebook_map[m.group(1)]}'
-              lines = path.read_text(encoding='utf-8').splitlines(True)
-              out=[]
-              for line in lines:
-                  if fence.match(line) and not (out and 'Run this code in Google Colab' in out[-1]):
-                      out.append(f'> 🧪 **[Run this code in Google Colab]({url})**\n\n')
-                  out.append(line)
-              path.write_text(''.join(out), encoding='utf-8')
+              match = re.match(r'^(\d{2})-', path.name)
+              if not match:
+                  continue
+              prefix = match.group(1)
+              notebooks = sorted(Path('notebooks').glob(f'{prefix}-*.ipynb'))
+              if not notebooks:
+                  continue
+              notebook = notebooks[0]
+              notebook_url = f'https://github.com/{repo}/blob/{branch}/{notebook.as_posix()}'
+              colab_url = f'https://colab.research.google.com/github/{repo}/blob/{branch}/{notebook.as_posix()}'
+
+              text = path.read_text(encoding='utf-8')
+              text = re.sub(
+                  r'^> 🧪 \*\*\[Run this code in Google Colab\]\([^\n]+\)\*\*\n\n',
+                  '', text, flags=re.MULTILINE
+              )
+
+              nav = (
+                  f'{marker}\n\n'
+                  '## 🧪 Interactive Lab\n\n'
+                  'The explanation and the hands-on experiment now live together: '
+                  'the notebook contains the complete runnable lab for this lesson.\n\n'
+                  f'**[📓 Open the notebook on GitHub]({notebook_url})**  '
+                  f'· **[▶ Open the notebook in Google Colab]({colab_url})**\n\n'
+                  'Run the cells, change the values, observe the result, and then return '
+                  'to this blog to connect the experiment back to the idea.\n\n'
+              )
+
+              if marker in text:
+                  start = text.index(marker)
+                  rest = text[start:]
+                  next_heading = re.search(r'(?m)^## (?!🧪 Interactive Lab)', rest)
+                  if next_heading:
+                      suffix = rest[next_heading.start():]
+                  else:
+                      suffix = ''
+                  text = text[:start] + nav + suffix
+              else:
+                  lines = text.splitlines(True)
+                  insert_at = 1 if lines and lines[0].lstrip().startswith('#') else 0
+                  text = ''.join(lines[:insert_at]) + '\n' + nav + ''.join(lines[insert_at:])
+
+              path.write_text(text, encoding='utf-8')
           PY
 
-      - name: Commit generated notebooks and links
+      - name: Commit reorganized learning units
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add notebooks blogs
+          git add notebooks blogs labs scripts .github/workflows/add-colab-links.yml
           if git diff --cached --quiet; then
             echo 'No generated changes.'
             exit 0
           fi
-          git commit -m 'Enrich all 37 deep learning notebooks'
+          git commit -m 'Merge labs into notebooks and simplify blog navigation'
           git push origin HEAD:main
