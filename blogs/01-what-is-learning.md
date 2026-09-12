@@ -1,24 +1,24 @@
 # Blog 01 — What Does It Mean for a Machine to Learn?
 
-> **Deep Learning from First Principles — written for a Class 7 mind, but with the mathematics kept honest.**
+<!-- NOTEBOOK-LAB-NAV -->
 
-Imagine you show a friend ten pictures of apples and ten pictures of oranges.
+## 🧪 Interactive Lab
 
-At first, your friend may confuse them.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-But after seeing enough examples, something interesting happens.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
 
-You show a new fruit and your friend says:
 
-> **“I think that is an orange.”** 🍊
+## 🧭 Where this lesson fits
 
-You never gave your friend a rule for every possible orange.
+This is the starting point of the course.
 
-Your friend discovered a **pattern**.
+**Today:** Blog 01 — What Does It Mean for a Machine to Learn?.
 
-That tiny idea is the doorway to Machine Learning.
+**Next lesson:** Blog 02 — How Do Numbers Become Vectors?.
 
----
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 👑 The King's Question
 
@@ -409,8 +409,6 @@ This is the foundation of gradient descent.
 
 You can implement the same idea directly in Python without a deep-learning framework:
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/01-what-is-learning.ipynb)**
-
 ```python
 import numpy as np
 
@@ -533,7 +531,7 @@ objects
 
 The exact internal features learned by a network depend on the architecture and data; this hierarchy is a useful mental model rather than a guaranteed rule.
 
-The 3Blue1Brown neural-network series provides an especially useful visual intuition for neurons, layers, weights, biases and the linear-algebra structure behind them. citeturn0youtube30turn0youtube31
+The 3Blue1Brown neural-network series provides an especially useful visual intuition for neurons, layers, weights, biases and the linear-algebra structure behind them.
 
 ---
 
@@ -563,114 +561,3 @@ A useful measurement gives the model information.
 So even before neural networks, we need to learn how to represent the world using numbers.
 
 That takes us naturally to our next lesson.
-
-# Blog 02 — How Do Numbers Become Vectors?
-
-Because before a machine can learn from information, **we need to teach the machine how to represent information mathematically.**
-
----
-
-## 🧠 What you should remember
-
-1. Machine learning learns patterns from examples.
-2. Data can be represented using numbers.
-3. A model is a mathematical function.
-4. Parameters such as weights and biases can be adjusted.
-5. A prediction can be compared with the correct answer.
-6. A loss function turns “wrong” into a number.
-7. Learning means changing parameters to reduce loss.
-8. Derivatives tell us how changes in parameters affect the loss.
-9. Deep learning builds complicated functions from many simple transformations.
-
-> **Data gives the machine examples. Mathematics gives it a way to learn from those examples.**
-
----
-
-# 🧪 Hands-on Lab — Make Learning Observable
-
-Use [`../labs/01-learning-lab.md`](../labs/01-learning-lab.md).
-
-Start with the smallest possible learning experiment:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/01-what-is-learning.ipynb)**
-
-```python
-import numpy as np
-
-x = np.array([1., 2., 3., 4.])
-y = np.array([3., 5., 7., 9.])
-
-w = 0.0
-b = 0.0
-lr = 0.01
-
-for step in range(2000):
-    prediction = w * x + b
-    error = prediction - y
-    loss = np.mean(error ** 2)
-
-    dw = np.mean(2 * error * x)
-    db = np.mean(2 * error)
-
-    w -= lr * dw
-    b -= lr * db
-
-print(w, b)
-```
-
-### Challenges
-
-1. Start with different values of `w` and `b`.
-2. Try three learning rates.
-3. Record the loss every 100 steps.
-4. Plot the loss.
-5. Explain why the loss decreases.
-6. Change the data to $y=3x-2$ and train again.
-
-### Final question
-
-Before moving to Blog 02, explain this loop without using the words “AI” or “magic”:
-
-$$
-\boxed{\text{predict}\rightarrow\text{measure}\rightarrow\text{differentiate}\rightarrow\text{update}}
-$$
-
-If you can explain that, you have understood the seed from which the rest of deep learning grows.
-
----
-
-# 📚 Go Deeper — Your First Resource Ladder
-
-Use **3Blue1Brown** when you want a visual mathematical explanation of neural networks, vectors, transformations and calculus. Its neural-network material is particularly useful for seeing how the equations map onto the network. citeturn0youtube30turn0youtube31
-
-Use **Welch Labs** when you want to build the ideas with code. Its Neural Networks Demystified sequence explicitly progresses through architecture, forward propagation, gradient descent, backpropagation, numerical gradient checking, training and overfitting. citeturn0search0turn0search8turn0search5
-
-Use **Frame Zero** for another first-principles ML perspective.
-
-Use **MrJensenMath10** for the school-level mathematics that makes algebra, functions, graphs and calculus comfortable.
-
-Use **ZacharyLLM** once the series reaches embeddings, attention, Transformers and LLMs.
-
-Use **Visual Kernel** as an additional visual/technical perspective on modern ML systems.
-
-### How to use these resources
-
-Do not watch every resource before continuing.
-
-Use a resource only when you can name what is missing:
-
-> **I can calculate it but cannot visualize it.** → 3Blue1Brown
-
-> **I understand the idea but my mathematics is weak.** → mathematics practice
-
-> **I understand the math but cannot implement it.** → Welch Labs / PyTorch practice
-
-> **I understand the mechanism but not its modern application.** → Frame Zero / ZacharyLLM / Visual Kernel
-
-The goal of this series is not to replace excellent teachers.
-
-It is to connect their explanations into one coherent path:
-
-$$
-\boxed{\text{intuition}\rightarrow\text{mathematics}\rightarrow\text{code}\rightarrow\text{experiment}\rightarrow\text{mastery}}
-$$

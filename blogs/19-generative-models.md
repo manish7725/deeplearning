@@ -1,17 +1,24 @@
 # Blog 19 — How Can a Machine Create Something New?
 
-So far, our models have mostly predicted labels, values or the next token.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Now imagine asking a machine to generate:
+## 🧪 Interactive Lab
 
-- a new image;
-- a new piece of audio;
-- a new sentence;
-- a new molecule-like structure.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-This is the world of **generative models**.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/19-generative-models.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/19-generative-models.ipynb)**
 
----
+
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 18 — How Does a Language Model Learn to Predict Text?.
+
+**Today:** Blog 19 — How Can a Machine Create Something New?.
+
+**Next lesson:** Blog 20 — Build a Tiny Neural Network From Scratch.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. What does “generate” mean?
 
@@ -170,8 +177,6 @@ They use the same mathematical foundation with different architectures and objec
 
 ## 7. A conceptual PyTorch autoencoder
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/19-generative-models.ipynb)**
-
 ```python
 import torch
 import torch.nn as nn
@@ -235,55 +240,9 @@ Now it is time to put everything together.
 
 ---
 
-# 🧪 Hands-on Lab — Build a Tiny Generative Pipeline
-
-Use [`../labs/19-generative-models-lab.md`](../labs/19-generative-models-lab.md).
-
-Start with an autoencoder because it exposes the idea clearly:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/19-generative-models.ipynb)**
-
-```python
-import torch
-import torch.nn as nn
-
-encoder = nn.Linear(4, 2)
-decoder = nn.Linear(2, 4)
-
-x = torch.randn(8, 4)
-z = torch.relu(encoder(x))
-reconstruction = decoder(z)
-
-loss = ((reconstruction - x) ** 2).mean()
-print(loss.item())
-```
-
-### Challenges
-
-1. Train the autoencoder.
-2. Inspect the two-dimensional latent representation.
-3. Change latent dimension from 2 to 1 and observe the reconstruction quality.
-4. Add a nonlinear layer.
-5. Experiment with a simple noise-corruption/denoising task.
-
-### Mastery challenge
-
-Explain the difference between:
-
-```text
-Autoencoder → reconstruct an input
-VAE         → learn a structured probabilistic latent space
-GAN         → generator vs discriminator
-Diffusion   → learn iterative denoising / reverse process
-```
-
-Then identify the common learning loop underneath all of them.
-
----
-
 # 📚 Go Deeper — Generative AI Through Multiple Lenses
 
-**Welch Labs** is especially relevant here because its current AI material includes generative modeling and combines detailed graphics, exercises and supporting Python code. citeturn0search1turn0search3
+**Welch Labs** is especially relevant here because its current AI material includes generative modeling and combines detailed graphics, exercises and supporting Python code.
 
 **ZacharyLLM** is useful for connecting generative modeling to modern language and multimodal systems.
 
@@ -291,7 +250,7 @@ Then identify the common learning loop underneath all of them.
 
 **Visual Kernel** provides another visual/technical lens for modern generative architectures.
 
-**3Blue1Brown** remains useful for the mathematical intuition behind neural networks, vectors, probability and transformations. citeturn0youtube30turn0youtube31
+**3Blue1Brown** remains useful for the mathematical intuition behind neural networks, vectors, probability and transformations.
 
 Use **MrJensenMath10** for probability, logarithms, functions and algebra.
 

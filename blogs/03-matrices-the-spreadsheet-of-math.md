@@ -1,14 +1,24 @@
 # Blog 03 — Matrices: The Spreadsheet of Mathematics
 
-> A vector describes one example. A matrix lets us work with many examples at once.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Imagine the royal scientist receives **one million student records**. Writing one vector after another would be possible, but awkward.
+## 🧪 Interactive Lab
 
-He wants one mathematical object that can hold the entire collection.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-That object is a **matrix**.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
 
----
+
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 02 — How Do Numbers Become Vectors?.
+
+**Today:** Blog 03 — Matrices: The Spreadsheet of Mathematics.
+
+**Next lesson:** Blog 04 — A Matrix Can Transform Space.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. A dataset is naturally a matrix
 
@@ -54,8 +64,6 @@ $$
 then each row contains 2 features and there are 3 examples.
 
 In Python:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
 
 ```python
 import numpy as np
@@ -248,8 +256,6 @@ This is the bridge from elementary linear algebra to neural networks.
 
 NumPy:
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
-
 ```python
 import numpy as np
 
@@ -267,8 +273,6 @@ print(X @ W)
 ```
 
 PyTorch:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
 
 ```python
 import torch
@@ -389,29 +393,6 @@ Next we will discover something more surprising:
 
 ---
 
-# 🧪 Hands-on Lab — Matrix Multiplication Playground
-
-The companion exercise is [`../labs/03-matrices-lab.md`](../labs/03-matrices-lab.md).
-
-Start by making every output number traceable to one dot product:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
-
-```python
-import torch
-
-X = torch.tensor([[2., 3.],
-                  [4., 5.]])
-
-W = torch.tensor([[10., 1.],
-                  [20., 2.]])
-
-Y = X @ W
-print(Y)
-
-# Manually verify one element.
-print(2*10 + 3*20)
-```
 
 ### Challenges
 

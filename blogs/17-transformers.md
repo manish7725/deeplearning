@@ -1,12 +1,24 @@
 # Blog 17 — Transformers: Building With Attention
 
-Attention is a mechanism.
+<!-- NOTEBOOK-LAB-NAV -->
 
-A Transformer is an architecture built around attention plus several other important components.
+## 🧪 Interactive Lab
 
-It became the foundation of many modern language models.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
----
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
+
+
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 16 — Attention: What Should I Look At?.
+
+**Today:** Blog 17 — Transformers: Building With Attention.
+
+**Next lesson:** Blog 18 — How Does a Language Model Learn to Predict Text?.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. From tokens to representations
 
@@ -162,8 +174,6 @@ This is why “Transformer” describes an architecture family rather than one s
 
 ## 9. A small PyTorch module
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/17-transformers.ipynb)**
-
 ```python
 import torch
 import torch.nn as nn
@@ -250,63 +260,9 @@ Now we can finally ask the question that powers modern language models:
 
 ---
 
-# 🧪 Hands-on Lab — Build a Mini Transformer Block
-
-Use [`../labs/17-transformer-lab.md`](../labs/17-transformer-lab.md).
-
-Start with PyTorch's building blocks:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/17-transformers.ipynb)**
-
-```python
-import torch
-import torch.nn as nn
-
-layer = nn.TransformerEncoderLayer(
-    d_model=64,
-    nhead=4,
-    batch_first=True
-)
-
-x = torch.randn(2, 8, 64)
-y = layer(x)
-
-print(x.shape)
-print(y.shape)
-```
-
-### Challenges
-
-1. Change the sequence length.
-2. Change the number of heads.
-3. Explain why `d_model` must be compatible with the chosen number of heads.
-4. Inspect the model parameters.
-5. Implement one attention head manually using the equation from Blog 16.
-6. Compare your result conceptually with the PyTorch layer.
-
-### Architecture challenge
-
-Draw the complete data path:
-
-```text
-token IDs
-→ embeddings
-→ position information
-→ attention
-→ residual
-→ normalization
-→ feed-forward
-→ residual
-→ normalization
-```
-
-Then explain what each component contributes.
-
----
-
 # 📚 Go Deeper — Understand the Architecture, Not Just the Name
 
-**3Blue1Brown** is one of the best visual companions for understanding the mathematical structure behind neural networks and attention. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is one of the best visual companions for understanding the mathematical structure behind neural networks and attention.
 
 **ZacharyLLM** is particularly relevant here for connecting the Transformer architecture to modern LLMs.
 
@@ -314,7 +270,7 @@ Then explain what each component contributes.
 
 **Visual Kernel** can provide another visual/technical perspective on model internals.
 
-**Welch Labs** is valuable for its implementation-first philosophy and supporting code; its AI material explicitly combines exercises, graphics and code. citeturn0search1turn0search3
+**Welch Labs** is valuable for its implementation-first philosophy and supporting code; its AI material explicitly combines exercises, graphics and code.
 
 Use **MrJensenMath10** when the underlying algebra, functions or matrix operations need reinforcement.
 

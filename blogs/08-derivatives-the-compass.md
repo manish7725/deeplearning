@@ -1,14 +1,24 @@
 # Blog 08 — Derivatives: The Compass for Learning
 
-A model has a loss.
+<!-- NOTEBOOK-LAB-NAV -->
 
-We want the loss to become smaller.
+## 🧪 Interactive Lab
 
-But which way should we move the parameters?
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-Calculus gives us the answer.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**
 
----
+
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 07 — Prediction Is Not the Same as Learning.
+
+**Today:** Blog 08 — Derivatives: The Compass for Learning.
+
+**Next lesson:** Blog 09 — Gradient Descent: Teaching a Model to Improve.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. Start with a simple curve
 
@@ -260,8 +270,6 @@ That is already a miniature version of backpropagation.
 
 ## 10. Code: numerical derivative
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/08-derivatives-the-compass.ipynb)**
-
 ```python
 def f(x):
     return x ** 2
@@ -278,8 +286,6 @@ You should get something very close to 6.
 ---
 
 ## 11. PyTorch can calculate derivatives
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/08-derivatives-the-compass.ipynb)**
 
 ```python
 import torch
@@ -345,49 +351,13 @@ Next we turn that idea into an algorithm.
 
 ---
 
-# 🧪 Hands-on Lab — Estimate, Derive, Verify
-
-Use [`../labs/08-derivatives-lab.md`](../labs/08-derivatives-lab.md).
-
-First estimate a derivative numerically:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/08-derivatives-the-compass.ipynb)**
-
-```python
-def f(x):
-    return x**2
-
-x = 3.0
-for h in [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]:
-    numerical = (f(x+h) - f(x)) / h
-    print(h, numerical)
-```
-
-Then compare it with the exact derivative $2x$.
-
-### Challenges
-
-1. Try several values of `h`.
-2. Explain why extremely large `h` is inaccurate.
-3. Explore what happens when `h` becomes extremely tiny.
-4. Derive $dL/dw$ for $L=(wx-y)^2$.
-5. Verify your derivation using PyTorch autograd.
-
-### Mastery test
-
-If PyTorch reports a gradient of `-12`, explain in words what that sign means before changing the parameter.
-
-That interpretation is more important than memorizing the API.
-
----
-
 # 📚 Go Deeper — Learn Calculus Three Ways
 
-**3Blue1Brown** is the visual route: use it when derivative notation feels abstract and you want to understand slope, local change and geometry. The same visual thinking later becomes useful for gradients and neural networks. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is the visual route: use it when derivative notation feels abstract and you want to understand slope, local change and geometry. The same visual thinking later becomes useful for gradients and neural networks.
 
 **MrJensenMath10** is the practice route: strengthen algebra, functions, slopes and exponentials until derivative manipulation becomes comfortable.
 
-**Welch Labs** is the ML route: its neural-network series uses high-school-level calculus to derive backpropagation and connects derivatives directly to training. citeturn0search8
+**Welch Labs** is the ML route: its neural-network series uses high-school-level calculus to derive backpropagation and connects derivatives directly to training.
 
 Use **Frame Zero** for first-principles ML intuition and later **ZacharyLLM/Visual Kernel** to see where differentiation and optimization appear in modern models.
 

@@ -1,25 +1,21 @@
-# Deep Learning — First Principles to PhD Research
+# Deep Learning Notes
 
-A learning path that starts with Class 8-friendly intuition and progresses to graduate-level mathematics, modern deep-learning systems, paper reproduction, and original research.
+A first-principles deep learning curriculum designed to make difficult ideas understandable without making the mathematics shallow.
 
-## Start here
+## How each lesson works
 
-- **[Complete syllabus](SYLLABUS.md)** — the master map from prerequisites to PhD research.
-- **Blogs** — textbook-style explanations.
-- **Notebooks** — Google Colab laboratories and code tutorials.
+Each lesson is a single learning unit:
 
-## Learning philosophy
+**Blog → intuition → mathematics → visual explanation → interactive notebook lab → experiment → challenge**
 
-**Intuition → Mathematics → From-scratch code → PyTorch → Visualization → Experiment → Failure mode → Paper → Research question**
+The Markdown blog explains the idea. The matching Jupyter notebook is the hands-on lab, with runnable Python, visualizations, animations, experiments, and challenges.
 
-The goal is not to memorize APIs. The learner should understand why each equation exists, implement the important ideas, test them experimentally, and eventually question the assumptions behind published work.
+### Run the lab
 
-## Five levels of mastery
+Every blog links directly to its notebook and to Google Colab, so there is no separate lab area to navigate.
 
-1. **Intuition:** Explain the idea to a Class 8 student.
-2. **Mathematics:** Derive the important equations.
-3. **Implementation:** Build the core idea from scratch.
-4. **Engineering:** Train, debug, profile and deploy it.
-5. **Research:** Reproduce papers, identify limitations and formulate hypotheses.
+- 📚 **Blogs:** [`blogs/`](blogs/)
+- 📓 **Interactive notebooks:** [`notebooks/`](notebooks/)
+- 🧭 **Syllabus:** [`SYLLABUS.md`](SYLLABUS.md)
 
-The existing 37 blogs/notebooks form the first-principles spine. The syllabus extends that foundation through optimization, generalization, CNNs, Transformers, LLMs, generative models, geometric deep learning, scaling, alignment, theory, systems and research methodology.
+The notebooks are designed to be approachable for a Class 7 student while retaining correct mathematical foundations.

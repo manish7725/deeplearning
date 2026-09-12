@@ -1,14 +1,24 @@
 # Blog 15 — How Can a Computer Represent the Meaning of a Word?
 
-A computer does not naturally understand the word **king**.
+<!-- NOTEBOOK-LAB-NAV -->
 
-It sees symbols or token IDs.
+## 🧪 Interactive Lab
 
-So we need a numerical representation that lets related concepts occupy related regions of a mathematical space.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-This is the idea behind **embeddings**.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/15-word-embeddings.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/15-word-embeddings.ipynb)**
 
----
+
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 14 — When Order Matters: Learning From Sequences.
+
+**Today:** Blog 15 — How Can a Computer Represent the Meaning of a Word?.
+
+**Next lesson:** Blog 16 — Attention: What Should I Look At?.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. From word to ID
 
@@ -118,8 +128,6 @@ $$
 ---
 
 ## 6. PyTorch example
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/15-word-embeddings.ipynb)**
 
 ```python
 import torch
@@ -236,51 +244,9 @@ Now we are ready for the mechanism that lets one token ask:
 
 ---
 
-# 🧪 Hands-on Lab — Build a Tiny Embedding Space
-
-Use [`../labs/15-embeddings-lab.md`](../labs/15-embeddings-lab.md).
-
-Create a tiny embedding table:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/15-word-embeddings.ipynb)**
-
-```python
-import torch
-import torch.nn as nn
-
-embedding = nn.Embedding(6, 3)
-
-ids = torch.tensor([0, 1, 2, 3, 4, 5])
-vectors = embedding(ids)
-
-print(vectors)
-```
-
-### Experiments
-
-1. Compute pairwise cosine similarities.
-2. Find the two most similar vectors.
-3. Train the embedding on a tiny synthetic task.
-4. Inspect how the vectors move during training.
-5. Reduce a larger embedding space to two dimensions for visualization.
-
-### Mastery challenge
-
-Explain why
-
-```text
-cat = 17
-```
-
-contains almost no semantic information, while a learned vector for `cat` can participate in meaningful geometric comparisons.
-
-Then explain why a static embedding cannot fully represent the two meanings of “bank” in different sentences.
-
----
-
 # 📚 Go Deeper — From Geometry to LLMs
 
-**3Blue1Brown** is useful for the geometric intuition behind vectors, dot products and high-dimensional representations. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is useful for the geometric intuition behind vectors, dot products and high-dimensional representations.
 
 **Frame Zero** is a strong companion for first-principles representation learning.
 
@@ -288,7 +254,7 @@ Then explain why a static embedding cannot fully represent the two meanings of �
 
 **Visual Kernel** can provide another visual/technical lens on representations and model internals.
 
-Use **Welch Labs** when you want to reinforce the general pattern of learning representations through code and experiments; its AI material emphasizes supporting code and hands-on exploration. citeturn0search1turn0search3
+Use **Welch Labs** when you want to reinforce the general pattern of learning representations through code and experiments; its AI material emphasizes supporting code and hands-on exploration.
 
 Use **MrJensenMath10** for the vector and algebra foundations.
 

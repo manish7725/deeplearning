@@ -1,18 +1,24 @@
 # Blog 06 — Why Does a Neuron Need an Activation Function?
 
-We have a neuron:
+<!-- NOTEBOOK-LAB-NAV -->
 
-$$
-z=\mathbf w^T\mathbf x+b
-$$
+## 🧪 Interactive Lab
 
-It can multiply and add. But there is a problem.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-> **If we stack only linear calculations, the whole network is still just one linear calculation.**
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**
 
-We need something nonlinear.
 
----
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 05 — Meet the Smallest Neural Network.
+
+**Today:** Blog 06 — Why Does a Neuron Need an Activation Function?.
+
+**Next lesson:** Blog 07 — Prediction Is Not the Same as Learning.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. The line problem
 
@@ -166,8 +172,6 @@ Simple, fast and widely used in hidden layers.
 
 ## 6. Python
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/06-why-neurons-need-activation.ipynb)**
-
 ```python
 import numpy as np
 
@@ -187,8 +191,6 @@ Output:
 ---
 
 ## 7. PyTorch
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/06-why-neurons-need-activation.ipynb)**
 
 ```python
 import torch
@@ -260,52 +262,11 @@ Next we introduce the loss function and the actual learning problem.
 
 ---
 
-# 🧪 Hands-on Lab — Make Nonlinearity Visible
-
-Use [`../labs/06-activation-lab.md`](../labs/06-activation-lab.md).
-
-Start by comparing a linear function and ReLU:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/06-why-neurons-need-activation.ipynb)**
-
-```python
-import numpy as np
-
-x = np.linspace(-5, 5, 21)
-linear = 2 * x + 1
-relu = np.maximum(0, linear)
-
-for a, b in zip(linear, relu):
-    print(f"linear={a:6.2f}  relu={b:6.2f}")
-```
-
-### Challenges
-
-1. Implement sigmoid from its equation.
-2. Implement tanh without using a framework activation.
-3. Compare their outputs for `[-5, -2, 0, 2, 5]`.
-4. Build two linear layers and prove numerically that they collapse into one affine transformation.
-5. Insert ReLU and show that the equivalence disappears.
-
-### Mastery experiment
-
-Create a two-layer network and vary the bias of the first layer.
-
-Observe how the location of the ReLU “kink” changes.
-
-Then explain:
-
-> **How can many small piecewise-linear regions combine to approximate a complicated function?**
-
-That question is a bridge from basic neurons to the expressive power of deep networks.
-
----
-
 # 📚 Go Deeper — Three Different Lenses
 
-**3Blue1Brown** gives the strongest visual intuition for why layers, weights and nonlinearities create expressive neural networks. citeturn0youtube30turn0youtube31
+**3Blue1Brown** gives the strongest visual intuition for why layers, weights and nonlinearities create expressive neural networks.
 
-**Welch Labs** is useful for seeing the activation function inside an actual trainable network and then following the path toward gradient descent and backpropagation. citeturn0search0turn0search8
+**Welch Labs** is useful for seeing the activation function inside an actual trainable network and then following the path toward gradient descent and backpropagation.
 
 **MrJensenMath10** is the supporting mathematics resource: functions, graphs, slopes and exponentials are exactly the school-level ideas behind these activation functions.
 

@@ -1,18 +1,24 @@
 # Blog 13 — How a Neural Network Learns to See: Convolution
 
-A photograph contains millions of pixels.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Does a neural network need to look at every pixel independently every time?
+## 🧪 Interactive Lab
 
-Not necessarily.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-Images have a powerful property: **nearby pixels often form local patterns**.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
 
-Edges, corners and textures are local.
 
-Convolutional neural networks exploit this structure.
+## 🧭 Where this lesson fits
 
----
+**Previous lesson:** Blog 12 — How Do We Know If Our Model Really Learned?.
+
+**Today:** Blog 13 — How a Neural Network Learns to See: Convolution.
+
+**Next lesson:** Blog 14 — When Order Matters: Learning From Sequences.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. Start with a tiny image
 
@@ -167,8 +173,6 @@ This hierarchy is learned from data; it is not a rule that every CNN must follow
 
 ## 8. PyTorch example
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/13-convolution.ipynb)**
-
 ```python
 import torch
 import torch.nn as nn
@@ -208,8 +212,6 @@ Because padding and stride were chosen to preserve spatial size, the height and 
 Older CNN architectures often used pooling layers to reduce spatial resolution.
 
 For example, max pooling keeps the largest value in a local window.
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/13-convolution.ipynb)**
 
 ```python
 pool = nn.MaxPool2d(kernel_size=2)
@@ -251,56 +253,11 @@ In language, music and time-series data, **order matters**.
 
 ---
 
-# 🧪 Hands-on Lab — Build an Edge Detector
-
-Use [`../labs/13-convolution-lab.md`](../labs/13-convolution-lab.md).
-
-Start with a tiny image and a manually chosen kernel:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/13-convolution.ipynb)**
-
-```python
-import torch
-
-image = torch.tensor([
-    [0., 0., 0., 0., 0.],
-    [0., 0., 1., 0., 0.],
-    [0., 0., 1., 0., 0.],
-    [0., 0., 1., 0., 0.],
-    [0., 0., 0., 0., 0.]
-])
-
-kernel = torch.tensor([
-    [-1., 0., 1.],
-    [-1., 0., 1.],
-    [-1., 0., 1.]
-])
-```
-
-Implement the sliding-window calculation yourself before using `nn.Conv2d`.
-
-### Challenges
-
-1. Design a horizontal-edge detector.
-2. Design a vertical-edge detector.
-3. Change the stride.
-4. Add padding.
-5. Predict the output shape before running PyTorch.
-6. Visualize the input and feature map.
-
-### Mastery question
-
-Why is weight sharing such a powerful idea for images?
-
-Your answer should mention **locality**, **parameter efficiency**, and **translation-related reuse of patterns**.
-
----
-
 # 📚 Go Deeper — See Vision From Three Angles
 
-**3Blue1Brown** is useful for the underlying linear-algebra viewpoint: convolution is fundamentally a structured numerical operation. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is useful for the underlying linear-algebra viewpoint: convolution is fundamentally a structured numerical operation.
 
-**Welch Labs** provides a strong hands-on/visual philosophy for understanding how learned representations develop through neural layers. Its AI material emphasizes graphics, exercises and supporting code. citeturn0search1turn0search3
+**Welch Labs** provides a strong hands-on/visual philosophy for understanding how learned representations develop through neural layers. Its AI material emphasizes graphics, exercises and supporting code.
 
 Use **Frame Zero** for first-principles ML explanations and **Visual Kernel** for additional visual intuition about modern neural computation.
 

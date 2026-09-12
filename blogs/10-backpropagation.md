@@ -1,12 +1,24 @@
 # Blog 10 — Backpropagation: Sending the Error Backward
 
-A neural network makes a prediction by moving information **forward**.
+<!-- NOTEBOOK-LAB-NAV -->
 
-To learn, it needs to send information about the error **backward**.
+## 🧪 Interactive Lab
 
-This is backpropagation.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
----
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/10-backpropagation.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/10-backpropagation.ipynb)**
+
+
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 09 — Gradient Descent: Teaching a Model to Improve.
+
+**Today:** Blog 10 — Backpropagation: Sending the Error Backward.
+
+**Next lesson:** Blog 11 — Tensors: Numbers in Many Dimensions.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. A tiny two-step network
 
@@ -218,8 +230,6 @@ $$
 
 ## 8. PyTorch makes the backward pass simple
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/10-backpropagation.ipynb)**
-
 ```python
 import torch
 
@@ -308,77 +318,11 @@ Next we need a larger mathematical container capable of representing images, bat
 
 ---
 
-# 🧪 Hands-on Lab — Backpropagation by Hand and by PyTorch
-
-Use [`../labs/10-backpropagation-lab.md`](../labs/10-backpropagation-lab.md).
-
-Do the manual derivation before calling `.backward()`.
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/10-backpropagation.ipynb)**
-
-```python
-import torch
-
-x = torch.tensor(2.0)
-w = torch.tensor(3.0, requires_grad=True)
-v = torch.tensor(4.0, requires_grad=True)
-y = torch.tensor(30.0)
-
-z = w * x
-y_hat = v * z
-loss = (y_hat - y) ** 2
-loss.backward()
-
-print(w.grad, v.grad)
-```
-
-### Challenge 1 — verify by hand
-
-Derive both
-
-$$
-\frac{\partial L}{\partial w}
-$$
-
-and
-
-$$
-\frac{\partial L}{\partial v}
-$$
-
-and compare them with PyTorch.
-
-### Challenge 2 — numerical gradient checking
-
-Perturb one parameter slightly:
-
-$$
-\frac{\partial L}{\partial w}
-\approx
-\frac{L(w+h)-L(w-h)}{2h}
-$$
-
-Compare this numerical estimate with autograd.
-
-### Challenge 3 — add another layer
-
-Create
-
-$$
-x\rightarrow w_1x\rightarrow w_2z_1\rightarrow w_3z_2\rightarrow L
-$$
-
-Derive the gradient for $w_1$.
-
-You will discover that the chain rule naturally grows into backpropagation.
-
----
-
 # 📚 Go Deeper — Backpropagation From Multiple Angles
 
-**Welch Labs** is particularly valuable for this exact topic: its backpropagation material explicitly derives the algorithm using high-school-level calculus and provides supporting code and equations. citeturn0search8
+**Welch Labs** is particularly valuable for this exact topic: its backpropagation material explicitly derives the algorithm using high-school-level calculus and provides supporting code and equations.
 
-**3Blue1Brown** is the visual companion for understanding what gradients mean inside a network and how the algebra maps onto the architecture. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is the visual companion for understanding what gradients mean inside a network and how the algebra maps onto the architecture.
 
 Use **MrJensenMath10** for chain-rule and calculus fluency, and **Frame Zero** for another intuitive ML explanation.
 
