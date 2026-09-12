@@ -1,5 +1,7 @@
 # Blog 20 — Build a Tiny Neural Network From Scratch
 
+> 🧪 **Run the code yourself:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb) · [📓 View notebook on GitHub](../notebooks/20-neural-network-from-scratch.ipynb)
+
 We have travelled a long way:
 
 ```text
