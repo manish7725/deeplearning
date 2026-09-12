@@ -1,0 +1,75 @@
+name: Rich Notebook Laboratory Builder
+
+on:
+  push:
+    branches:
+      - feature/rich-notebook-labs
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'notebooks/**'
+      - 'scripts/rich_notebook_labs.py'
+      - '.github/workflows/rich-notebook-labs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rich-notebook-labs
+  cancel-in-progress: false
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/rich-notebook-labs
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Add rich mastery laboratory to every notebook
+        run: python scripts/rich_notebook_labs.py
+
+      - name: Validate notebook JSON
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          files = sorted(Path('notebooks').glob('*.ipynb'))
+          assert len(files) == 37, f'Expected 37 notebooks, found {len(files)}'
+          for path in files:
+              data = json.loads(path.read_text(encoding='utf-8'))
+              text = '\n'.join(''.join(c.get('source', [])) for c in data.get('cells', []))
+              required = [
+                  '<!-- RICH-MASTERY-LAB -->',
+                  'Recalculate the smallest numerical example by hand',
+                  'NumPy', 'PyTorch', 'Visualize',
+                  'Change exactly one variable', 'Break it intentionally',
+                  'Mini-project', 'Advanced research bridge', 'Mastery check'
+              ]
+              missing = [item for item in required if item.lower() not in text.lower()]
+              assert not missing, f'{path}: missing {missing}'
+          print('All 37 notebooks contain the complete mastery laboratory.')
+          PY
+
+      - name: Commit notebook upgrades
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add notebooks
+          if git diff --cached --quiet; then
+            echo 'No notebook changes.'
+            exit 0
+          fi
+          git commit -m 'Make every notebook a rich self-explanatory lab'
+          git push origin HEAD:feature/rich-notebook-labs
