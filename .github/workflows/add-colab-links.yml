@@ -68,7 +68,9 @@ jobs:
                   f'**[📓 Open the notebook on GitHub]({notebook_url})**  '
                   f'· **[▶ Open the notebook in Google Colab]({colab_url})**\n\n'
               )
-              text = re.sub(r'<!-- NOTEBOOK-LAB-NAV -->.*?(?=^## (?!🧪 Interactive Lab)|\Z)', '', text, flags=re.MULTILINE|re.DOTALL)
+              # Remove only the generated navigation block. Do not consume the
+              # student lesson bridge that follows it.
+              text = re.sub(r'<!-- NOTEBOOK-LAB-NAV -->\n\n## 🧪 Interactive Lab\n\n.*?\n\n\*\*\[▶ Open the notebook in Google Colab\]\([^\n]+\)\*\*\n*', '', text, flags=re.DOTALL)
               lines = text.splitlines(True)
               insert_at = 1 if lines and lines[0].lstrip().startswith('#') else 0
               text = ''.join(lines[:insert_at]) + '\n' + nav + ''.join(lines[insert_at:])
