@@ -342,3 +342,110 @@ One vector describes one example. Real models learn from many examples.
 So next we need a mathematical structure that can hold many vectors at once.
 
 > **Next: matrices — the spreadsheet of mathematics.**
+
+---
+
+# 🧪 Hands-on Lab — Build Your Own Vector World
+
+The companion exercise is [`../labs/02-vectors-lab.md`](../labs/02-vectors-lab.md).
+
+Start with NumPy and make the mathematics visible in code:
+
+```python
+import numpy as np
+
+students = np.array([
+    [9., 8.],
+    [8., 9.],
+    [3., 4.]
+])
+
+alice = students[0]
+bob = students[1]
+
+print("Alice:", alice)
+print("Bob:", bob)
+print("Distance:", np.linalg.norm(alice - bob))
+print("Dot product:", alice @ bob)
+```
+
+### Experiment
+
+Change the vectors and predict the result **before** running the code.
+
+Then investigate:
+
+1. What happens when two vectors point in the same direction?
+2. What happens to the distance if every coordinate is multiplied by 10?
+3. Can two vectors have the same length but point in different directions?
+4. What does a negative dot product tell you about direction?
+5. Why would a model care about the difference between `[9, 8]` and `[8, 9]`?
+
+### Mastery challenge
+
+Create 100 random two-dimensional vectors and find the five vectors closest to `[5, 5]`.
+
+Then repeat the experiment after multiplying the first feature by 100.
+
+**Question:** Why did the meaning of “closest” change?
+
+That experiment is your first glimpse of **feature scaling** and why representation matters.
+
+---
+
+# 📚 Go Deeper — Use Resources as a Second Explanation
+
+You do not need another resource to finish this lesson. Use these when you want a second mental model.
+
+### 🎨 Visual mathematics
+
+- **3Blue1Brown — Essence of Linear Algebra:** use it when you want to *see* vectors, coordinates, linear combinations and transformations rather than only calculate them.
+- **Welch Labs:** use its visual, experiment-driven style when you want to connect mathematical objects to neural-network computation. Welch Labs explicitly combines graphics, exercises and supporting code in its AI material. citeturn0search1turn0search3
+
+### 🧮 Mathematics practice
+
+- **MrJensenMath10:** use it for the school-level algebra and mathematical fluency needed to manipulate equations confidently.
+- **Frame Zero:** use it for additional first-principles machine-learning intuition.
+
+### 🤖 ML / PyTorch bridge
+
+- **ZacharyLLM:** use it later when the same representation ideas appear in embeddings, transformers and LLMs.
+- **Visual Kernel:** use it for additional visual/technical intuition around modern ML systems.
+
+### The rule for using resources
+
+Do not collect videos.
+
+Use the resource only when you can identify the missing piece:
+
+> **“I can calculate it, but I cannot see it.”** → visual mathematics
+
+> **“I understand the picture, but the algebra is weak.”** → mathematics practice
+
+> **“I understand the mathematics, but I cannot implement it.”** → PyTorch/code practice
+
+> **“I can implement it, but I don't know where it appears in modern AI.”** → ML/LLM resources
+
+The goal is always the same:
+
+$$
+\boxed{\text{Understand}\rightarrow\text{Derive}\rightarrow\text{Code}\rightarrow\text{Experiment}\rightarrow\text{Explain}}
+$$
+
+---
+
+## 🔬 A Scientist's Rule
+
+Before asking a library for the answer, try to calculate the answer yourself.
+
+For example, do not immediately call `np.linalg.norm(x)`.
+
+First calculate:
+
+$$
+\|x\|=\sqrt{x_1^2+x_2^2+\cdots+x_n^2}
+$$
+
+Then let NumPy verify you.
+
+That habit will become extremely valuable when we reach neural networks, gradients, attention and transformers.
