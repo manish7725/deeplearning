@@ -240,3 +240,97 @@ $$
 This single idea became the foundation of the Transformer architecture.
 
 > **Next: Transformers — building an entire architecture around attention.**
+
+---
+
+# 🧪 Hands-on Lab — Calculate Attention by Hand
+
+Use [`../labs/16-attention-lab.md`](../labs/16-attention-lab.md).
+
+Start with tiny matrices so every number can be checked:
+
+```python
+import torch
+import torch.nn.functional as F
+
+Q = torch.tensor([[1., 0.]])
+K = torch.tensor([
+    [1., 0.],
+    [0., 1.]
+])
+V = torch.tensor([
+    [10., 0.],
+    [0., 20.]
+])
+
+scores = Q @ K.T
+weights = F.softmax(scores, dim=-1)
+out = weights @ V
+
+print("scores:", scores)
+print("weights:", weights)
+print("output:", out)
+```
+
+### Challenges
+
+1. Compute the scores by hand.
+2. Compute the softmax by hand.
+3. Predict which value receives more weight.
+4. Change `Q` to `[0, 1]`.
+5. Add a third key/value.
+6. Implement causal masking.
+
+### Mastery challenge
+
+Explain the difference between:
+
+```text
+Q = what I am looking for
+K = what I can be matched on
+V = what I contribute if selected
+```
+
+Then derive the shape of every matrix in
+
+$$
+softmax(QK^T/\sqrt{d_k})V
+$$
+
+for a sequence of length $T$ and model dimension $d$.
+
+---
+
+# 📚 Go Deeper — The Core of Modern LLMs
+
+**3Blue1Brown** is an excellent visual companion for understanding attention and Transformer ideas. citeturn0youtube30turn0youtube31
+
+**ZacharyLLM** is especially relevant from this point forward because attention, token representations and Transformer internals are central to modern LLMs.
+
+**Frame Zero** provides another first-principles route into modern ML concepts.
+
+**Visual Kernel** is useful when you want additional visual/technical intuition about model internals.
+
+**Welch Labs** provides a valuable hands-on philosophy: derive the mechanism, implement it, and inspect what the model is doing. Its AI resources explicitly combine detailed graphics with exercises and supporting code. citeturn0search1turn0search3
+
+Use **MrJensenMath10** to reinforce dot products, matrices, exponentials and probability—the exact mathematical ingredients appearing here.
+
+### The most important exercise
+
+Do not memorize the attention equation.
+
+Be able to reconstruct it:
+
+$$
+\boxed{
+\text{match}
+\rightarrow
+\text{scale}
+\rightarrow
+\text{normalize}
+\rightarrow
+\text{mix values}
+}
+$$
+
+Once that sequence is intuitive, the Transformer becomes much easier to understand.
