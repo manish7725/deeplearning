@@ -1,0 +1,49 @@
+name: Rebuild notebooks from blogs
+on:
+  push:
+    branches: [feature/blog-synced-notebooks]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: blog-synced-notebooks
+  cancel-in-progress: false
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/blog-synced-notebooks
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Rebuild every notebook from its matching blog
+        run: python scripts/rebuild_notebooks_from_blogs.py
+      - name: Validate all notebook JSON and blog pairing
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          blogs=sorted(Path('blogs').glob('[0-9][0-9]-*.md'))
+          nbs=sorted(Path('notebooks').glob('[0-9][0-9]-*.ipynb'))
+          assert len(blogs)==37, len(blogs)
+          assert len(nbs)==37, len(nbs)
+          for b,n in zip(blogs,nbs):
+              assert b.stem==n.stem,(b,n)
+              data=json.loads(n.read_text())
+              assert data['metadata']['blog_source']==b.name
+              text='\n'.join(''.join(c.get('source',[])) for c in data['cells'])
+              for required in ['Hand calculation','PyTorch','Visualization','Change exactly one variable','Intentional failure','Blog-synchronized exercises','Mini-project','Research bridge','Mastery check']:
+                  assert required.lower() in text.lower(),f'{n}: {required}'
+          print('PASS: 37/37 blog-notebook pairs are structurally synchronized.')
+          PY
+      - name: Commit rebuilt notebooks
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add notebooks
+          if git diff --cached --quiet; then echo 'No notebook changes.'; exit 0; fi
+          git commit -m 'Synchronize notebooks with source blogs'
+          git push origin HEAD:feature/blog-synced-notebooks
