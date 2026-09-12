@@ -231,3 +231,69 @@ Now we are ready for the mechanism that lets one token ask:
 > “Which other tokens should I pay attention to?”
 
 > **Next: attention.**
+
+---
+
+# 🧪 Hands-on Lab — Build a Tiny Embedding Space
+
+Use [`../labs/15-embeddings-lab.md`](../labs/15-embeddings-lab.md).
+
+Create a tiny embedding table:
+
+```python
+import torch
+import torch.nn as nn
+
+embedding = nn.Embedding(6, 3)
+
+ids = torch.tensor([0, 1, 2, 3, 4, 5])
+vectors = embedding(ids)
+
+print(vectors)
+```
+
+### Experiments
+
+1. Compute pairwise cosine similarities.
+2. Find the two most similar vectors.
+3. Train the embedding on a tiny synthetic task.
+4. Inspect how the vectors move during training.
+5. Reduce a larger embedding space to two dimensions for visualization.
+
+### Mastery challenge
+
+Explain why
+
+```text
+cat = 17
+```
+
+contains almost no semantic information, while a learned vector for `cat` can participate in meaningful geometric comparisons.
+
+Then explain why a static embedding cannot fully represent the two meanings of “bank” in different sentences.
+
+---
+
+# 📚 Go Deeper — From Geometry to LLMs
+
+**3Blue1Brown** is useful for the geometric intuition behind vectors, dot products and high-dimensional representations. citeturn0youtube30turn0youtube31
+
+**Frame Zero** is a strong companion for first-principles representation learning.
+
+**ZacharyLLM** becomes particularly relevant from this point onward because embeddings, attention and token representations are central to modern LLMs.
+
+**Visual Kernel** can provide another visual/technical lens on representations and model internals.
+
+Use **Welch Labs** when you want to reinforce the general pattern of learning representations through code and experiments; its AI material emphasizes supporting code and hands-on exploration. citeturn0search1turn0search3
+
+Use **MrJensenMath10** for the vector and algebra foundations.
+
+### The key conceptual jump
+
+A token ID is a **label**.
+
+An embedding is a **learned coordinate**.
+
+Attention will then allow those coordinates to interact dynamically with context.
+
+That is the bridge from simple vectors to language understanding machinery.

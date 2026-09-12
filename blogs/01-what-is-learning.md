@@ -581,3 +581,92 @@ Because before a machine can learn from information, **we need to teach the mach
 9. Deep learning builds complicated functions from many simple transformations.
 
 > **Data gives the machine examples. Mathematics gives it a way to learn from those examples.**
+
+---
+
+# 🧪 Hands-on Lab — Make Learning Observable
+
+Use [`../labs/01-learning-lab.md`](../labs/01-learning-lab.md).
+
+Start with the smallest possible learning experiment:
+
+```python
+import numpy as np
+
+x = np.array([1., 2., 3., 4.])
+y = np.array([3., 5., 7., 9.])
+
+w = 0.0
+b = 0.0
+lr = 0.01
+
+for step in range(2000):
+    prediction = w * x + b
+    error = prediction - y
+    loss = np.mean(error ** 2)
+
+    dw = np.mean(2 * error * x)
+    db = np.mean(2 * error)
+
+    w -= lr * dw
+    b -= lr * db
+
+print(w, b)
+```
+
+### Challenges
+
+1. Start with different values of `w` and `b`.
+2. Try three learning rates.
+3. Record the loss every 100 steps.
+4. Plot the loss.
+5. Explain why the loss decreases.
+6. Change the data to $y=3x-2$ and train again.
+
+### Final question
+
+Before moving to Blog 02, explain this loop without using the words “AI” or “magic”:
+
+$$
+\boxed{\text{predict}\rightarrow\text{measure}\rightarrow\text{differentiate}\rightarrow\text{update}}
+$$
+
+If you can explain that, you have understood the seed from which the rest of deep learning grows.
+
+---
+
+# 📚 Go Deeper — Your First Resource Ladder
+
+Use **3Blue1Brown** when you want a visual mathematical explanation of neural networks, vectors, transformations and calculus. Its neural-network material is particularly useful for seeing how the equations map onto the network. citeturn0youtube30turn0youtube31
+
+Use **Welch Labs** when you want to build the ideas with code. Its Neural Networks Demystified sequence explicitly progresses through architecture, forward propagation, gradient descent, backpropagation, numerical gradient checking, training and overfitting. citeturn0search0turn0search8turn0search5
+
+Use **Frame Zero** for another first-principles ML perspective.
+
+Use **MrJensenMath10** for the school-level mathematics that makes algebra, functions, graphs and calculus comfortable.
+
+Use **ZacharyLLM** once the series reaches embeddings, attention, Transformers and LLMs.
+
+Use **Visual Kernel** as an additional visual/technical perspective on modern ML systems.
+
+### How to use these resources
+
+Do not watch every resource before continuing.
+
+Use a resource only when you can name what is missing:
+
+> **I can calculate it but cannot visualize it.** → 3Blue1Brown
+
+> **I understand the idea but my mathematics is weak.** → mathematics practice
+
+> **I understand the math but cannot implement it.** → Welch Labs / PyTorch practice
+
+> **I understand the mechanism but not its modern application.** → Frame Zero / ZacharyLLM / Visual Kernel
+
+The goal of this series is not to replace excellent teachers.
+
+It is to connect their explanations into one coherent path:
+
+$$
+\boxed{\text{intuition}\rightarrow\text{mathematics}\rightarrow\text{code}\rightarrow\text{experiment}\rightarrow\text{mastery}}
+$$

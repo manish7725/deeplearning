@@ -264,3 +264,65 @@ The same basic learning machinery we studied at the beginning is now operating i
 But prediction is not the only thing neural networks can learn to do.
 
 > **Next: generative models — how machines create new data.**
+
+---
+
+# 🧪 Hands-on Lab — Train a Tiny Character Language Model
+
+Use [`../labs/18-language-model-lab.md`](../labs/18-language-model-lab.md).
+
+Start with a tiny vocabulary and a tiny text corpus. Your first goal is not performance; it is understanding the training signal.
+
+```python
+import torch
+import torch.nn.functional as F
+
+logits = torch.randn(4, 10)
+targets = torch.tensor([1, 4, 2, 7])
+
+loss = F.cross_entropy(logits, targets)
+print(loss.item())
+```
+
+### Challenges
+
+1. Convert a tiny text corpus into token IDs.
+2. Create input/target pairs shifted by one token.
+3. Compute cross-entropy.
+4. Train a tiny model until the loss decreases.
+5. Generate text one token at a time.
+6. Compare greedy decoding with sampling.
+
+### Mastery question
+
+Explain why a model can be trained on many next-token predictions simultaneously while generation is performed step by step.
+
+That distinction is central to understanding modern LLM training versus inference.
+
+---
+
+# 📚 Go Deeper — From Language Modeling to LLMs
+
+**ZacharyLLM** is particularly useful from this point forward because the concepts here—tokenization, next-token prediction, Transformers, inference and LLM behavior—are its natural territory.
+
+**3Blue1Brown** provides the visual mathematics behind neural networks, attention and language-model concepts. citeturn0youtube30turn0youtube31
+
+**Frame Zero** provides a complementary first-principles perspective on ML and modern AI.
+
+**Visual Kernel** is useful when you want another visual/technical explanation of model internals.
+
+**Welch Labs** is valuable for reinforcing the implementation mindset: build small systems, inspect the equations and use supporting code. Its AI resources explicitly emphasize hands-on exploration and supporting code. citeturn0search1turn0search3
+
+Use **MrJensenMath10** to strengthen probability, logarithms and algebra.
+
+### The deepest connection
+
+The language model looks radically more sophisticated than our Blog 01 linear model.
+
+But the training loop is still:
+
+$$
+\boxed{\text{predict}\rightarrow\text{measure error}\rightarrow\text{differentiate}\rightarrow\text{update}}
+$$
+
+The architecture became vastly more expressive. The learning principle remained recognizable.

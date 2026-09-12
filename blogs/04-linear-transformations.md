@@ -220,8 +220,6 @@ Because precision in language helps us build correct mental models.
 
 ## 9. The neural-network layer
 
-A simple layer can be viewed as
-
 ```mermaid
 flowchart LR
     X[Input vector x] --> W[Multiply by W]
@@ -347,3 +345,109 @@ So the next question is unavoidable:
 > **What happens when we introduce a nonlinear function?**
 
 That is where the neuron begins to become interesting.
+
+---
+
+# 🧪 Hands-on Lab — Transform a Square, Then Break It
+
+The companion exercise is [`../labs/04-transformations-lab.md`](../labs/04-transformations-lab.md).
+
+Use a tiny square so that every coordinate can be inspected:
+
+```python
+import numpy as np
+
+square = np.array([
+    [0., 0.],
+    [1., 0.],
+    [1., 1.],
+    [0., 1.]
+])
+
+scale = np.array([[2., 0.],
+                  [0., 0.5]])
+
+rotation = np.array([[0., -1.],
+                     [1.,  0.]])
+
+print("scaled:\n", square @ scale.T)
+print("rotated:\n", square @ rotation.T)
+```
+
+### Challenges
+
+1. Make the square twice as wide.
+2. Rotate it by $90^\circ$ and then $90^\circ$ again.
+3. Reflect it across the $x$-axis.
+4. Create a shear transformation.
+5. Compare `A @ B @ x` with `B @ A @ x`.
+
+You should discover experimentally that, in general,
+
+$$
+AB\neq BA
+$$
+
+### Deeper experiment
+
+Take two transformations and apply them in different orders to the same point.
+
+Ask:
+
+> **Why does changing the order change the result?**
+
+This is not merely a matrix trick. Later, when neural networks stack transformations, **order becomes part of the model's meaning**.
+
+---
+
+# 📚 Go Deeper — Visualize the Algebra
+
+### 🎨 3Blue1Brown
+
+Use **3Blue1Brown's Essence of Linear Algebra** when you want to see what a matrix is doing to an entire coordinate system rather than to one vector at a time.
+
+### 🧠 Neural-network connection
+
+The 3Blue1Brown neural-network material is especially useful here because it connects the geometric idea of transformations to weights, biases, layers and linear algebra. citeturn0youtube30turn0youtube31
+
+### 🧪 Welch Labs
+
+Welch Labs is valuable when you want the next step: turn the mathematical transformation into an actual trainable neural network. Its neural-network sequence progresses from architecture through forward propagation, gradient descent and backpropagation. citeturn0search0turn0search8
+
+### 🧮 Mathematics support
+
+Use **MrJensenMath10** for algebra and trigonometry practice when the symbols become the obstacle rather than the concept.
+
+Use **Frame Zero** for another first-principles explanation of why the mathematics appears in ML.
+
+Use **ZacharyLLM** and **Visual Kernel** later when you want to connect the same transformation ideas to modern neural architectures and LLMs.
+
+---
+
+## 🔬 The Scientist's Test
+
+Do not memorize:
+
+$$
+W\mathbf x+\mathbf b
+$$
+
+Instead ask what each piece *does*:
+
+```text
+x       → representation we currently have
+W       → learned transformation
+Wx      → transformed representation
+b       → learned shift
+Wx + b  → affine transformation
+σ(...)  → nonlinear transformation
+```
+
+This gives us the conceptual skeleton of a neural-network layer:
+
+$$
+\boxed{\mathbf x\rightarrow W\mathbf x+\mathbf b\rightarrow\sigma}\n$$
+
+The next blog asks the crucial question:
+
+> **Why is the final nonlinear function necessary at all?**

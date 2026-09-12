@@ -285,3 +285,79 @@ But there is another scientific problem:
 > **How do we know whether it learned something useful, rather than simply memorizing the examples?**
 
 That is the problem of training, validation and testing.
+
+---
+
+# 🧪 Hands-on Lab — Become a Tensor Shape Detective
+
+Use [`../labs/11-tensors-lab.md`](../labs/11-tensors-lab.md).
+
+Start with:
+
+```python
+import torch
+
+x = torch.randn(8, 3, 32, 32)
+
+print("shape:", x.shape)
+print("ndim:", x.ndim)
+print("numel:", x.numel())
+print("dtype:", x.dtype)
+```
+
+### Challenges
+
+For each operation, predict the shape before running it:
+
+```python
+x.mean(dim=0)
+x.mean(dim=(2, 3))
+x.reshape(8, -1)
+x.permute(0, 2, 3, 1)
+```
+
+Then explain what each dimension means.
+
+### Mastery challenge
+
+Create a fake batch of:
+
+- 64 RGB images;
+- 128 audio sequences;
+- 32 sentences of 20 tokens each, represented with 768-dimensional embeddings.
+
+Write down the expected tensor shapes before creating them.
+
+This is the beginning of **shape-first programming**: understand the mathematics of dimensions before debugging code.
+
+---
+
+# 📚 Go Deeper — Tensors, Code and Hardware
+
+Use **PyTorch's official tutorials** when you want to move from the mathematical tensor abstraction into real framework usage.
+
+Use **3Blue1Brown** for the linear-algebra intuition that sits underneath tensor operations. citeturn0youtube30turn0youtube31
+
+Use **Welch Labs** when you want to see tensors and numerical operations inside complete neural-network experiments; its AI material emphasizes hands-on exercises, graphics and supporting code. citeturn0search1turn0search3
+
+Use **Frame Zero** for first-principles ML intuition and **Visual Kernel** when you want to connect tensor operations to modern model internals.
+
+Use **MrJensenMath10** for the underlying arithmetic and algebraic fluency.
+
+### The debugging habit
+
+Whenever PyTorch gives a shape error, do not immediately reshape randomly.
+
+Print:
+
+```python
+print(x.shape)
+print(weight.shape)
+print(bias.shape)
+```
+
+Then ask:
+
+> **What mathematical operation am I trying to perform?**
+
+The code should follow the mathematics—not the other way around.

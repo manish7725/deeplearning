@@ -338,3 +338,65 @@ $$
 Next we turn that idea into an algorithm.
 
 > **Next: gradient descent — teaching a model to improve.**
+
+---
+
+# 🧪 Hands-on Lab — Estimate, Derive, Verify
+
+Use [`../labs/08-derivatives-lab.md`](../labs/08-derivatives-lab.md).
+
+First estimate a derivative numerically:
+
+```python
+def f(x):
+    return x**2
+
+x = 3.0
+for h in [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]:
+    numerical = (f(x+h) - f(x)) / h
+    print(h, numerical)
+```
+
+Then compare it with the exact derivative $2x$.
+
+### Challenges
+
+1. Try several values of `h`.
+2. Explain why extremely large `h` is inaccurate.
+3. Explore what happens when `h` becomes extremely tiny.
+4. Derive $dL/dw$ for $L=(wx-y)^2$.
+5. Verify your derivation using PyTorch autograd.
+
+### Mastery test
+
+If PyTorch reports a gradient of `-12`, explain in words what that sign means before changing the parameter.
+
+That interpretation is more important than memorizing the API.
+
+---
+
+# 📚 Go Deeper — Learn Calculus Three Ways
+
+**3Blue1Brown** is the visual route: use it when derivative notation feels abstract and you want to understand slope, local change and geometry. The same visual thinking later becomes useful for gradients and neural networks. citeturn0youtube30turn0youtube31
+
+**MrJensenMath10** is the practice route: strengthen algebra, functions, slopes and exponentials until derivative manipulation becomes comfortable.
+
+**Welch Labs** is the ML route: its neural-network series uses high-school-level calculus to derive backpropagation and connects derivatives directly to training. citeturn0search8
+
+Use **Frame Zero** for first-principles ML intuition and later **ZacharyLLM/Visual Kernel** to see where differentiation and optimization appear in modern models.
+
+### The standard we want
+
+For every derivative in this course, aim to understand all three:
+
+$$
+\boxed{
+\text{geometric meaning}
+\leftrightarrow
+\text{symbolic derivation}
+\leftrightarrow
+\text{numerical verification}
+}
+$$
+
+If you can do all three, calculus stops being a prerequisite and becomes a working tool.

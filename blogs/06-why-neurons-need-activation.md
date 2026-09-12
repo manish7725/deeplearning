@@ -253,3 +253,68 @@ But there is still a giant missing piece:
 > **How does the network know whether its prediction is good or bad?**
 
 Next we introduce the loss function and the actual learning problem.
+
+---
+
+# 🧪 Hands-on Lab — Make Nonlinearity Visible
+
+Use [`../labs/06-activation-lab.md`](../labs/06-activation-lab.md).
+
+Start by comparing a linear function and ReLU:
+
+```python
+import numpy as np
+
+x = np.linspace(-5, 5, 21)
+linear = 2 * x + 1
+relu = np.maximum(0, linear)
+
+for a, b in zip(linear, relu):
+    print(f"linear={a:6.2f}  relu={b:6.2f}")
+```
+
+### Challenges
+
+1. Implement sigmoid from its equation.
+2. Implement tanh without using a framework activation.
+3. Compare their outputs for `[-5, -2, 0, 2, 5]`.
+4. Build two linear layers and prove numerically that they collapse into one affine transformation.
+5. Insert ReLU and show that the equivalence disappears.
+
+### Mastery experiment
+
+Create a two-layer network and vary the bias of the first layer.
+
+Observe how the location of the ReLU “kink” changes.
+
+Then explain:
+
+> **How can many small piecewise-linear regions combine to approximate a complicated function?**
+
+That question is a bridge from basic neurons to the expressive power of deep networks.
+
+---
+
+# 📚 Go Deeper — Three Different Lenses
+
+**3Blue1Brown** gives the strongest visual intuition for why layers, weights and nonlinearities create expressive neural networks. citeturn0youtube30turn0youtube31
+
+**Welch Labs** is useful for seeing the activation function inside an actual trainable network and then following the path toward gradient descent and backpropagation. citeturn0search0turn0search8
+
+**MrJensenMath10** is the supporting mathematics resource: functions, graphs, slopes and exponentials are exactly the school-level ideas behind these activation functions.
+
+Use **Frame Zero** for another first-principles ML explanation and **ZacharyLLM/Visual Kernel** when you later want to see where nonlinear transformations appear in modern architectures.
+
+### A useful rule
+
+If you can draw the activation but cannot explain its equation, revisit the mathematics.
+
+If you know the equation but cannot explain why it changes network expressiveness, revisit the visual explanation.
+
+If you understand both but cannot implement it, do the lab again.
+
+$$
+\boxed{\text{picture}\leftrightarrow\text{equation}\leftrightarrow\text{code}}
+$$
+
+That three-way connection is the standard we will use throughout this series.

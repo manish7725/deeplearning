@@ -458,3 +458,123 @@ You have reached the end of this first-principles series.
 But you have not reached the end of deep learning.
 
 You have reached the point where the next step is to **build**.
+
+---
+
+# 🧪 Final Capstone Lab — Remove Every Layer of Magic
+
+Use [`../labs/20-neural-network-from-scratch-lab.md`](../labs/20-neural-network-from-scratch-lab.md).
+
+Complete the progression without skipping levels:
+
+### Level 1 — One parameter
+
+Implement
+
+$$
+\hat y=wx
+$$
+
+and derive $dL/dw$.
+
+### Level 2 — Weight + bias
+
+Implement
+
+$$
+\hat y=wx+b
+$$
+
+and derive both gradients.
+
+### Level 3 — Multiple features
+
+Implement
+
+$$
+\hat y=\mathbf w^T\mathbf x+b
+$$
+
+using vectors.
+
+### Level 4 — Multiple neurons
+
+Implement
+
+$$
+\mathbf z=W\mathbf x+\mathbf b
+$$
+
+using matrix multiplication.
+
+### Level 5 — Nonlinearity
+
+Add ReLU:
+
+$$
+\mathbf h=ReLU(W_1\mathbf x+\mathbf b_1)
+$$
+
+### Level 6 — Backpropagation
+
+Derive the gradients through the hidden layer.
+
+### Level 7 — PyTorch
+
+Rebuild the same network with `nn.Module`, autograd and an optimizer.
+
+### Level 8 — Explain it
+
+Teach the entire network to another person without showing code first.
+
+If you can do all eight levels, you have crossed an important boundary: you understand the mechanism rather than merely knowing the vocabulary.
+
+---
+
+# 📚 Your Mastery Resource Stack
+
+Use **3Blue1Brown** for visual mathematics and neural-network intuition. citeturn0youtube30turn0youtube31
+
+Use **Welch Labs** for hands-on mathematical explanations, graphics and supporting code; its Neural Networks Demystified sequence and newer AI material strongly reinforce the build-and-understand approach. citeturn0search0turn0search1
+
+Use **Frame Zero** for first-principles machine-learning intuition.
+
+Use **MrJensenMath10** for mathematical fluency.
+
+Use **ZacharyLLM** for the modern LLM path.
+
+Use **Visual Kernel** for additional visual/technical understanding of model internals.
+
+### The final learning loop
+
+Do not finish this series by watching more videos.
+
+Finish it by building things.
+
+$$
+\boxed{
+\text{Learn}
+\rightarrow
+\text{Derive}
+\rightarrow
+\text{Implement}
+\rightarrow
+\text{Experiment}
+\rightarrow
+\text{Break}
+\rightarrow
+\text{Debug}
+\rightarrow
+\text{Explain}
+}
+$$
+
+That loop is the real curriculum.
+
+The blogs give you the map.
+
+The labs give you the hands.
+
+The mathematics gives you the language.
+
+And the experiments turn knowledge into understanding.

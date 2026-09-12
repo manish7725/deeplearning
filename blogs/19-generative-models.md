@@ -230,3 +230,75 @@ Diffusion models learn a process for reversing controlled corruption/noise.
 Now it is time to put everything together.
 
 > **Next: build a tiny neural network from scratch.**
+
+---
+
+# 🧪 Hands-on Lab — Build a Tiny Generative Pipeline
+
+Use [`../labs/19-generative-models-lab.md`](../labs/19-generative-models-lab.md).
+
+Start with an autoencoder because it exposes the idea clearly:
+
+```python
+import torch
+import torch.nn as nn
+
+encoder = nn.Linear(4, 2)
+decoder = nn.Linear(2, 4)
+
+x = torch.randn(8, 4)
+z = torch.relu(encoder(x))
+reconstruction = decoder(z)
+
+loss = ((reconstruction - x) ** 2).mean()
+print(loss.item())
+```
+
+### Challenges
+
+1. Train the autoencoder.
+2. Inspect the two-dimensional latent representation.
+3. Change latent dimension from 2 to 1 and observe the reconstruction quality.
+4. Add a nonlinear layer.
+5. Experiment with a simple noise-corruption/denoising task.
+
+### Mastery challenge
+
+Explain the difference between:
+
+```text
+Autoencoder → reconstruct an input
+VAE         → learn a structured probabilistic latent space
+GAN         → generator vs discriminator
+Diffusion   → learn iterative denoising / reverse process
+```
+
+Then identify the common learning loop underneath all of them.
+
+---
+
+# 📚 Go Deeper — Generative AI Through Multiple Lenses
+
+**Welch Labs** is especially relevant here because its current AI material includes generative modeling and combines detailed graphics, exercises and supporting Python code. citeturn0search1turn0search3
+
+**ZacharyLLM** is useful for connecting generative modeling to modern language and multimodal systems.
+
+**Frame Zero** helps preserve the first-principles intuition: start with the data distribution and the learning objective rather than the buzzword.
+
+**Visual Kernel** provides another visual/technical lens for modern generative architectures.
+
+**3Blue1Brown** remains useful for the mathematical intuition behind neural networks, vectors, probability and transformations. citeturn0youtube30turn0youtube31
+
+Use **MrJensenMath10** for probability, logarithms, functions and algebra.
+
+### The unifying idea
+
+Different generative models look very different, but each defines some way of learning a useful relationship between data, parameters and an objective:
+
+$$
+\boxed{\text{data}\rightarrow\text{model}\rightarrow\text{objective}\rightarrow\text{gradient}\rightarrow\text{update}}
+$$
+
+Architecture changes.
+
+The mathematical learning machinery remains.
