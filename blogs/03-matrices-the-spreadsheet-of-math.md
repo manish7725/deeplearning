@@ -1,132 +1,382 @@
 # Blog 03 — Matrices: The Spreadsheet of Mathematics
 
-A vector stores one collection of numbers. What if we have thousands of vectors?
+> A vector describes one example. A matrix lets us work with many examples at once.
 
-We can arrange them into rows and columns.
+Imagine the royal scientist receives **one million student records**. Writing one vector after another would be possible, but awkward.
 
-That structure is called a **matrix**.
+He wants one mathematical object that can hold the entire collection.
 
-## 1. A tiny dataset
+That object is a **matrix**.
 
-Suppose three students have marks in Mathematics and Science:
+---
 
-```text
-X = [
-    [8, 7],
-    [9, 8],
-    [3, 4]
-]
-```
+## 1. A dataset is naturally a matrix
 
-There are 3 rows and 2 columns.
+Suppose we measure mathematics and science for three students:
 
-We say the matrix has **shape `(3, 2)`**.
+$$
+X=
+\begin{bmatrix}
+8&7\\
+9&8\\
+3&4
+\end{bmatrix}
+$$
 
-Rows represent students. Columns represent subjects.
+Read it as a table:
 
-## 2. Why matrices are useful
+| Student | Math | Science |
+|---|---:|---:|
+| 1 | 8 | 7 |
+| 2 | 9 | 8 |
+| 3 | 3 | 4 |
 
-A matrix lets us describe many examples at once.
+The matrix has **3 rows and 2 columns**, so its shape is
 
-Instead of writing:
+$$
+X\in\mathbb R^{3\times2}
+$$
 
-`student1 = [8, 7]`
+Rows are examples. Columns are features.
 
-`student2 = [9, 8]`
+This convention is common, although other conventions are also possible. The important thing is to be consistent.
 
-`student3 = [3, 4]`
+---
 
-we write one object:
+## 2. Why shape matters
 
-`X = [[8,7],[9,8],[3,4]]`
+If
 
-Now mathematics can process the whole dataset together.
+$$
+X\in\mathbb R^{3\times2}
+$$
 
-## 3. Matrix multiplication
+then each row contains 2 features and there are 3 examples.
 
-Here is one of the most important operations in machine learning.
-
-Take:
-
-```text
-X = [
-    [2, 3],
-    [4, 5]
-]
-```
-
-and:
-
-```text
-W = [
-    [10],
-    [20]
-]
-```
-
-Then:
-
-`XW = [[2×10 + 3×20], [4×10 + 5×20]]`
-
-So:
-
-`XW = [[80], [140]]`
-
-Notice something beautiful: one multiplication processed two examples at once.
-
-## 4. Why the inside dimensions matter
-
-For matrix multiplication:
-
-`(m × n) × (n × p) = (m × p)`
-
-The two middle numbers must match.
-
-For our example:
-
-`(2 × 2) × (2 × 1) = (2 × 1)`
-
-The two `2`s in the middle match.
-
-This is not an arbitrary rule. It tells us that the numbers being combined line up correctly.
-
-## 5. A neural network connection
-
-Suppose every student has two features and we want one score.
-
-The weight vector could be:
-
-`w = [10, 20]`
-
-For one student:
-
-`[2,3] · [10,20] = 2×10 + 3×20 = 80`
-
-That dot product is already a tiny neuron.
-
-A neural network is built by performing huge numbers of operations like this.
-
-## 6. Python makes this practical
+In Python:
 
 ```python
 import numpy as np
 
-X = np.array([[2, 3], [4, 5]])
-W = np.array([[10], [20]])
+X = np.array([
+    [8, 7],
+    [9, 8],
+    [3, 4]
+])
+
+print(X.shape)
+```
+
+Output:
+
+```text
+(3, 2)
+```
+
+A huge amount of machine-learning debugging is really **shape debugging**.
+
+---
+
+## 3. A matrix is a collection of vectors
+
+We can view the same matrix row by row:
+
+$$
+X=
+\begin{bmatrix}
+\mathbf x_1^T\\
+\mathbf x_2^T\\
+\mathbf x_3^T
+\end{bmatrix}
+$$
+
+where
+
+$$
+\mathbf x_1=[8,7],\quad
+\mathbf x_2=[9,8],\quad
+\mathbf x_3=[3,4]
+$$
+
+So the matrix is not a completely new idea. It is a convenient way of organizing vectors.
+
+---
+
+## 4. Matrix multiplication is not random multiplication
+
+Consider
+
+$$
+X=\begin{bmatrix}2&3\\4&5\end{bmatrix}
+$$
+
+and
+
+$$
+W=\begin{bmatrix}10\\20\end{bmatrix}
+$$
+
+Their product is
+
+$$
+XW=
+\begin{bmatrix}
+2(10)+3(20)\\
+4(10)+5(20)
+\end{bmatrix}
+=
+\begin{bmatrix}80\\140\end{bmatrix}
+$$
+
+Notice the pattern: **each row of $X$ takes a dot product with $W$.**
+
+That is why matrix multiplication is so important in neural networks.
+
+One matrix operation can perform many dot products together.
+
+---
+
+## 5. The shape rule
+
+If
+
+$$
+A\in\mathbb R^{m\times n}
+$$
+
+and
+
+$$
+B\in\mathbb R^{n\times p}
+$$
+
+then
+
+$$
+AB\in\mathbb R^{m\times p}
+$$
+
+The inner dimensions must match:
+
+$$
+(m\times\boxed n)(\boxed n\times p)
+$$
+
+Why? Because each output entry needs a dot product between a row of $A$ and a column of $B$, and those two lists must have the same length.
+
+---
+
+## 6. See one output number being born
+
+Take
+
+$$
+A=\begin{bmatrix}2&3\\4&5\end{bmatrix},
+\quad
+B=\begin{bmatrix}10&1\\20&2\end{bmatrix}
+$$
+
+The top-left output is
+
+$$
+2(10)+3(20)=80
+$$
+
+The top-right is
+
+$$
+2(1)+3(2)=8
+$$
+
+The complete result is
+
+$$
+AB=\begin{bmatrix}80&8\\140&14\end{bmatrix}
+$$
+
+A matrix multiplication is therefore a **grid of dot products**.
+
+---
+
+## 7. The neural-network connection
+
+Suppose an input has two features:
+
+$$
+\mathbf x=\begin{bmatrix}2\\3\end{bmatrix}
+$$
+
+and one neuron has
+
+$$
+\mathbf w=\begin{bmatrix}4\\5\end{bmatrix}
+$$
+
+Then
+
+$$
+\mathbf w^T\mathbf x=4(2)+5(3)=23
+$$
+
+Now imagine 100 neurons. Put all their weight vectors into one matrix:
+
+$$
+W=
+\begin{bmatrix}
+\text{--- }\mathbf w_1^T\text{ ---}\\
+\text{--- }\mathbf w_2^T\text{ ---}\\
+\vdots\\
+\text{--- }\mathbf w_{100}^T\text{ ---}
+\end{bmatrix}
+$$
+
+Then
+
+$$
+W\mathbf x
+$$
+
+computes 100 weighted sums in one operation.
+
+This is the bridge from elementary linear algebra to neural networks.
+
+---
+
+## 8. Python and PyTorch
+
+NumPy:
+
+```python
+import numpy as np
+
+X = np.array([
+    [2, 3],
+    [4, 5]
+])
+
+W = np.array([
+    [10],
+    [20]
+])
 
 print(X @ W)
 ```
 
-The `@` operator performs matrix multiplication.
+PyTorch:
 
-## 7. The important mental model
+```python
+import torch
 
-Think of a matrix as a **machine for organizing many vectors**.
+X = torch.tensor([[2., 3.],
+                  [4., 5.]])
 
-A vector can describe one object.
-A matrix can describe many objects.
-Matrix multiplication can transform many objects together.
+W = torch.tensor([[10.],
+                  [20.]])
 
-> **Deep learning works largely because computers can perform enormous numbers of matrix operations extremely quickly.**
+print(X @ W)
+```
 
-Next we will turn these numbers into geometry and discover linear transformations.
+Both calculate the same mathematics.
+
+PyTorch becomes especially useful because tensors can be moved to GPUs and differentiated automatically.
+
+---
+
+## 9. Matrix multiplication as a transformation factory
+
+A matrix does two jobs at once:
+
+1. it stores parameters,
+2. it transforms vectors.
+
+```mermaid
+flowchart LR
+    X[Input matrix<br/>many examples] --> M[Matrix multiplication]
+    W[Weight matrix<br/>learnable parameters] --> M
+    M --> Z[Transformed representation]
+```
+
+The weight matrix is not just data. During training, the model learns values inside it.
+
+That means learning a neural network partly means learning **matrices of numbers**.
+
+---
+
+## 10. A beautiful computational idea: batch processing
+
+Suppose one student takes 2 multiplications and additions.
+
+For 1,000 students, doing them one by one means repeating the same pattern 1,000 times.
+
+Matrix multiplication lets the computer express the entire batch as one algebraic operation.
+
+Modern hardware is extremely good at this kind of parallel numerical computation.
+
+This is one reason GPUs are so valuable for deep learning.
+
+---
+
+## 11. A shape puzzle
+
+Suppose
+
+$$
+X\in\mathbb R^{64\times128}
+$$
+
+and
+
+$$
+W\in\mathbb R^{128\times256}
+$$
+
+Can we multiply them?
+
+Yes.
+
+$$
+(64\times128)(128\times256)=(64\times256)
+$$
+
+So 64 examples, each with 128 features, become 64 examples, each with 256 new features.
+
+That is exactly the kind of transformation a neural-network layer performs.
+
+---
+
+## Think Like a Scientist 🧠
+
+Try this without a calculator:
+
+$$
+\begin{bmatrix}1&2\\3&4\end{bmatrix}
+\begin{bmatrix}5\\6\end{bmatrix}
+$$
+
+1. Predict the shape.
+2. Calculate the first output.
+3. Calculate the second output.
+4. Verify with NumPy.
+
+Then change the second matrix to shape $3\times1$ and ask yourself why multiplication fails.
+
+---
+
+## What you should remember
+
+> **A matrix is an organized collection of numbers, and matrix multiplication is a structured collection of dot products.**
+
+Remember:
+
+- shape tells us how numbers are arranged;
+- rows and columns can represent examples and features;
+- matrix multiplication requires matching inner dimensions;
+- each output element is a dot product;
+- neural-network layers are largely matrix multiplications plus other operations;
+- GPUs are extremely effective at large numerical operations.
+
+But a matrix multiplication still feels like a table calculation.
+
+Next we will discover something more surprising:
+
+> **A matrix can actually transform space.**
