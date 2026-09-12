@@ -256,3 +256,71 @@ $$
 Now we can move from abstract numbers to one of the richest sources of data humans have: images.
 
 > **Next: convolution — how a neural network learns to see local patterns.**
+
+---
+
+# 🧪 Hands-on Lab — Detect Overfitting Yourself
+
+Use [`../labs/12-training-testing-lab.md`](../labs/12-training-testing-lab.md).
+
+Create a deliberately small training set and a separate validation set.
+
+Track both losses during training:
+
+```python
+history = {
+    "train": [],
+    "validation": []
+}
+```
+
+### Experiments
+
+1. Train a tiny model.
+2. Increase the model capacity.
+3. Train for more epochs.
+4. Plot training and validation loss.
+5. Find the point where validation performance stops improving.
+
+Then intentionally create leakage by normalizing the full dataset before splitting it.
+
+Discuss why that can make evaluation overly optimistic.
+
+### Mastery challenge
+
+Build a confusion matrix by hand for:
+
+```text
+TP = 80
+FP = 20
+FN = 10
+TN = 90
+```
+
+Calculate precision and recall.
+
+Then explain which metric you would prioritize if false negatives were extremely costly.
+
+---
+
+# 📚 Go Deeper — The Science of Evaluation
+
+**Welch Labs** explicitly covers overfitting, testing and regularization in its neural-network series, making it a useful companion for this lesson. citeturn0search5
+
+**3Blue1Brown** helps with the geometric intuition behind model fitting and representation, while **Frame Zero** is useful for first-principles ML reasoning. citeturn0youtube30turn0youtube31
+
+Use **MrJensenMath10** for the arithmetic and probability foundations behind metrics.
+
+Later, **ZacharyLLM** and **Visual Kernel** can help connect evaluation concepts to modern foundation models, where benchmark design and distribution shift become especially important.
+
+### The scientist's rule
+
+A test score is not automatically truth.
+
+Before trusting a number, ask:
+
+$$
+\boxed{\text{What data? What metric? What protocol? What deployment condition?}}
+$$
+
+That mindset is as important as the model architecture itself.
