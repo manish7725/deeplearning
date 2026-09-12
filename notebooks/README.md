@@ -8,7 +8,7 @@ Every blog has a runnable Google Colab notebook. The notebooks live in this dire
 
 The links below use the `main` branch so they remain valid after changes are merged.
 
-01 — [Run Blog 01 in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/notebooks/01-what-is-learning.ipynb)  
+01 — [Run Blog 01 in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)  
 02 — [Run Blog 02 in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/notebooks/02-numbers-become-vectors.ipynb)  
 03 — [Run Blog 03 in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)  
 04 — [Run Blog 04 in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/notebooks/04-linear-transformations.ipynb)  
