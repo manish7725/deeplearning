@@ -1,0 +1,35 @@
+name: Curriculum Quality
+
+on:
+  push:
+    branches:
+      - reorg/class8-to-phd-curriculum
+  pull_request:
+    branches:
+      - reorg/class8-to-phd-curriculum
+
+permissions:
+  contents: write
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate notebooks and curriculum
+        run: python scripts/curriculum_quality.py
+
+      - name: Commit generated quality report
+        if: github.event_name == 'push'
+        run: |
+          if git diff --quiet; then
+            echo "No generated changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add CURRICULUM_QUALITY.md
+            git commit -m "chore: refresh curriculum quality report"
+            git push origin HEAD:reorg/class8-to-phd-curriculum
+          fi
