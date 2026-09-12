@@ -1,6 +1,6 @@
 # Deep Learning Hands-on Lab Track
 
-Every concept in `blogs/` now has a companion lab. The rule for this series is:
+Every concept in the chapter folders (see [`CHAPTERS.md`](../CHAPTERS.md)) now has a companion lab. The rule for this series is:
 
 > **Read the idea → derive the math → run the code → change the code → explain the result.**
 
