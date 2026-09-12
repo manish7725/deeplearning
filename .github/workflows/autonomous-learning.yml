@@ -1,0 +1,54 @@
+name: Autonomous Learning Repository
+
+on:
+  push:
+    branches:
+      - feature/02-class8-to-phd-learning
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  curate-and-audit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout new curriculum
+        uses: actions/checkout@v4
+        with:
+          ref: feature/02-class8-to-phd-learning
+          fetch-depth: 1
+
+      - name: Build learning map and audit
+        run: python scripts/curate_learning_repo.py
+
+      - name: Validate repository structure
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+          blogs = sorted(Path('blogs').glob('*.md'))
+          notebooks = sorted(Path('notebooks').glob('*.ipynb'))
+          assert blogs, 'No blog lessons found'
+          assert notebooks, 'No notebooks found'
+          nums_b = {int(re.match(r'(\d+)-', p.name).group(1)) for p in blogs if re.match(r'(\d+)-', p.name)}
+          nums_n = {int(re.match(r'(\d+)-', p.name).group(1)) for p in notebooks if re.match(r'(\d+)-', p.name)}
+          missing = sorted(nums_b - nums_n)
+          assert not missing, f'Missing notebooks for lessons: {missing}'
+          for p in notebooks:
+              json.loads(p.read_text(encoding='utf-8'))
+          print(f'Validated {len(blogs)} blogs and {len(notebooks)} notebooks.')
+          PY
+
+      - name: Commit generated learning map
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add LEARNING_MAP.md learning_audit.txt
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Auto-curate learning map and repository audit'
+            git push origin HEAD:feature/02-class8-to-phd-learning
+          fi
