@@ -222,7 +222,8 @@ An artificial neuron is a mathematical function.
 A simplified artificial neuron is:
 
 $$
-z=\mathbf w^T\mathbf x+b$$
+z=\mathbf w^T\mathbf x+b
+$$
 
 followed, in modern neural networks, by a nonlinear activation:
 
@@ -364,3 +365,64 @@ But a model that only calculates a prediction has not necessarily learned anythi
 Next we need to define **how wrong the prediction is**.
 
 > **Next: prediction is not the same as learning.**
+
+---
+
+# 🧪 Hands-on Lab — Build a Neuron From Scratch
+
+Use [`../labs/05-neuron-lab.md`](../labs/05-neuron-lab.md) as the companion exercise.
+
+Start without PyTorch:
+
+```python
+import numpy as np
+
+x = np.array([2., 3., 4.])
+w = np.array([1., -2., 0.5])
+b = 1.
+
+z = np.dot(w, x) + b
+print(z)
+```
+
+Then write the same calculation using an explicit loop:
+
+```python
+z = b
+for xi, wi in zip(x, w):
+    z += xi * wi
+```
+
+### Challenges
+
+1. Add a fourth feature.
+2. Make one weight negative.
+3. Set one weight to zero and explain what disappears.
+4. Create three neurons with three different weight vectors.
+5. Replace the manual calculation with a matrix multiplication.
+
+### Mastery test
+
+Given $n$ inputs and $m$ neurons, predict the shape of the weight matrix before writing any code.
+
+That single habit will prevent a huge number of PyTorch errors later.
+
+---
+
+# 📚 Go Deeper — From One Neuron to Deep Networks
+
+**3Blue1Brown** is the best visual companion when you want to understand why a neuron is naturally described using vectors, weights, biases and matrix multiplication. citeturn0youtube30turn0youtube31
+
+**Welch Labs** is especially useful here because its Neural Networks Demystified series builds a complete network in Python and then moves through forward propagation, gradient descent and backpropagation. citeturn0search0turn0search8
+
+Use **Frame Zero** for another first-principles ML perspective and **MrJensenMath10** when algebraic manipulation is the part you need to strengthen.
+
+Use **ZacharyLLM** and **Visual Kernel** later when you want to see how the same basic weighted-sum idea scales into modern architectures.
+
+The learning rule for this series remains:
+
+$$
+\boxed{\text{derive it first}\rightarrow\text{implement it second}\rightarrow\text{use PyTorch to verify it}}
+$$
+
+A neural network becomes much less mysterious once you can build its smallest component yourself.
