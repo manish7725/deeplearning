@@ -380,3 +380,109 @@ But a matrix multiplication still feels like a table calculation.
 Next we will discover something more surprising:
 
 > **A matrix can actually transform space.**
+
+---
+
+# 🧪 Hands-on Lab — Matrix Multiplication Playground
+
+The companion exercise is [`../labs/03-matrices-lab.md`](../labs/03-matrices-lab.md).
+
+Start by making every output number traceable to one dot product:
+
+```python
+import torch
+
+X = torch.tensor([[2., 3.],
+                  [4., 5.]])
+
+W = torch.tensor([[10., 1.],
+                  [20., 2.]])
+
+Y = X @ W
+print(Y)
+
+# Manually verify one element.
+print(2*10 + 3*20)
+```
+
+### Challenges
+
+1. Predict the shape before running every multiplication.
+2. Implement matrix multiplication with Python loops.
+3. Compare your implementation with `@`.
+4. Multiply a batch of 64 vectors by a weight matrix.
+5. Deliberately create a shape mismatch and explain the error.
+6. Repeat the experiment in PyTorch and NumPy.
+
+### Mastery challenge
+
+Given
+
+$$
+X\in\mathbb R^{128\times64},\qquad
+W\in\mathbb R^{64\times256},
+$$
+
+explain, without running code, why the output is $128\times256$.
+
+Then answer the deeper question:
+
+> **Why does one matrix multiplication represent hundreds of neurons operating on many examples simultaneously?**
+
+If you can derive that answer from dot products, you have understood the computational heart of dense neural networks.
+
+---
+
+# 📚 Go Deeper — A Resource Ladder
+
+### Visualize it
+
+**3Blue1Brown — Essence of Linear Algebra** is the first resource to use when matrix multiplication feels like a mechanical rule rather than an idea. The visual perspective is especially useful for understanding vectors, basis changes and transformations.
+
+### Build it
+
+**Welch Labs** is useful when you want to connect the mathematics to actual neural-network code. Its neural-network sequence explicitly progresses through architecture, forward propagation, gradient descent, backpropagation, numerical gradient checking, training and overfitting. citeturn0search0turn0search8turn0search5
+
+### Strengthen the mathematics
+
+Use **MrJensenMath10** for algebra practice when symbolic manipulation is slowing you down. The goal is not advanced theory yet; it is fluency.
+
+### Connect to modern ML
+
+Use **Frame Zero**, **ZacharyLLM**, and **Visual Kernel** after you understand the basic operation. Look for examples where matrices appear inside embeddings, neural-network layers, attention and model projections.
+
+### Resource rule
+
+Do not move on simply because you can calculate:
+
+$$
+AB=C
+$$
+
+Move on when you can explain:
+
+> **Why does each number in $C$ exist?**
+
+That question becomes crucial later when we derive attention and transformer blocks.
+
+---
+
+## 🔬 The Deep-Learning Connection
+
+A modern neural network repeatedly performs a pattern that now looks surprisingly simple:
+
+$$
+\boxed{\text{matrix multiplication}\rightarrow\text{bias}\rightarrow\text{nonlinearity}}
+$$
+
+The matrix contains learnable numbers.
+
+Training changes those numbers.
+
+So when we eventually say:
+
+> **“The network learned a representation.”**
+
+one of the concrete things that happened is that millions or billions of numerical parameters were adjusted so that matrix operations produce increasingly useful representations.
+
+The next lesson makes this geometric: **what if a matrix doesn't just calculate numbers, but actually bends, stretches, rotates or reflects space?**
