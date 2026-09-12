@@ -177,6 +177,8 @@ A model can have an impressive score and still be scientifically invalid.
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/12-training-and-testing.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
+
 ```python
 model.eval()
 
@@ -270,6 +272,8 @@ Create a deliberately small training set and a separate validation set.
 Track both losses during training:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/12-training-and-testing.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
 
 ```python
 history = {

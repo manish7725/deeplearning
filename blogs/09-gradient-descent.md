@@ -197,6 +197,8 @@ Mini-batches are common in deep learning because they balance noisy updates with
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/09-gradient-descent.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/09-gradient-descent.ipynb)**
+
 ```python
 w = 0.0
 learning_rate = 0.1
@@ -223,6 +225,8 @@ That is worth doing once because it removes the mystery.
 In practice, PyTorch can handle the update:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/09-gradient-descent.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/09-gradient-descent.ipynb)**
 
 ```python
 import torch
@@ -311,6 +315,8 @@ Use [`../labs/09-gradient-descent-lab.md`](../labs/09-gradient-descent-lab.md).
 Implement the algorithm without PyTorch first:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/09-gradient-descent.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/09-gradient-descent.ipynb)**
 
 ```python
 w = 0.0

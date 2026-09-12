@@ -264,6 +264,8 @@ That will be our next discovery.
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/04-linear-transformations.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
+
 ```python
 import numpy as np
 
@@ -286,6 +288,8 @@ Output:
 Try replacing $A$ with the swap matrix:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/04-linear-transformations.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
 
 ```python
 A = np.array([
@@ -359,6 +363,8 @@ The companion exercise is [`../labs/04-transformations-lab.md`](../labs/04-trans
 Use a tiny square so that every coordinate can be inspected:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/04-linear-transformations.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
 
 ```python
 import numpy as np
