@@ -1,107 +1,320 @@
-# Blog 07 — Making a Prediction Is Not the Same as Learning
+# Blog 07 — Prediction Is Not the Same as Learning
 
-We now have a neuron that can calculate:
+A neural network can make a prediction without learning.
 
-`ŷ = f(wx + b)`
+That sounds strange, so let us make the distinction precise.
 
-It can make a prediction.
+---
 
-But it still does not know how to choose good values for `w` and `b`.
+## 1. A model can calculate before it can learn
 
-That is where learning begins.
+Suppose
 
-## 1. The guessing game
+$$
+\hat y=wx+b
+$$
 
-Suppose the correct answer is:
+with
 
-`y = 10`
+$$
+w=2,\quad b=1
+$$
 
-Our model predicts:
+For $x=3$:
 
-`ŷ = 7`
+$$
+\hat y=7
+$$
 
-The model needs to know that 7 is worse than 9, and 9 is worse than 10.
+The model has produced an answer.
 
-We need a number that measures the quality of the prediction.
+But where did $w=2$ and $b=1$ come from?
 
-That number is the **loss**.
+If nobody adjusted them using examples, the model has not learned those values.
 
-## 2. Squared error
+---
 
-A simple loss is:
+## 2. Give the model an example
 
-`L = (y - ŷ)²`
+Suppose the true answer is
 
-For `y = 10` and `ŷ = 7`:
+$$
+y=10
+$$
 
-`L = (10 - 7)² = 9`
+but the model predicts
 
-If the model predicts 9:
+$$
+\hat y=7
+$$
 
-`L = (10 - 9)² = 1`
+The prediction is wrong by
 
-Smaller is better.
+$$
+\hat y-y=7-10=-3
+$$
 
-## 3. Why square the error?
+We need a numerical measure of “how wrong”.
 
-Suppose the error is `-3`.
+---
 
-If we simply use the error, negative numbers could cancel positive numbers.
+## 3. Loss turns a mistake into a number
 
-Squaring gives:
+A simple loss is squared error:
 
-`(-3)² = 9`
+$$
+L=(\hat y-y)^2
+$$
 
-and:
+For our example:
 
-`3² = 9`
+$$
+L=(7-10)^2=9
+$$
 
-Both mistakes become positive.
+A perfect prediction gives
 
-The square also makes large mistakes hurt more.
+$$
+L=(10-10)^2=0
+$$
 
-## 4. One example is not enough
+So lower is better.
 
-Suppose we have 100 training examples.
+---
 
-Each one has a loss:
+## 4. Why square the error?
 
-`L₁, L₂, ..., L₁₀₀`
+If we used simply $\hat y-y$, positive and negative mistakes could cancel.
 
-We can calculate the average:
+Squaring gives both a positive contribution and makes large errors matter more:
 
-`L = (L₁ + L₂ + ... + L₁₀₀) / 100`
+$$
+(-3)^2=9,\qquad 3^2=9
+$$
 
-Now the model has one overall score.
+For a dataset of $n$ examples, mean squared error is
 
-Our goal becomes beautifully simple:
+$$
+MSE=\frac1n\sum_{i=1}^{n}(\hat y_i-y_i)^2
+$$
 
-> **Find parameters that make the loss as small as possible.**
+This turns many mistakes into one score.
 
-## 5. A mountain analogy
+---
 
-Imagine the loss is the height of a mountain.
+## 5. The learning objective
 
-Our parameters determine where we are standing.
+Now the problem becomes beautifully simple:
 
-We want to walk downhill until we reach a low point.
+> **Find parameters that make the loss small.**
 
-But how do we know which direction is downhill?
+If the model parameters are collected into $\theta$, we can write
 
-Calculus gives us the answer.
+$$
+\theta^*=\arg\min_{\theta}L(\theta)
+$$
 
-The derivative tells us how a quantity changes.
+Read it as:
 
-For many parameters, we use a collection of derivatives called the **gradient**.
+> “Find the parameter values that minimize the loss.”
 
-That is the next great idea we will study.
+This is the mathematical heart of training.
 
-## 6. The full learning loop
+---
 
-Our model now has a complete story:
+## 6. One-dimensional picture
 
-`input → prediction → loss → gradient → parameter update`
+Imagine loss as a landscape.
 
-Then we repeat.
+```text
+Loss
+ ^
+ |       *
+ |     *   *
+ |   *       *
+ | *           *
+ +------------------> parameter
+             minimum
+```
 
-This loop is the heartbeat of neural-network training.
+The training algorithm tries to move the parameters toward low-loss regions.
+
+Later, calculus will tell us which direction to move.
+
+---
+
+## 7. A complete tiny dataset
+
+Suppose the true relationship is approximately
+
+$$
+y=2x+1
+$$
+
+and we observe:
+
+| $x$ | $y$ |
+|---:|---:|
+| 1 | 3 |
+| 2 | 5 |
+| 3 | 7 |
+| 4 | 9 |
+
+Start with the bad model
+
+$$
+\hat y=x
+$$
+
+Predictions are $1,2,3,4$.
+
+The errors are
+
+$$
+-2,-3,-4,-5
+$$
+
+and the squared errors are
+
+$$
+4,9,16,25
+$$
+
+Therefore
+
+$$
+MSE=\frac{4+9+16+25}{4}=13.5
+$$
+
+The model needs improvement.
+
+---
+
+## 8. Try a better model
+
+Use
+
+$$
+\hat y=2x+1
+$$
+
+Predictions are exactly
+
+$$
+3,5,7,9
+$$
+
+so
+
+$$
+MSE=0
+$$
+
+We found the correct parameters for this toy dataset.
+
+Real deep-learning problems are much harder because the parameter space may contain millions or billions of parameters.
+
+---
+
+## 9. Code it
+
+```python
+import numpy as np
+
+x = np.array([1., 2., 3., 4.])
+y = np.array([3., 5., 7., 9.])
+
+w = 1.0
+b = 0.0
+
+prediction = w * x + b
+loss = np.mean((prediction - y) ** 2)
+
+print("prediction:", prediction)
+print("loss:", loss)
+```
+
+Now change `w` and `b` and watch the loss change.
+
+You have created a tiny optimization problem.
+
+---
+
+## 10. The learning loop
+
+```mermaid
+flowchart LR
+    A[Input data] --> B[Model]
+    B --> C[Prediction]
+    C --> D[Loss]
+    D --> E[Adjust parameters]
+    E --> B
+```
+
+Training is repeated improvement.
+
+The model predicts, measures its error, changes parameters, and predicts again.
+
+---
+
+## 11. Important distinction
+
+**Prediction:**
+
+$$
+\hat y=f_\theta(x)
+$$
+
+**Evaluation:**
+
+$$
+L(\hat y,y)
+$$
+
+**Learning:** changing $\theta$ so that future loss tends to become smaller on relevant data.
+
+These are three different ideas.
+
+---
+
+## Think Like a Scientist 🧠
+
+Try these models for the dataset above:
+
+$$
+\hat y=x
+$$
+
+$$
+\hat y=2x
+$$
+
+$$
+\hat y=2x+1
+$$
+
+Calculate the MSE for each.
+
+Do not guess which is best. Measure it.
+
+That habit—**hypothesis → measurement → improvement**—is central to machine learning.
+
+---
+
+## What you should remember
+
+> **A prediction is an output. Learning is the process of changing parameters to improve an objective.**
+
+The central ideas are:
+
+- prediction produces $\hat y$;
+- loss measures error;
+- training minimizes loss;
+- parameters are the quantities we change;
+- the learning problem can be written as an optimization problem.
+
+Now comes the mathematical question:
+
+> **How do we know which direction will reduce the loss?**
+
+For that, we need derivatives.
