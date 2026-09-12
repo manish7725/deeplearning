@@ -318,3 +318,70 @@ Now comes the mathematical question:
 > **How do we know which direction will reduce the loss?**
 
 For that, we need derivatives.
+
+---
+
+# 🧪 Hands-on Lab — Turn Loss Into an Experiment
+
+Use [`../labs/07-loss-lab.md`](../labs/07-loss-lab.md).
+
+Start with a parameter sweep:
+
+```python
+import numpy as np
+
+x = np.array([1., 2., 3., 4.])
+y = np.array([3., 5., 7., 9.])
+
+for w in [0., 0.5, 1., 1.5, 2., 2.5, 3.]:
+    prediction = w * x
+    loss = np.mean((prediction - y) ** 2)
+    print(f"w={w:3.1f} loss={loss:5.2f}")
+```
+
+### Challenges
+
+1. Add the bias parameter.
+2. Search over both `w` and `b`.
+3. Find the lowest-loss pair using only loops.
+4. Plot the loss as a function of `w`.
+5. Explain why the best parameter is at the bottom of the loss curve.
+
+### Important experiment
+
+Replace squared error with absolute error:
+
+$$
+L=|\hat y-y|
+$$
+
+Compare the two losses for a small error and a very large error.
+
+This is your first introduction to the idea that **the choice of loss function changes what the model is encouraged to optimize**.
+
+---
+
+# 📚 Go Deeper — Optimization Starts Here
+
+**Welch Labs** is particularly relevant at this point. Its Neural Networks Demystified sequence moves from architecture to forward propagation and then to gradient descent, backpropagation and training. citeturn0search0turn0search8
+
+**3Blue1Brown** is the visual companion when you want to see a model and its loss as geometry rather than only equations. citeturn0youtube30turn0youtube31
+
+Use **MrJensenMath10** to strengthen algebra and graph-reading skills. Use **Frame Zero** for additional first-principles ML intuition.
+
+Later, **ZacharyLLM** and **Visual Kernel** become useful for seeing how the same optimization idea scales from a toy model to modern AI systems.
+
+### Scientist's rule
+
+Never say:
+
+> “The model learned because the output looks good.”
+
+Ask:
+
+1. What objective was optimized?
+2. What data was used to optimize it?
+3. What parameters changed?
+4. Did performance improve on data the model did not directly optimize on?
+
+Those questions will become essential when we reach training, validation, testing and overfitting.
