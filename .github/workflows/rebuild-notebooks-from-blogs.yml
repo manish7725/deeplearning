@@ -21,13 +21,13 @@ jobs:
           python-version: '3.11'
       - name: Rebuild every notebook from its matching blog
         run: python scripts/rebuild_blog_synced_notebooks.py
-      - name: Validate all 37 notebook JSON and blog pairing
+      - name: Validate the 37 curriculum notebook pairs
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           blogs=sorted([p for p in Path('blogs').glob('[0-9][0-9]-*.md') if 1 <= int(p.name[:2]) <= 37])
-          nbs=sorted(Path('notebooks').glob('[0-9][0-9]-*.ipynb'))
+          nbs=sorted([p for p in Path('notebooks').glob('[0-9][0-9]-*.ipynb') if 1 <= int(p.name[:2]) <= 37])
           assert len(blogs)==37, len(blogs)
           assert len(nbs)==37, len(nbs)
           for b,n in zip(blogs,nbs):
@@ -37,7 +37,7 @@ jobs:
               text='\n'.join(''.join(c.get('source',[])) for c in data['cells'])
               for required in ['Hand calculation','PyTorch','Visualization','Change exactly one variable','Intentional failure','Blog-synchronized exercises','Mini-project','Research bridge','Mastery check']:
                   assert required.lower() in text.lower(),f'{n}: {required}'
-          print('PASS: 37/37 blog-notebook pairs are structurally synchronized.')
+          print('PASS: 37/37 curriculum blog-notebook pairs are structurally synchronized.')
           PY
       - name: Commit rebuilt notebooks
         run: |
