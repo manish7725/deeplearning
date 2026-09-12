@@ -1,41 +1,117 @@
 # Chapters
 
-Each chapter lives in its own folder containing `blog.md` (the lesson) and `notebook.ipynb` (the laboratory).
+Sixty chapters, in one continuous argument: every chapter answers the question the
+previous one left open. See [`SPINE.md`](SPINE.md) for that contract and
+[`FORMAT.md`](FORMAT.md) for how each chapter is written.
 
-01 — [What Does It Mean for a Machine to Learn](<Lecture 01 - What Does It Mean for a Machine to Learn/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2001%20-%20What%20Does%20It%20Mean%20for%20a%20Machine%20to%20Learn/notebook.ipynb)  
-02 — [Numbers Become Vectors](<Lecture 02 - Numbers Become Vectors/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2002%20-%20Numbers%20Become%20Vectors/notebook.ipynb)  
-03 — [Matrices: The Spreadsheet of Mathematics](<Lecture 03 - Matrices: The Spreadsheet of Mathematics/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2003%20-%20Matrices%3A%20The%20Spreadsheet%20of%20Mathematics/notebook.ipynb)  
-04 — [A Matrix Can Transform Space](<Lecture 04 - A Matrix Can Transform Space/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2004%20-%20A%20Matrix%20Can%20Transform%20Space/notebook.ipynb)  
-05 — [Meet the Smallest Neural Network](<Lecture 05 - Meet the Smallest Neural Network/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2005%20-%20Meet%20the%20Smallest%20Neural%20Network/notebook.ipynb)  
-06 — [Why Does a Neuron Need an Activation Function](<Lecture 06 - Why Does a Neuron Need an Activation Function/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2006%20-%20Why%20Does%20a%20Neuron%20Need%20an%20Activation%20Function/notebook.ipynb)  
-07 — [Prediction Is Not the Same as Learning](<Lecture 07 - Prediction Is Not the Same as Learning/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2007%20-%20Prediction%20Is%20Not%20the%20Same%20as%20Learning/notebook.ipynb)  
-08 — [Derivatives: The Compass for Learning](<Lecture 08 - Derivatives: The Compass for Learning/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2008%20-%20Derivatives%3A%20The%20Compass%20for%20Learning/notebook.ipynb)  
-09 — [Gradient Descent: Teaching a Model to Improve](<Lecture 09 - Gradient Descent: Teaching a Model to Improve/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2009%20-%20Gradient%20Descent%3A%20Teaching%20a%20Model%20to%20Improve/notebook.ipynb)  
-10 — [Backpropagation: Sending the Error Backward](<Lecture 10 - Backpropagation: Sending the Error Backward/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2010%20-%20Backpropagation%3A%20Sending%20the%20Error%20Backward/notebook.ipynb)  
-11 — [Tensors: Numbers in Many Dimensions](<Lecture 11 - Tensors: Numbers in Many Dimensions/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2011%20-%20Tensors%3A%20Numbers%20in%20Many%20Dimensions/notebook.ipynb)  
-12 — [How Do We Know If Our Model Really Learned](<Lecture 12 - How Do We Know If Our Model Really Learned/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2012%20-%20How%20Do%20We%20Know%20If%20Our%20Model%20Really%20Learned/notebook.ipynb)  
-13 — [How a Neural Network Learns to See: Convolution](<Lecture 13 - How a Neural Network Learns to See: Convolution/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2013%20-%20How%20a%20Neural%20Network%20Learns%20to%20See%3A%20Convolution/notebook.ipynb)  
-14 — [When Order Matters: Learning From Sequences](<Lecture 14 - When Order Matters: Learning From Sequences/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2014%20-%20When%20Order%20Matters%3A%20Learning%20From%20Sequences/notebook.ipynb)  
-15 — [How Can a Computer Represent the Meaning of a Word](<Lecture 15 - How Can a Computer Represent the Meaning of a Word/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2015%20-%20How%20Can%20a%20Computer%20Represent%20the%20Meaning%20of%20a%20Word/notebook.ipynb)  
-16 — [Attention: What Should I Look At](<Lecture 16 - Attention: What Should I Look At/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2016%20-%20Attention%3A%20What%20Should%20I%20Look%20At/notebook.ipynb)  
-17 — [Transformers: Building With Attention](<Lecture 17 - Transformers: Building With Attention/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2017%20-%20Transformers%3A%20Building%20With%20Attention/notebook.ipynb)  
-18 — [How Does a Language Model Learn to Predict Text](<Lecture 18 - How Does a Language Model Learn to Predict Text/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2018%20-%20How%20Does%20a%20Language%20Model%20Learn%20to%20Predict%20Text/notebook.ipynb)  
-19 — [How Can a Machine Create Something New](<Lecture 19 - How Can a Machine Create Something New/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2019%20-%20How%20Can%20a%20Machine%20Create%20Something%20New/notebook.ipynb)  
-20 — [Build a Tiny Neural Network From Scratch](<Lecture 20 - Build a Tiny Neural Network From Scratch/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2020%20-%20Build%20a%20Tiny%20Neural%20Network%20From%20Scratch/notebook.ipynb)  
-21 — [Automatic Differentiation](<Lecture 21 - Automatic Differentiation/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2021%20-%20Automatic%20Differentiation/notebook.ipynb)  
-22 — [Neural Networks as Function Approximators](<Lecture 22 - Neural Networks as Function Approximators/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2022%20-%20Neural%20Networks%20as%20Function%20Approximators/notebook.ipynb)  
-23 — [Geometry, Invariance, and Equivariance](<Lecture 23 - Geometry, Invariance, and Equivariance/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2023%20-%20Geometry%2C%20Invariance%2C%20and%20Equivariance/notebook.ipynb)  
-24 — [Graph Neural Networks](<Lecture 24 - Graph Neural Networks/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2024%20-%20Graph%20Neural%20Networks/notebook.ipynb)  
-25 — [Why Neural Networks Generalize](<Lecture 25 - Why Neural Networks Generalize/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2025%20-%20Why%20Neural%20Networks%20Generalize/notebook.ipynb)  
-26 — [Scaling Rules for Training](<Lecture 26 - Scaling Rules for Training/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2026%20-%20Scaling%20Rules%20for%20Training/notebook.ipynb)  
-27 — [Representation Learning](<Lecture 27 - Representation Learning/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2027%20-%20Representation%20Learning/notebook.ipynb)  
-28 — [Contrastive Learning](<Lecture 28 - Contrastive Learning/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2028%20-%20Contrastive%20Learning/notebook.ipynb)  
-29 — [Conditional Generative Models](<Lecture 29 - Conditional Generative Models/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2029%20-%20Conditional%20Generative%20Models/notebook.ipynb)  
-30 — [Out-of-Distribution and Robustness](<Lecture 30 - Out-of-Distribution and Robustness/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2030%20-%20Out-of-Distribution%20and%20Robustness/notebook.ipynb)  
-31 — [Transfer Learning and Fine-Tuning](<Lecture 31 - Transfer Learning and Fine-Tuning/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2031%20-%20Transfer%20Learning%20and%20Fine-Tuning/notebook.ipynb)  
-32 — [Scaling Laws](<Lecture 32 - Scaling Laws/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2032%20-%20Scaling%20Laws/notebook.ipynb)  
-33 — [Inference Methods](<Lecture 33 - Inference Methods/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2033%20-%20Inference%20Methods/notebook.ipynb)  
-34 — [A Hacker's Guide to Deep Learning](<Lecture 34 - A Hacker's Guide to Deep Learning/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2034%20-%20A%20Hacker%27s%20Guide%20to%20Deep%20Learning/notebook.ipynb)  
-35 — [Architectural Bias and Representations](<Lecture 35 - Architectural Bias and Representations/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2035%20-%20Architectural%20Bias%20and%20Representations/notebook.ipynb)  
-36 — [Metrized Deep Learning](<Lecture 36 - Metrized Deep Learning/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2036%20-%20Metrized%20Deep%20Learning/notebook.ipynb)  
-37 — [Preference Learning and Policy Optimization](<Lecture 37 - Preference Learning and Policy Optimization/blog.md>) · [Run in Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2037%20-%20Preference%20Learning%20and%20Policy%20Optimization/notebook.ipynb)  
+Each written chapter is a folder holding `blog.md` (the lecture) and `notebook.ipynb`
+(the laboratory).
+
+| | Status |
+|---|---|
+| ✅ | written to the current standard |
+| 📄 | drafted — earlier material, awaiting rewrite |
+| ○ | planned — not yet written |
+
+## Part 0 — The Idea
+
+01 ✅ [What Does It Mean for a Machine to Learn](<Lecture 01 - What Does It Mean for a Machine to Learn/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2001%20-%20What%20Does%20It%20Mean%20for%20a%20Machine%20to%20Learn/notebook.ipynb)  
+
+## Part I — The Language: Linear Algebra
+
+02 ✅ [Numbers Become Vectors](<Lecture 02 - Numbers Become Vectors/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2002%20-%20Numbers%20Become%20Vectors/notebook.ipynb)  
+03 ✅ [Matrices: The Spreadsheet of Mathematics](<Lecture 03 - Matrices: The Spreadsheet of Mathematics/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2003%20-%20Matrices%3A%20The%20Spreadsheet%20of%20Mathematics/notebook.ipynb)  
+04 📄 [A Matrix Can Transform Space](<Lecture 04 - A Matrix Can Transform Space/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2004%20-%20A%20Matrix%20Can%20Transform%20Space/notebook.ipynb)  
+05 ○ Eigenvectors: What a Transformation Leaves Alone  
+
+## Part II — The Mathematics of Change
+
+06 📄 [Derivatives: The Compass for Learning](<Lecture 06 - Derivatives: The Compass for Learning/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2006%20-%20Derivatives%3A%20The%20Compass%20for%20Learning/notebook.ipynb)  
+07 ○ Partial Derivatives, Gradients and the Chain Rule  
+08 📄 [Gradient Descent: Teaching a Model to Improve](<Lecture 08 - Gradient Descent: Teaching a Model to Improve/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2008%20-%20Gradient%20Descent%3A%20Teaching%20a%20Model%20to%20Improve/notebook.ipynb)  
+
+## Part III — Uncertainty
+
+09 ○ Describing Data: Mean, Variance, Distributions  
+10 ○ Probability: Reasoning Under Uncertainty  
+11 ○ Bayes' Rule: What Evidence Does to Belief  
+12 ○ Maximum Likelihood: Where Loss Functions Come From  
+
+## Part IV — Classical Machine Learning
+
+13 ○ Linear Regression, Properly  
+14 ○ Logistic Regression: The One-Neuron Network  
+15 ○ Softmax and Cross-Entropy  
+16 ○ Nearest Neighbours and the Curse of Dimensionality  
+17 ○ Decision Trees: Learning by Asking Questions  
+18 ○ Ensembles: Forests and Boosting  
+19 ○ Support Vector Machines and Kernels  
+
+## Part V — Doing ML Honestly
+
+20 📄 [How Do We Know If Our Model Really Learned](<Lecture 20 - How Do We Know If Our Model Really Learned/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2020%20-%20How%20Do%20We%20Know%20If%20Our%20Model%20Really%20Learned/notebook.ipynb)  
+21 ○ Evaluation Metrics: When 99% Accuracy Is Worthless  
+22 ○ Data in the Real World: Encoding, Missing Values, Leakage  
+23 ○ Overfitting and Regularization  
+
+## Part VI — Neural Networks
+
+24 📄 [Meet the Smallest Neural Network](<Lecture 24 - Meet the Smallest Neural Network/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2024%20-%20Meet%20the%20Smallest%20Neural%20Network/notebook.ipynb)  
+25 📄 [Why Does a Neuron Need an Activation Function](<Lecture 25 - Why Does a Neuron Need an Activation Function/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2025%20-%20Why%20Does%20a%20Neuron%20Need%20an%20Activation%20Function/notebook.ipynb)  
+26 📄 [Neural Networks as Function Approximators](<Lecture 26 - Neural Networks as Function Approximators/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2026%20-%20Neural%20Networks%20as%20Function%20Approximators/notebook.ipynb)  
+27 📄 [Backpropagation: Sending the Error Backward](<Lecture 27 - Backpropagation: Sending the Error Backward/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2027%20-%20Backpropagation%3A%20Sending%20the%20Error%20Backward/notebook.ipynb)  
+28 ○ Matrix Backpropagation: dW, db and dX by Hand  
+29 📄 [Tensors: Numbers in Many Dimensions](<Lecture 29 - Tensors: Numbers in Many Dimensions/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2029%20-%20Tensors%3A%20Numbers%20in%20Many%20Dimensions/notebook.ipynb)  
+30 📄 [Build a Tiny Neural Network From Scratch](<Lecture 30 - Build a Tiny Neural Network From Scratch/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2030%20-%20Build%20a%20Tiny%20Neural%20Network%20From%20Scratch/notebook.ipynb)  
+31 📄 [Automatic Differentiation](<Lecture 31 - Automatic Differentiation/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2031%20-%20Automatic%20Differentiation/notebook.ipynb)  
+
+## Part VII — Training Deep Networks
+
+32 ○ Optimizers: SGD, Momentum, Adam  
+33 ○ Initialization and Normalization  
+34 📄 [Scaling Rules for Training](<Lecture 34 - Scaling Rules for Training/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2034%20-%20Scaling%20Rules%20for%20Training/notebook.ipynb)  
+35 📄 [A Hacker's Guide to Deep Learning](<Lecture 35 - A Hacker's Guide to Deep Learning/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2035%20-%20A%20Hacker%27s%20Guide%20to%20Deep%20Learning/notebook.ipynb)  
+
+## Part VIII — Vision
+
+36 📄 [How a Neural Network Learns to See: Convolution](<Lecture 36 - How a Neural Network Learns to See: Convolution/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2036%20-%20How%20a%20Neural%20Network%20Learns%20to%20See%3A%20Convolution/notebook.ipynb)  
+37 ○ CNN Architectures: LeNet to ResNet  
+38 📄 [Geometry, Invariance, and Equivariance](<Lecture 38 - Geometry, Invariance, and Equivariance/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2038%20-%20Geometry%2C%20Invariance%2C%20and%20Equivariance/notebook.ipynb)  
+
+## Part IX — Sequences and Language
+
+39 📄 [When Order Matters: Learning From Sequences](<Lecture 39 - When Order Matters: Learning From Sequences/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2039%20-%20When%20Order%20Matters%3A%20Learning%20From%20Sequences/notebook.ipynb)  
+40 ○ LSTM and GRU: Fixing the Gradient  
+41 📄 [How Can a Computer Represent the Meaning of a Word](<Lecture 41 - How Can a Computer Represent the Meaning of a Word/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2041%20-%20How%20Can%20a%20Computer%20Represent%20the%20Meaning%20of%20a%20Word/notebook.ipynb)  
+42 📄 [Attention: What Should I Look At](<Lecture 42 - Attention: What Should I Look At/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2042%20-%20Attention%3A%20What%20Should%20I%20Look%20At/notebook.ipynb)  
+43 📄 [Transformers: Building With Attention](<Lecture 43 - Transformers: Building With Attention/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2043%20-%20Transformers%3A%20Building%20With%20Attention/notebook.ipynb)  
+44 📄 [How Does a Language Model Learn to Predict Text](<Lecture 44 - How Does a Language Model Learn to Predict Text/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2044%20-%20How%20Does%20a%20Language%20Model%20Learn%20to%20Predict%20Text/notebook.ipynb)  
+45 📄 [Inference Methods](<Lecture 45 - Inference Methods/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2045%20-%20Inference%20Methods/notebook.ipynb)  
+
+## Part X — Representation and Generation
+
+46 📄 [Representation Learning](<Lecture 46 - Representation Learning/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2046%20-%20Representation%20Learning/notebook.ipynb)  
+47 📄 [Contrastive Learning](<Lecture 47 - Contrastive Learning/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2047%20-%20Contrastive%20Learning/notebook.ipynb)  
+48 📄 [How Can a Machine Create Something New](<Lecture 48 - How Can a Machine Create Something New/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2048%20-%20How%20Can%20a%20Machine%20Create%20Something%20New/notebook.ipynb)  
+49 📄 [Conditional Generative Models](<Lecture 49 - Conditional Generative Models/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2049%20-%20Conditional%20Generative%20Models/notebook.ipynb)  
+50 📄 [Graph Neural Networks](<Lecture 50 - Graph Neural Networks/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2050%20-%20Graph%20Neural%20Networks/notebook.ipynb)  
+
+## Part XI — Theory and Scale
+
+51 📄 [Why Neural Networks Generalize](<Lecture 51 - Why Neural Networks Generalize/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2051%20-%20Why%20Neural%20Networks%20Generalize/notebook.ipynb)  
+52 📄 [Scaling Laws](<Lecture 52 - Scaling Laws/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2052%20-%20Scaling%20Laws/notebook.ipynb)  
+53 📄 [Transfer Learning and Fine-Tuning](<Lecture 53 - Transfer Learning and Fine-Tuning/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2053%20-%20Transfer%20Learning%20and%20Fine-Tuning/notebook.ipynb)  
+54 📄 [Out-of-Distribution and Robustness](<Lecture 54 - Out-of-Distribution and Robustness/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2054%20-%20Out-of-Distribution%20and%20Robustness/notebook.ipynb)  
+55 📄 [Architectural Bias and Representations](<Lecture 55 - Architectural Bias and Representations/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2055%20-%20Architectural%20Bias%20and%20Representations/notebook.ipynb)  
+56 📄 [Metrized Deep Learning](<Lecture 56 - Metrized Deep Learning/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2056%20-%20Metrized%20Deep%20Learning/notebook.ipynb)  
+
+## Part XII — Frontier and Practice
+
+57 📄 [Preference Learning and Policy Optimization](<Lecture 57 - Preference Learning and Policy Optimization/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2057%20-%20Preference%20Learning%20and%20Policy%20Optimization/notebook.ipynb)  
+58 ○ Retrieval, Tools and Agents  
+59 ○ ML Systems: Serving, Quantization and Cost  
+60 ○ From Course to Research  
+
+---
+
+**3 written · 33 drafted · 24 planned · 60 total**

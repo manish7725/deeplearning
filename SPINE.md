@@ -28,7 +28,7 @@ for how the old numbering maps onto the new.
 | # | Chapter | Inherits | Teaches | Leaves open | Example |
 |---|---|---|---|---|---|
 | 02 | Numbers Become Vectors | How do we hold many measurements as one object? | vector, **dot product**, norm, cosine, feature scaling | one house is a vector; how do we do *all* houses at once? | houses, 2 features |
-| 03 | Matrices and Tensors | How do we compute over a whole dataset at once? | matrix, **matrix multiplication**, transpose, shape rule, scalar→vector→matrix→tensor, batch axis | a matrix also *does* something to space | the house table |
+| 03 | Matrices: The Spreadsheet of Mathematics | How do we compute over a whole dataset at once? | matrix, **matrix multiplication**, transpose, shape rule, scalar→vector→matrix→tensor, batch axis | a matrix also *does* something to space | the house table |
 | 04 | A Matrix Can Transform Space | What does a matrix *do*, not just store? | linear maps, columns as basis images, basis/span, rotation/scale/shear/projection, **composition = multiplication**, determinant, rank, null space | some directions survive a transformation unchanged — which, and why? | a drawn square |
 | 05 | Eigenvectors: What a Transformation Leaves Alone | Which directions does a matrix not rotate? | eigenvectors/values, diagonalization, SVD, PCA, low-rank structure | we can describe change in space; we cannot yet describe *rate* of change | a stretched grid |
 
@@ -169,10 +169,15 @@ Every original chapter keeps its content and moves to a new number. **23 chapter
 | 19 | **new** | 37 | **new** | 57 | old 37 |
 | 20 | old 12 | 38 | old 23 | 58–60 | **new** |
 
-**Old chapter 07** (*Prediction Is Not the Same as Learning*) is absorbed: rewritten Chapter 1
-teaches that distinction in §5 and §18, so the slot becomes Logistic Regression — which is
-where the course most needed a chapter, since $\sigma(\mathbf{w}\cdot\mathbf{x}+b)$ is exactly
-one neuron and the true bridge from classical ML to networks.
+**Old chapter 07** (*Prediction Is Not the Same as Learning*) was **removed**, not renumbered.
+Rewritten Chapter 1 teaches that distinction in §5 and §18, so the chapter had become a
+duplicate. Its folder is deleted from the working tree; the content remains in git history at
+commit `e84a4eb~1` should any of it be wanted back.
+
+**Migration status:** the renumbering is done. 36 chapter folders now sit in their final
+slots, 24 slots are empty and will be created as each chapter is written. Chapters marked
+📄 in [`CHAPTERS.md`](CHAPTERS.md) still hold the older auto-generated material and are
+awaiting rewrite to the [`FORMAT.md`](FORMAT.md) standard.
 
 ## What the expansion fixes
 
