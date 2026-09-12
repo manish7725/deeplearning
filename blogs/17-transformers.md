@@ -40,12 +40,11 @@ A Transformer therefore needs information about token position.
 One family of methods uses sinusoidal positional encodings such as
 
 $$
-PE(pos,2i)=\sin\left(\frac{pos}{10000^{2i/d}}ight)
+PE(pos,2i)=\sin\left(\frac{pos}{10000^{2i/d}}\right)
 $$
 
 $$
-PE(pos,2i+1)=\cos\left(\frac{pos}{10000^{2i/d}}
-\right)
+PE(pos,2i+1)=\cos\left(\frac{pos}{10000^{2i/d}}\right)
 $$
 
 Modern models may instead use learned or relative/rotary positional methods. The central requirement is the same: **the model needs access to positional information**.
@@ -246,3 +245,91 @@ The surrounding architecture makes those interactions trainable and reusable at 
 Now we can finally ask the question that powers modern language models:
 
 > **How does a model learn to predict text?**
+
+---
+
+# 🧪 Hands-on Lab — Build a Mini Transformer Block
+
+Use [`../labs/17-transformer-lab.md`](../labs/17-transformer-lab.md).
+
+Start with PyTorch's building blocks:
+
+```python
+import torch
+import torch.nn as nn
+
+layer = nn.TransformerEncoderLayer(
+    d_model=64,
+    nhead=4,
+    batch_first=True
+)
+
+x = torch.randn(2, 8, 64)
+y = layer(x)
+
+print(x.shape)
+print(y.shape)
+```
+
+### Challenges
+
+1. Change the sequence length.
+2. Change the number of heads.
+3. Explain why `d_model` must be compatible with the chosen number of heads.
+4. Inspect the model parameters.
+5. Implement one attention head manually using the equation from Blog 16.
+6. Compare your result conceptually with the PyTorch layer.
+
+### Architecture challenge
+
+Draw the complete data path:
+
+```text
+token IDs
+→ embeddings
+→ position information
+→ attention
+→ residual
+→ normalization
+→ feed-forward
+→ residual
+→ normalization
+```
+
+Then explain what each component contributes.
+
+---
+
+# 📚 Go Deeper — Understand the Architecture, Not Just the Name
+
+**3Blue1Brown** is one of the best visual companions for understanding the mathematical structure behind neural networks and attention. citeturn0youtube30turn0youtube31
+
+**ZacharyLLM** is particularly relevant here for connecting the Transformer architecture to modern LLMs.
+
+**Frame Zero** is useful for first-principles explanations of modern ML systems.
+
+**Visual Kernel** can provide another visual/technical perspective on model internals.
+
+**Welch Labs** is valuable for its implementation-first philosophy and supporting code; its AI material explicitly combines exercises, graphics and code. citeturn0search1turn0search3
+
+Use **MrJensenMath10** when the underlying algebra, functions or matrix operations need reinforcement.
+
+### The architectural insight
+
+A Transformer is not “just attention.”
+
+It is a repeated block of cooperating ideas:
+
+$$
+\boxed{
+\text{mix information}
+\rightarrow
+\text{preserve information}
+\rightarrow
+\text{transform information}
+\rightarrow
+\text{repeat}
+}
+$$
+
+That repeated structure is what turns a single attention mechanism into a deep architecture.
