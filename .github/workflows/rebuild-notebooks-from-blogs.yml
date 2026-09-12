@@ -2,6 +2,13 @@ name: Rebuild notebooks from blogs
 on:
   push:
     branches: [feature/blog-synced-notebooks]
+  pull_request:
+    branches: [main]
+    paths:
+      - 'blogs/**'
+      - 'scripts/rebuild_blog_synced_notebooks.py'
+      - 'scripts/rebuild_notebooks_from_blogs.py'
+      - '.github/workflows/rebuild-notebooks-from-blogs.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -36,7 +43,9 @@ jobs:
               text='\n'.join(''.join(c.get('source',[])) for c in data['cells'])
               for required in ['Hand calculation','PyTorch','Visualization','Change exactly one variable','Intentional failure','Blog-synchronized exercises','Mini-project','Research bridge','Mastery check']:
                   assert required.lower() in text.lower(),f'{n}: {required}'
-          print('PASS: all 37 expected blog-notebook pairs are structurally synchronized; legacy notebooks are ignored.')
+              assert 'Set broken_value' not in text
+              assert 'Add the chapter calculation here' not in text
+          print('PASS: all 37 expected blog-notebook pairs are synchronized and contain no old placeholder labs.')
           PY
       - name: Commit rebuilt notebooks
         run: |
