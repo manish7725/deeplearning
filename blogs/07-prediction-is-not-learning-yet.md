@@ -9,6 +9,17 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
 
 
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 06 — Why Does a Neuron Need an Activation Function?.
+
+**Today:** Blog 07 — Prediction Is Not the Same as Learning.
+
+**Next lesson:** Blog 08 — Derivatives: The Compass for Learning.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
+
 ## 1. A model can calculate before it can learn
 
 Suppose

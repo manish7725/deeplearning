@@ -9,6 +9,17 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
 
 
+## 🧭 Where this lesson fits
+
+This is the starting point of the course.
+
+**Today:** Blog 01 — What Does It Mean for a Machine to Learn?.
+
+**Next lesson:** Blog 02 — How Do Numbers Become Vectors?.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
+
 ## 👑 The King's Question
 
 Imagine a king asks his royal engineer:

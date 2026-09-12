@@ -9,6 +9,17 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/09-gradient-descent.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/09-gradient-descent.ipynb)**
 
 
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 08 — Derivatives: The Compass for Learning.
+
+**Today:** Blog 09 — Gradient Descent: Teaching a Model to Improve.
+
+**Next lesson:** Blog 10 — Backpropagation: Sending the Error Backward.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
+
 ## 1. Imagine a mountain
 
 Suppose the loss is a landscape.

@@ -9,6 +9,17 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
 
 
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 11 — Tensors: Numbers in Many Dimensions.
+
+**Today:** Blog 12 — How Do We Know If Our Model Really Learned?.
+
+**Next lesson:** Blog 13 — How a Neural Network Learns to See: Convolution.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
+
 ## 1. Training accuracy can fool us
 
 Suppose a model sees 1,000 training examples.

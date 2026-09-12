@@ -9,6 +9,17 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
 
 
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 12 — How Do We Know If Our Model Really Learned?.
+
+**Today:** Blog 13 — How a Neural Network Learns to See: Convolution.
+
+**Next lesson:** Blog 14 — When Order Matters: Learning From Sequences.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
+
 ## 1. Start with a tiny image
 
 Imagine a grayscale image represented by

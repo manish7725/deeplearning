@@ -9,6 +9,17 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
 
 
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 15 — How Can a Computer Represent the Meaning of a Word?.
+
+**Today:** Blog 16 — Attention: What Should I Look At?.
+
+**Next lesson:** Blog 17 — Transformers: Building With Attention.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
+
 ## 1. The central question
 
 For a token, ask:

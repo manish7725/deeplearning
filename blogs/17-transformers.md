@@ -9,6 +9,17 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
 
 
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 16 — Attention: What Should I Look At?.
+
+**Today:** Blog 17 — Transformers: Building With Attention.
+
+**Next lesson:** Blog 18 — How Does a Language Model Learn to Predict Text?.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
+
 ## 1. From tokens to representations
 
 Suppose the input is

@@ -9,6 +9,17 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**
 
 
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 05 — Meet the Smallest Neural Network.
+
+**Today:** Blog 06 — Why Does a Neuron Need an Activation Function?.
+
+**Next lesson:** Blog 07 — Prediction Is Not the Same as Learning.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
+
 ## 1. The line problem
 
 Suppose

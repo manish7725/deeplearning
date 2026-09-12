@@ -9,6 +9,17 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
 
 
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 02 — How Do Numbers Become Vectors?.
+
+**Today:** Blog 03 — Matrices: The Spreadsheet of Mathematics.
+
+**Next lesson:** Blog 04 — A Matrix Can Transform Space.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
+
 ## 1. A dataset is naturally a matrix
 
 Suppose we measure mathematics and science for three students:
@@ -382,9 +393,6 @@ Next we will discover something more surprising:
 
 ---
 
-# Manually verify one element.
-print(2*10 + 3*20)
-```
 
 ### Challenges
 
