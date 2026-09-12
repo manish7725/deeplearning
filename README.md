@@ -57,8 +57,7 @@ For each lesson:
 
 The repository already contains the 37-lesson mathematical spine from learning and vectors through transformers, generative models, representation learning, scaling, inference and preference learning. The new curriculum organizes that spine into a much larger progression instead of discarding it.
 
-- 📚 **Blogs:** [`blogs/`](blogs/)
-- 📓 **Laboratory notebooks:** [`notebooks/`](notebooks/)
+- 📚 **Chapters:** [`CHAPTERS.md`](CHAPTERS.md) — each numbered `Lecture NN - Title/` folder holds that chapter's `blog.md` and `notebook.ipynb` together
 - 🧭 **Master syllabus:** [`SYLLABUS.md`](SYLLABUS.md)
 - 📐 **Learning contract:** [`LEARNING_CONTRACT.md`](LEARNING_CONTRACT.md)
 - 🧪 **Interactive playground plan:** [`INTERACTIVE_PLAYGROUND.md`](INTERACTIVE_PLAYGROUND.md)
