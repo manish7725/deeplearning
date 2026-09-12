@@ -26,6 +26,9 @@ jobs:
       - name: Apply Class 8 student walkthrough fixes
         run: python scripts/student_walkthrough_fixes.py
 
+      - name: Make every notebook a self-contained code tutorial
+        run: python scripts/upgrade_notebook_tutorials.py
+
       - name: Merge labs into notebooks and remove obsolete labs
         run: python scripts/merge_labs_into_notebooks.py
 
@@ -68,8 +71,6 @@ jobs:
                   f'**[📓 Open the notebook on GitHub]({notebook_url})**  '
                   f'· **[▶ Open the notebook in Google Colab]({colab_url})**\n\n'
               )
-              # Remove only the generated navigation block. Do not consume the
-              # student lesson bridge that follows it.
               text = re.sub(r'<!-- NOTEBOOK-LAB-NAV -->\n\n## 🧪 Interactive Lab\n\n.*?\n\n\*\*\[▶ Open the notebook in Google Colab\]\([^\n]+\)\*\*\n*', '', text, flags=re.DOTALL)
               lines = text.splitlines(True)
               insert_at = 1 if lines and lines[0].lstrip().startswith('#') else 0
@@ -111,11 +112,14 @@ jobs:
               if not any(c.get('cell_type')=='code' for c in cells): errors.append(f'{path}: no code cells')
               if 'Where this lesson fits' not in markdown: errors.append(f'{path}: missing lesson bridge')
               if 'Topic experiment' not in markdown: errors.append(f'{path}: missing topic-specific experiment')
+              if '<!-- SELF-CONTAINED-CODE-TUTORIAL -->' not in markdown: errors.append(f'{path}: missing self-contained tutorial guide')
+              if 'Lab objective and blog connection' not in markdown: errors.append(f'{path}: missing blog/lab objective')
+              if 'Code tutorial — what to notice' not in markdown: errors.append(f'{path}: missing code explanations')
               prefix=path.name[:2]
               if prefix in all_blogs and all_blogs[prefix].name not in markdown: errors.append(f'{path}: matching blog link missing')
           if errors:
               print('\n'.join(errors)); raise SystemExit(1)
-          print('37 blogs and 37 notebooks passed the Class 8 student-walkthrough quality checks.')
+          print('37 blogs and 37 notebooks passed the Class 8 student-walkthrough and self-contained notebook tutorial checks.')
           PY
 
       - name: Commit quality fixes
@@ -124,5 +128,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add notebooks blogs labs scripts .github/workflows/add-colab-links.yml
           if git diff --cached --quiet; then echo 'No generated changes.'; exit 0; fi
-          git commit -m 'Fix Class 8 learning path coherence'
+          git commit -m 'Make notebooks self-contained code tutorials'
           git push origin HEAD:main
