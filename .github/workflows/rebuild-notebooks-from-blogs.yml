@@ -1,7 +1,11 @@
 name: Rebuild complete blog notebooks
 on:
   push:
-    branches: [feature/blog-synced-notebooks]
+    branches: [reorg/5-stage-deep-learning]
+    paths:
+      - 'blogs/**'
+      - 'scripts/**'
+      - '.github/workflows/rebuild-notebooks-from-blogs.yml'
   pull_request:
     branches: [main]
     paths:
@@ -16,30 +20,50 @@ concurrency:
   cancel-in-progress: false
 jobs:
   rebuild:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: feature/blog-synced-notebooks
+          ref: reorg/5-stage-deep-learning
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Rebuild all 37 notebooks as complete single-file lessons
         run: python scripts/rebuild_blog_synced_notebooks.py
-      - name: Organize learner-facing chapter workspaces
+      - name: Organize learner-facing chapter workspaces into five stages
         run: python scripts/organize_chapters.py
-      - name: Validate notebook and chapter structure
+      - name: Validate five-stage notebook and chapter structure
         run: |
           python - <<'PY'
           import ast, json
           from pathlib import Path
+
           blogs=sorted([p for p in Path('blogs').glob('[0-9][0-9]-*.md') if 1 <= int(p.name[:2]) <= 37])
           assert len(blogs)==37, len(blogs)
+
+          stage_ranges={
+              1: range(1,8),
+              2: range(8,13),
+              3: range(13,21),
+              4: range(21,31),
+              5: range(31,38),
+          }
+          stage_names={
+              1:'stage-1-foundations-of-learning',
+              2:'stage-2-mathematics-of-learning',
+              3:'stage-3-core-deep-learning',
+              4:'stage-4-deep-learning-theory-and-modern-learning',
+              5:'stage-5-advanced-deep-learning-and-research',
+          }
+
           for b in blogs:
               stem=b.stem
+              number=int(stem[:2])
+              stage=next(s for s,r in stage_ranges.items() if number in r)
               n=Path('notebooks')/(stem+'.ipynb')
-              chapter=Path('chapters')/stem
+              chapter=Path('chapters')/stage_names[stage]/stem
               cn=chapter/(stem+'.ipynb')
               cb=chapter/(stem+'.md')
               assert n.exists(), f'Missing {n}'
@@ -58,14 +82,20 @@ jobs:
               assert 'Set broken_value' not in text and 'Add the chapter calculation here' not in text
               for c in data['cells']:
                   if c['cell_type']=='code': ast.parse(''.join(c['source']))
+
+          for stage, name in stage_names.items():
+              root=Path('chapters')/name
+              assert (root/'README.md').exists(), f'Missing stage README {root}'
+
           assert (Path('chapters')/'README.md').exists()
-          print('PASS: 37 notebooks + 37 chapter workspaces + applications directories validated.')
+          assert Path('STAGES.md').exists()
+          print('PASS: 37 notebooks + five gated stages + chapter workspaces + applications validated.')
           PY
-      - name: Commit regenerated notebooks and chapter workspaces
+      - name: Commit regenerated notebooks and five-stage chapter workspaces
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add notebooks chapters
           if git diff --cached --quiet; then echo 'No notebook/chapter changes.'; exit 0; fi
-          git commit -m 'Build chapter workspaces for interactive learning'
-          git push origin HEAD:feature/blog-synced-notebooks
+          git commit -m 'Build five-stage chapter workspaces'
+          git push origin HEAD:reorg/5-stage-deep-learning
