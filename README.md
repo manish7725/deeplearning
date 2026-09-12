@@ -18,7 +18,7 @@ Story → Intuition → Math → Hand calculation → NumPy → PyTorch
       → Exercises → Application → Research question
 ```
 
-The notebook is designed to work as the complete lesson even when the student never opens the Markdown source. This follows the computational-textbook model used by modern Jupyter-based educational resources: reusable narrative, executable mathematics, and interactive exploration. citeturn0search0
+The notebook is the complete lesson even when the student never opens the Markdown source.
 
 ## Chapter workspace
 
