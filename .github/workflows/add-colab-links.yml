@@ -46,8 +46,8 @@ jobs:
       - name: Verify no main-targeted automation remains
         shell: bash
         run: |
-          if grep -R "HEAD:main\|ref: main\|branches:[[:space:]]*$" .github/workflows --include='*.yml' --include='*.yaml'; then
-            echo 'Found workflow references that can target main. Review required.'
+          if grep -R -n -E 'HEAD:main|ref:[[:space:]]*main|git push origin .*:main' .github/workflows --include='*.yml' --include='*.yaml'; then
+            echo 'Found a workflow that can write to main. Review required.'
             exit 1
           fi
 
