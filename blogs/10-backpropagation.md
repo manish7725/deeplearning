@@ -218,6 +218,8 @@ $$
 
 ## 8. PyTorch makes the backward pass simple
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/10-backpropagation.ipynb)**
+
 ```python
 import torch
 
@@ -311,6 +313,8 @@ Next we need a larger mathematical container capable of representing images, bat
 Use [`../labs/10-backpropagation-lab.md`](../labs/10-backpropagation-lab.md).
 
 Do the manual derivation before calling `.backward()`.
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/10-backpropagation.ipynb)**
 
 ```python
 import torch

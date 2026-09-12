@@ -218,6 +218,8 @@ Real deep-learning problems are much harder because the parameter space may cont
 
 ## 9. Code it
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/07-prediction-is-not-learning-yet.ipynb)**
+
 ```python
 import numpy as np
 
@@ -326,6 +328,8 @@ For that, we need derivatives.
 Use [`../labs/07-loss-lab.md`](../labs/07-loss-lab.md).
 
 Start with a parameter sweep:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/07-prediction-is-not-learning-yet.ipynb)**
 
 ```python
 import numpy as np

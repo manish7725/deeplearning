@@ -237,6 +237,8 @@ The artificial neuron is a useful abstraction, not a complete simulation of biol
 
 ## 9. Python: build a neuron yourself
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
+
 ```python
 import numpy as np
 
@@ -264,6 +266,8 @@ The magic of deep learning comes later, when we learn how to **change $w$ and $b
 ---
 
 ## 10. A PyTorch version
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
 
 ```python
 import torch
@@ -374,6 +378,8 @@ Use [`../labs/05-neuron-lab.md`](../labs/05-neuron-lab.md) as the companion exer
 
 Start without PyTorch:
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
+
 ```python
 import numpy as np
 
@@ -386,6 +392,8 @@ print(z)
 ```
 
 Then write the same calculation using an explicit loop:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
 
 ```python
 z = b

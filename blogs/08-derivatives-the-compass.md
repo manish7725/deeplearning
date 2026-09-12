@@ -260,6 +260,8 @@ That is already a miniature version of backpropagation.
 
 ## 10. Code: numerical derivative
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/08-derivatives-the-compass.ipynb)**
+
 ```python
 def f(x):
     return x ** 2
@@ -276,6 +278,8 @@ You should get something very close to 6.
 ---
 
 ## 11. PyTorch can calculate derivatives
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/08-derivatives-the-compass.ipynb)**
 
 ```python
 import torch
@@ -346,6 +350,8 @@ Next we turn that idea into an algorithm.
 Use [`../labs/08-derivatives-lab.md`](../labs/08-derivatives-lab.md).
 
 First estimate a derivative numerically:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/08-derivatives-the-compass.ipynb)**
 
 ```python
 def f(x):

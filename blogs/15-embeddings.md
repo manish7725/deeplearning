@@ -119,6 +119,8 @@ $$
 
 ## 6. PyTorch example
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/15-word-embeddings.ipynb)**
+
 ```python
 import torch
 import torch.nn as nn
@@ -239,6 +241,8 @@ Now we are ready for the mechanism that lets one token ask:
 Use [`../labs/15-embeddings-lab.md`](../labs/15-embeddings-lab.md).
 
 Create a tiny embedding table:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/15-word-embeddings.ipynb)**
 
 ```python
 import torch

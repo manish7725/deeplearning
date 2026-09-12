@@ -55,6 +55,8 @@ then each row contains 2 features and there are 3 examples.
 
 In Python:
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
+
 ```python
 import numpy as np
 
@@ -246,6 +248,8 @@ This is the bridge from elementary linear algebra to neural networks.
 
 NumPy:
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
+
 ```python
 import numpy as np
 
@@ -263,6 +267,8 @@ print(X @ W)
 ```
 
 PyTorch:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
 
 ```python
 import torch
@@ -388,6 +394,8 @@ Next we will discover something more surprising:
 The companion exercise is [`../labs/03-matrices-lab.md`](../labs/03-matrices-lab.md).
 
 Start by making every output number traceable to one dot product:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
 
 ```python
 import torch

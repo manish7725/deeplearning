@@ -167,6 +167,8 @@ This hierarchy is learned from data; it is not a rule that every CNN must follow
 
 ## 8. PyTorch example
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/13-convolution.ipynb)**
+
 ```python
 import torch
 import torch.nn as nn
@@ -206,6 +208,8 @@ Because padding and stride were chosen to preserve spatial size, the height and 
 Older CNN architectures often used pooling layers to reduce spatial resolution.
 
 For example, max pooling keeps the largest value in a local window.
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/13-convolution.ipynb)**
 
 ```python
 pool = nn.MaxPool2d(kernel_size=2)
@@ -252,6 +256,8 @@ In language, music and time-series data, **order matters**.
 Use [`../labs/13-convolution-lab.md`](../labs/13-convolution-lab.md).
 
 Start with a tiny image and a manually chosen kernel:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/13-convolution.ipynb)**
 
 ```python
 import torch
