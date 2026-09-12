@@ -64,10 +64,10 @@ jobs:
       - name: Validate curriculum structure
         run: python scripts/curriculum_quality.py
 
-      - name: Verify no main-targeted automation remains
+      - name: Verify no workflow can push to main
         shell: bash
         run: |
-          if grep -R -n -E 'HEAD:main|ref:[[:space:]]*main|git push origin .*:main' .github/workflows --include='*.yml' --include='*.yaml'; then
+          if grep -R -n -E 'git push origin .*:main|git push .* main$|HEAD:main' .github/workflows --include='*.yml' --include='*.yaml'; then
             echo 'Found a workflow that can write to main. Review required.'
             exit 1
           fi
