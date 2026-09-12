@@ -6,7 +6,7 @@
 
 The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/notebooks/07-prediction-is-not-learning-yet.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/notebooks/07-prediction-is-not-learning-yet.ipynb)**
 
 
 ## 🧭 Where this lesson fits

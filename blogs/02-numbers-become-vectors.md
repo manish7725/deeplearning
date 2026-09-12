@@ -1,31 +1,16 @@
-# Blog 02 — How Do Numbers Become Vectors?
+# Chapter 02 — Numbers Become Vectors
 
-<!-- NOTEBOOK-LAB-NAV -->
+## 🧭 Where we are
 
-## 🧪 Interactive Lab
+**Previous:** [Chapter 01 — What Does It Mean for a Machine to Learn?](01-what-is-learning.md)  
+**Today:** Numbers → vectors → geometry → similarity → weighted combinations  
+**Next:** [Chapter 03 — Matrices: The Spreadsheet of Mathematics](03-matrices-the-spreadsheet-of-math.md)
 
-The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
+> Chapter 01 taught us that learning changes parameters to reduce error. But a model cannot learn from a story such as “Alice is good at maths.” It needs numbers. Today we learn how numbers can be organized into **vectors** so that machines can calculate with them.
 
-**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
+## 1. A vector is a little data box
 
-
-## 🧭 Where this lesson fits
-
-**Previous lesson:** Blog 01 — What Does It Mean for a Machine to Learn?.
-
-**Today:** Blog 02 — How Do Numbers Become Vectors?.
-
-**Next lesson:** Blog 03 — Matrices: The Spreadsheet of Mathematics.
-
-**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
-
-
-## 1. A computer needs a numerical description
-
-Suppose we describe three students using two measurements:
-
-- mathematics score
-- science score
+Suppose we describe a student using two measurements:
 
 ```text
 Alice → [9, 8]
@@ -33,269 +18,136 @@ Bob   → [8, 9]
 Cara  → [3, 4]
 ```
 
-We can write Alice as
+The vector
 
-$$
-\mathbf{x}=\begin{bmatrix}9\\8\end{bmatrix}
-$$
+$$\mathbf{x}=\begin{bmatrix}9\\8\end{bmatrix}$$
 
-A vector is an **ordered collection of numbers**. Order matters:
+means “9 in the first feature and 8 in the second.” Order matters:
 
-$$
-[9,8]\neq[8,9]
-$$
+$$[9,8]\neq[8,9]$$
 
-because each position can have a different meaning.
+because position 1 and position 2 may mean different things.
 
----
-
-## 2. From a story to a coordinate
-
-The vector $[9,8]$ can also be treated as the point $(9,8)$ on a graph.
-
-- first coordinate → horizontal position
-- second coordinate → vertical position
-
-We have converted a real-world object into a location in mathematical space.
-
-That is the beginning of **numerical representation**.
-
----
-
-## 3. Distance gives us a notion of similarity
-
-For Alice $A=(9,8)$ and Bob $B=(8,9)$:
-
-$$
-d(A,B)=\sqrt{(9-8)^2+(8-9)^2}=\sqrt2
-$$
-
-For Alice and Cara $C=(3,4)$:
-
-$$
-d(A,C)=\sqrt{(9-3)^2+(8-4)^2}=\sqrt{52}\approx7.21
-$$
-
-So Alice is much closer to Bob than to Cara in this representation.
-
-> **Once objects become vectors, relationships between objects can become mathematics.**
-
----
-
-## 4. A vector can be an arrow
-
-For
-
-$$
-\mathbf{v}=\begin{bmatrix}3\\2\end{bmatrix}
-$$
-
-start at $(0,0)$ and move 3 units right and 2 units up.
-
-Its length is
-
-$$
-\|\mathbf v\|=\sqrt{3^2+2^2}=\sqrt{13}
-$$
-
-This length is called the **norm**.
-
-The same object can therefore be understood in three ways:
+### Three ways to see the same vector
 
 | View | Meaning |
 |---|---|
-| List | A collection of numbers |
-| Point | A location in feature space |
-| Arrow | Direction + magnitude |
+| List | ordered numbers |
+| Point | a location in feature space |
+| Arrow | a direction with a length |
 
----
+This is one of the most important mental models in machine learning: **the same numbers can be interpreted algebraically and geometrically.**
 
-## 5. Vector addition
+## 2. Vectors create a map
+
+For a two-feature example, `[9, 8]` can be drawn at coordinate $(9,8)$. Once objects become points, we can ask mathematical questions:
+
+- Which examples are close?
+- Which direction is a feature changing?
+- How large is a vector?
+- How strongly do two vectors point in related directions?
+
+For Alice $A=(9,8)$ and Bob $B=(8,9)$:
+
+$$d(A,B)=\sqrt{(9-8)^2+(8-9)^2}=\sqrt2$$
+
+For Alice and Cara $C=(3,4)$:
+
+$$d(A,C)=\sqrt{(9-3)^2+(8-4)^2}=\sqrt{52}\approx7.21$$
+
+So, **under this representation**, Alice is much closer to Bob.
+
+> Important: distance is only as meaningful as the representation and units we chose.
+
+## 3. Length: the norm
+
+For
+
+$$\mathbf v=\begin{bmatrix}3\\2\end{bmatrix}$$
+
+its length is
+
+$$\|\mathbf v\|=\sqrt{3^2+2^2}=\sqrt{13}\approx3.606.$$
+
+For a vector with $n$ coordinates:
+
+$$\|\mathbf x\|_2=\sqrt{\sum_{i=1}^{n}x_i^2}.$$
+
+The subscript 2 means this is the familiar Euclidean length.
+
+## 4. Add arrows, not just numbers
 
 Let
 
-$$
-\mathbf a=\begin{bmatrix}2\\1\end{bmatrix},\qquad
-\mathbf b=\begin{bmatrix}1\\3\end{bmatrix}
-$$
+$$\mathbf a=\begin{bmatrix}2\\1\end{bmatrix},\qquad\mathbf b=\begin{bmatrix}1\\3\end{bmatrix}.$$
 
 Then
 
-$$
-\mathbf a+\mathbf b
-=\begin{bmatrix}2+1\\1+3\end{bmatrix}
-=\begin{bmatrix}3\\4\end{bmatrix}
-$$
+$$\mathbf a+\mathbf b=\begin{bmatrix}3\\4\end{bmatrix}.$$
 
-Think of this as two consecutive movements. First move $(2,1)$, then $(1,3)$. The total movement is $(3,4)$.
+Imagine walking 2 steps right and 1 up, then 1 right and 3 up. Your total movement is 3 right and 4 up.
 
----
+Scalar multiplication stretches or flips an arrow:
 
-## 6. Scalar multiplication
+$$2\mathbf x=\begin{bmatrix}4\\6\end{bmatrix},\qquad-\mathbf x=\begin{bmatrix}-2\\-3\end{bmatrix}.$$
 
-If
+## 5. The dot product: the weighted-sum engine
 
-$$
-\mathbf x=\begin{bmatrix}2\\3\end{bmatrix}
-$$
+Let
 
-then
+$$\mathbf x=\begin{bmatrix}2\\3\end{bmatrix},\qquad\mathbf w=\begin{bmatrix}4\\5\end{bmatrix}.$$
 
-$$
-2\mathbf x=\begin{bmatrix}4\\6\end{bmatrix}
-$$
+Then
 
-The direction stays the same while the magnitude doubles.
+$$\mathbf x\cdot\mathbf w=2(4)+3(5)=23.$$
 
-With $-1$:
+In $n$ dimensions:
 
-$$
--\mathbf x=\begin{bmatrix}-2\\-3\end{bmatrix}
-$$
+$$\mathbf x\cdot\mathbf w=\sum_{i=1}^{n}x_iw_i.$$
 
-The arrow reverses direction.
+This is already the heart of a neuron. Each input is multiplied by a weight, and the results are added:
 
-These simple operations become building blocks for neural networks.
+$$z=\mathbf w\cdot\mathbf x+b.$$
 
----
+We will build the neuron explicitly in a later chapter; for now, recognize the connection.
 
-## 7. The dot product — the calculator inside a neuron
+### A geometric surprise
 
-Take
+The dot product also tells us about direction:
 
-$$
-\mathbf x=\begin{bmatrix}2\\3\end{bmatrix},\qquad
-\mathbf w=\begin{bmatrix}4\\5\end{bmatrix}
-$$
+$$\mathbf x\cdot\mathbf w=\|\mathbf x\|\,\|\mathbf w\|\cos\theta.$$
 
-Their dot product is
+So the same operation can be understood as a **weighted sum** or as a **measure of directional alignment**.
 
-$$
-\mathbf x\cdot\mathbf w=2(4)+3(5)=23
-$$
+## 6. Dimension versus shape
 
-In general,
-
-$$
-\mathbf x\cdot\mathbf w=\sum_{i=1}^{n}x_iw_i
-$$
-
-This is a **weighted sum**. The weights tell us how strongly each feature contributes.
-
-A neuron will soon use almost exactly this calculation.
-
----
-
-## 8. Python: turn the mathematics into an experiment
-
-```python
-import numpy as np
-
-x = np.array([2.0, 3.0])
-w = np.array([4.0, 5.0])
-
-print("x + w =", x + w)
-print("2x    =", 2 * x)
-print("x · w =", x @ w)
-print("||x|| =", np.linalg.norm(x))
-```
-
-Expected output:
-
-```text
-x + w = [6. 8.]
-2x    = [4. 6.]
-x · w = 23.0
-||x|| = 3.6055...
-```
-
-Try changing the numbers before running the code. Predict first; verify second.
-
----
-
-## 9. Dimension: how many coordinates?
-
-$$
-[4,7]\quad\text{has 2 dimensions}
-$$
-
-$$
-[4,7,2]\quad\text{has 3 dimensions}
-$$
-
-$$
-[x_1,x_2,\ldots,x_{100}]\quad\text{has 100 dimensions}
-$$
-
-We cannot easily draw 100 dimensions, but the algebra still works.
-
-A photograph can contain millions of numerical values. A language model can represent a token using hundreds or thousands of coordinates.
-
-> **Visualization has limits. Algebra does not.**
-
----
-
-## 10. Dimension and shape are not the same idea
+A vector such as
 
 ```python
 x = np.array([2, 3, 4])
-print(x.shape)
 ```
 
-Output:
+has three coordinates and shape `(3,)`.
 
-```text
-(3,)
-```
-
-Now create three examples:
+Now put three vectors together:
 
 ```python
 X = np.array([
     [2, 3, 4],
     [5, 6, 7],
-    [8, 9, 10]
+    [8, 9, 10],
 ])
-
-print(X.shape)
 ```
 
-Output:
+Its shape is `(3, 3)`: three examples, three features.
 
-```text
-(3, 3)
-```
+This is our doorway into matrices.
 
-This means **3 examples × 3 features**.
+> **Dimension tells us how many coordinates one object has. Shape tells us how the data is arranged.**
 
-We have just reached the doorway of matrices.
+## 7. Representation can help — or lie
 
----
-
-## 11. The deep-learning pipeline
-
-```mermaid
-flowchart LR
-    A[Real world] --> B[Measurements]
-    B --> C[Numbers]
-    C --> D[Vector representation]
-    D --> E[Mathematical operations]
-    E --> F[Prediction]
-```
-
-A photograph, sound wave, sentence or sensor reading eventually has to become numerical data before a neural network can process it.
-
-But there is a deeper question:
-
-> **Did we choose numbers that preserve useful information?**
-
-That is the representation problem.
-
----
-
-## 12. A common representation mistake
-
-Suppose we encode colors like this:
+Suppose we encode colors as:
 
 ```text
 red = 1
@@ -303,106 +155,97 @@ blue = 2
 orange = 3
 ```
 
-The model could interpret orange as numerically closer to blue than red. But color categories do not naturally have this ordering.
+The numbers suggest an ordering and distances that may not exist in the real concept. A better representation might use several features, or a learned embedding.
 
-So machine learning is not merely about converting things into numbers.
+Therefore:
 
-It is about finding a **useful numerical representation**.
+$$\boxed{\text{Good learning depends on useful representations.}}$$
 
----
+This idea eventually leads to embeddings and representation learning.
 
-## Think Like a Scientist 🧠
+## 8. Interactive mathematical playground
 
-Pick three objects around you: perhaps a book, bottle and phone.
+The branch is being built toward interactive math. For this lesson, the playground should let you drag the endpoints of two vectors and immediately see:
 
-Choose three measurable properties for each object. Write each object as a vector.
+1. both arrows;
+2. their lengths;
+3. their sum;
+4. the angle between them;
+5. the dot product;
+6. the effect of changing one coordinate.
 
-Then ask:
+A useful animation is:
 
-1. Which two objects are closest?
+```text
+x ──multiply by w₁──┐
+                    ├── add ──→ x · w
+y ──multiply by w₂──┘
+```
+
+The static equations in this chapter remain the source of truth even when JavaScript is unavailable.
+
+## 9. Scientist challenge
+
+Choose three objects near you. Pick three measurable features and represent each object as a vector.
+
+Then predict before calculating:
+
+1. Which pair will be closest?
 2. Which feature contributes most to the distance?
-3. What happens if you change the units?
+3. What happens if one feature is measured in centimetres and another in metres?
+4. What happens if you multiply every coordinate by 10?
 
-You have created a tiny machine-learning dataset.
+That last question introduces an important research habit: **changing the representation can change the geometry.**
 
----
+## 10. NumPy checkpoint
 
-## What you should remember
+```python
+import numpy as np
 
-> **A vector is a structured numerical representation of something.**
+x = np.array([2.0, 3.0])
+w = np.array([4.0, 5.0])
 
-Remember:
+print("addition:", x + w)
+print("double x:", 2 * x)
+print("dot product:", x @ w)
+print("length of x:", np.linalg.norm(x))
+```
 
-- vector = ordered numbers
-- point = location in feature space
-- arrow = direction and magnitude
-- distance = one way to compare representations
-- dot product = weighted combination
-- dimension = number of coordinates
-- shape = arrangement of dimensions
-- representation quality strongly affects learning
+Predict the outputs before running it. Then change one number and explain exactly which outputs should change.
 
-One vector describes one example. Real models learn from many examples.
+## 11. Common mistakes
 
-So next we need a mathematical structure that can hold many vectors at once.
+**Mistake 1: A vector is just an ordinary list.**  
+A vector is an ordered mathematical object; its coordinates have meaning.
 
-> **Next: matrices — the spreadsheet of mathematics.**
+**Mistake 2: More dimensions mean a better representation.**  
+Not necessarily. Extra coordinates can be noisy, redundant, or badly scaled.
 
----
+**Mistake 3: Distance always means similarity.**  
+Only if the representation and metric make that interpretation sensible.
 
-# 📚 Go Deeper — Use Resources as a Second Explanation
+**Mistake 4: Dot product is only a formula.**  
+It is both a weighted sum and a geometric alignment measurement.
 
-You do not need another resource to finish this lesson. Use these when you want a second mental model.
+## 12. Exercises
 
-### 🎨 Visual mathematics
+1. Calculate the norm of $[6,8]$.
+2. Calculate $[2,5]+[-1,3]$.
+3. Calculate $[2,5]\cdot[4,-1]$.
+4. Find the distance between $(1,2)$ and $(4,6)$.
+5. Explain why `[height, weight]` and `[weight, height]` are different representations.
+6. Create two vectors with dot product zero. What does that tell you geometrically?
 
-- **3Blue1Brown — Essence of Linear Algebra:** use it when you want to *see* vectors, coordinates, linear combinations and transformations rather than only calculate them.
-- **Welch Labs:** use its visual, experiment-driven style when you want to connect mathematical objects to neural-network computation. Welch Labs explicitly combines graphics, exercises and supporting code in its AI material.
+### Mini-project
+Build a tiny “object map” in Python. Represent at least five objects with two features, plot them, and experiment with the definition of distance.
 
-### 🧮 Mathematics practice
+### Research extension
+Repeat the mini-project after scaling one feature by 100. Does the nearest-neighbour relationship change? Why?
 
-- **MrJensenMath10:** use it for the school-level algebra and mathematical fluency needed to manipulate equations confidently.
-- **Frame Zero:** use it for additional first-principles machine-learning intuition.
+## What to remember
 
-### 🤖 ML / PyTorch bridge
+$$\boxed{\text{numbers}\rightarrow\text{vectors}\rightarrow\text{geometry}\rightarrow\text{operations}}$$
 
-- **ZacharyLLM:** use it later when the same representation ideas appear in embeddings, transformers and LLMs.
-- **Visual Kernel:** use it for additional visual/technical intuition around modern ML systems.
+A vector lets a machine represent one example mathematically. Many vectors naturally form a matrix.
 
-### The rule for using resources
-
-Do not collect videos.
-
-Use the resource only when you can identify the missing piece:
-
-> **“I can calculate it, but I cannot see it.”** → visual mathematics
-
-> **“I understand the picture, but the algebra is weak.”** → mathematics practice
-
-> **“I understand the mathematics, but I cannot implement it.”** → PyTorch/code practice
-
-> **“I can implement it, but I don't know where it appears in modern AI.”** → ML/LLM resources
-
-The goal is always the same:
-
-$$
-\boxed{\text{Understand}\rightarrow\text{Derive}\rightarrow\text{Code}\rightarrow\text{Experiment}\rightarrow\text{Explain}}
-$$
-
----
-
-## 🔬 A Scientist's Rule
-
-Before asking a library for the answer, try to calculate the answer yourself.
-
-For example, do not immediately call `np.linalg.norm(x)`.
-
-First calculate:
-
-$$
-\|x\|=\sqrt{x_1^2+x_2^2+\cdots+x_n^2}
-$$
-
-Then let NumPy verify you.
-
-That habit will become extremely valuable when we reach neural networks, gradients, attention and transformers.
+**Next: matrices — the spreadsheet of mathematics.**
