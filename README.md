@@ -62,6 +62,7 @@ The repository already contains the 37-lesson mathematical spine from learning a
 - 📚 **Chapters:** [`CHAPTERS.md`](CHAPTERS.md) — each numbered `Lecture NN - Title/` folder holds that chapter's `blog.md` and `notebook.ipynb` together
 - 🧭 **Master syllabus:** [`SYLLABUS.md`](SYLLABUS.md)
 - 📄 **Chapter format:** [`FORMAT.md`](FORMAT.md) — how `blog.md` and `notebook.ipynb` are laid out
+- 🔗 **The spine:** [`SPINE.md`](SPINE.md) — what each chapter inherits from the last and leaves for the next
 - 📐 **Learning contract:** [`LEARNING_CONTRACT.md`](LEARNING_CONTRACT.md)
 - 🧪 **Interactive playground plan:** [`INTERACTIVE_PLAYGROUND.md`](INTERACTIVE_PLAYGROUND.md)
 - 🧠 **Research methodology:** [`RESEARCH_PLAYBOOK.md`](RESEARCH_PLAYBOOK.md)
