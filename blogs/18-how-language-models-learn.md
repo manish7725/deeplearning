@@ -1,87 +1,266 @@
 # Blog 18 — How Does a Language Model Learn to Predict Text?
 
-A language model can be introduced with a surprisingly simple question:
+Imagine reading:
 
-> “Given what I have seen so far, what is likely to come next?”
+> “The sun rises in the ___.”
 
-## 1. Predict the next token
+Your brain expects a word such as “east”.
 
-Suppose the text is:
+A language model turns this prediction problem into mathematics.
 
-`The sun rises in the ...`
+---
 
-Possible next words might include:
+## 1. The training task
 
-`east`, `morning`, `sky`.
+Given a sequence of tokens
 
-During training, the model is given the actual next token and learns to assign it a high probability.
+$$
+x_1,x_2,\ldots,x_t
+$$
 
-## 2. Probabilities
+the model tries to predict the next token $x_{t+1}$.
 
-Instead of producing only one answer, a model can produce a probability distribution.
+Mathematically:
 
-For a tiny vocabulary:
+$$
+P(x_{t+1}\mid x_1,\ldots,x_t)
+$$
+
+The model produces a probability distribution over the vocabulary.
+
+---
+
+## 2. From hidden representation to vocabulary scores
+
+Suppose the Transformer produces a final representation
+
+$$
+h_t\in\mathbb R^d
+$$
+
+A linear layer maps it to vocabulary logits:
+
+$$
+z=W_oh_t+b_o
+$$
+
+If the vocabulary has $V$ tokens, then
+
+$$
+z\in\mathbb R^V
+$$
+
+One score corresponds to each possible next token.
+
+---
+
+## 3. Softmax turns scores into probabilities
+
+$$
+P_i=\frac{e^{z_i}}{\sum_{j=1}^{V}e^{z_j}}
+$$
+
+All probabilities are positive and sum to 1:
+
+$$
+\sum_iP_i=1
+$$
+
+The model can therefore rank possible next tokens.
+
+---
+
+## 4. Cross-entropy loss
+
+Suppose the correct next token has probability $p$.
+
+A simple single-example negative log-likelihood is
+
+$$
+L=-\log p
+$$
+
+If the model assigns high probability to the correct token, loss is small.
+
+If it assigns tiny probability, loss becomes large.
+
+For a sequence, the average cross-entropy can be written as
+
+$$
+L=-\frac1T\sum_{t=1}^{T}\log P(x_t\mid x_{<t})
+$$
+
+where $x_{<t}$ means the preceding tokens.
+
+---
+
+## 5. Teacher forcing in next-token training
+
+Suppose the training text is
 
 ```text
-sun   0.05
-east  0.70
-moon  0.10
-fish  0.15
+I love deep learning
 ```
 
-The probabilities add up to 1.
+Training examples can be aligned as:
 
-The model predicts a distribution over possible next tokens.
+```text
+Input:  I        → Target: love
+Input:  I love   → Target: deep
+Input:  I love deep → Target: learning
+```
 
-## 3. Softmax
+A causal Transformer can calculate many of these positions in parallel during training using a causal mask, even though the prediction rule itself is left-to-right.
 
-The final neural-network scores are called logits.
+---
 
-Softmax converts logits into probabilities:
+## 6. Why enormous datasets help
 
-`pᵢ = eᶻⁱ / Σⱼ eᶻʲ`
+A language model encounters many patterns:
 
-You do not need to memorize the formula yet.
+- syntax;
+- facts and associations;
+- style;
+- code structure;
+- common sequences;
+- long-range dependencies.
 
-The important idea is that softmax turns a list of arbitrary scores into positive numbers that sum to one.
+The model does not receive a table saying “this is grammar” or “this is a fact.”
 
-## 4. The model makes mistakes
+It receives examples and an objective.
 
-Suppose the correct next token is `east`, but the model gives it probability 0.1.
+The parameters are adjusted so that the probability distribution improves across training data.
 
-That should produce a larger loss than if the model had assigned probability 0.9.
+---
 
-A common training objective is **cross-entropy loss**.
+## 7. The training loop
 
-For one correct class:
+```mermaid
+flowchart LR
+    A[Text corpus] --> B[Tokenizer]
+    B --> C[Token IDs]
+    C --> D[Transformer]
+    D --> E[Logits]
+    E --> F[Softmax / cross-entropy]
+    F --> G[Backpropagation]
+    G --> H[Optimizer update]
+    H --> D
+```
 
-`L = -log(p_correct)`
+This is gradient-based learning at very large scale.
 
-If `p_correct` is small, the loss is large.
-If `p_correct` is close to 1, the loss is small.
+---
 
-## 5. Training
+## 8. Tiny PyTorch example
 
-The training loop is familiar now:
+```python
+import torch
+import torch.nn.functional as F
 
-`text → tokens → vectors → Transformer → probabilities → loss → gradients → parameter updates`
+logits = torch.tensor([[2.0, 1.0, -1.0]])
+target = torch.tensor([0])
 
-Millions or billions of parameter updates can gradually improve the model.
+loss = F.cross_entropy(logits, target)
+print(loss.item())
+```
 
-## 6. Prediction after training
+`cross_entropy` combines the log-softmax operation with negative log-likelihood in a numerically stable implementation.
 
-Once trained, the model can repeatedly predict the next token.
+---
 
-It can generate:
+## 9. Training is not the same as generating
 
-`token 1 → token 2 → token 3 → ...`
+During training, the model learns from known target tokens.
 
-This simple repeated process can produce surprisingly rich text.
+During generation, the model must choose a token and feed that generated token into the next step.
 
-## 7. The important lesson
+```mermaid
+flowchart LR
+    A[Prompt] --> B[Predict next token]
+    B --> C[Choose token]
+    C --> D[Append token]
+    D --> B
+```
 
-A language model does not need a human to write a rule for every sentence.
+This continues until a stopping condition is reached.
 
-It learns statistical structure from examples.
+---
 
-> **A language model learns a numerical model of patterns in sequences and uses that model to predict what comes next.**
+## 10. Sampling changes behavior
+
+Suppose the model produces probabilities:
+
+```text
+cat      0.55
+animal   0.25
+dog      0.15
+car      0.05
+```
+
+Taking the highest-probability token is one strategy.
+
+Sampling from the distribution can produce different outputs.
+
+Temperature can reshape the distribution. Lower temperature tends to make choices more concentrated; higher temperature tends to make them more diverse.
+
+Sampling controls do not create knowledge that the model does not contain.
+
+---
+
+## 11. What does the model actually learn?
+
+This question needs care.
+
+The training objective directly optimizes next-token prediction.
+
+Useful capabilities can emerge because predicting text requires the model to capture many regularities in its training distribution.
+
+But a language model is not a database with a clean lookup table of facts, and high likelihood does not guarantee truth.
+
+That distinction matters enormously when using language models.
+
+---
+
+## Think Like a Scientist 🧠
+
+Take the sentence:
+
+> “The child picked up the glass because it was ___.”
+
+Write several plausible next words.
+
+Now ask:
+
+> What information would a model need to assign sensible probabilities?
+
+The answer leads into representation, attention, world regularities and context.
+
+---
+
+## What you should remember
+
+> **A language model can be trained as a next-token prediction system.**
+
+The core mathematical chain is:
+
+$$
+\text{tokens}
+\rightarrow
+\text{representations}
+\rightarrow
+\text{logits}
+\rightarrow
+\text{probabilities}
+\rightarrow
+\text{loss}
+\rightarrow
+\text{gradients}
+\rightarrow
+\text{parameter updates}
+$$
+
+The same basic learning machinery we studied at the beginning is now operating inside a Transformer at enormous scale.
+
+But prediction is not the only thing neural networks can learn to do.
+
+> **Next: generative models — how machines create new data.**
