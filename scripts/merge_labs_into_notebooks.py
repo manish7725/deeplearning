@@ -81,14 +81,7 @@ def merge_lab(lab_path: Path) -> tuple[str, Path] | None:
 
 
 def clean_old_lab_sections(text: str) -> str:
-    # Remove the old standalone lab section because its content now lives in
-    # the notebook. Keep later top-level sections such as external resources.
-    text = re.sub(
-        r"(?ms)^# 🧪 Hands-on Lab.*?(?=^# |\Z)",
-        "",
-        text,
-    )
-    # Remove any remaining direct links to the deleted labs directory.
+    text = re.sub(r"(?ms)^# 🧪 Hands-on Lab.*?(?=^# |\Z)", "", text)
     text = re.sub(r"^.*\]\([^\n]*?/labs/[^\n]*\)\s*\n", "", text, flags=re.MULTILINE)
     return text
 
@@ -102,8 +95,6 @@ def update_blog(prefix: str, notebook_path: Path) -> None:
     blog_path = candidates[0]
     text = blog_path.read_text(encoding="utf-8")
     text = clean_old_lab_sections(text)
-
-    # Replace the old per-code-block Colab banners with one navigation block.
     text = re.sub(
         r"^> 🧪 \*\*\[Run this code in Google Colab\]\([^\n]+\)\*\*\n\n",
         "",
@@ -144,20 +135,21 @@ def update_blog(prefix: str, notebook_path: Path) -> None:
 
 def main() -> None:
     labs = sorted(LAB_DIR.glob("*.md"))
-    if not labs:
-        print("No labs remain; nothing to migrate.")
-        return
-
     merged = []
+
     for lab_path in labs:
         result = merge_lab(lab_path)
         if result:
             merged.append(result)
 
-    for prefix, notebook_path in merged:
-        update_blog(prefix, notebook_path)
+    # Always normalize every blog against its notebook. This makes the
+    # workflow useful for future lessons even after the old labs are gone.
+    for notebook_path in sorted(NOTEBOOK_DIR.glob("*.ipynb")):
+        match = re.match(r"^(\d{2})-", notebook_path.name)
+        if match:
+            update_blog(match.group(1), notebook_path)
 
-    print(f"Migrated {len(merged)} lab(s) into notebooks and removed obsolete lab files.")
+    print(f"Migrated {len(merged)} lab(s) into notebooks; blogs normalized.")
 
 
 if __name__ == "__main__":
