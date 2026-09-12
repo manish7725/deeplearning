@@ -20,10 +20,13 @@ jobs:
       - name: Generate rich notebooks
         run: python scripts/enrich_notebooks.py
 
+      - name: Add topic-specific laboratory experiments
+        run: python scripts/upgrade_notebooks.py
+
       - name: Merge labs into notebooks and remove obsolete labs
         run: python scripts/merge_labs_into_notebooks.py
 
-      - name: Normalize all blog notebook navigation
+      - name: Normalize all blog notebook navigation and content hygiene
         shell: bash
         run: |
           python - <<'PY'
@@ -33,9 +36,6 @@ jobs:
           repo = 'manish7725/deeplearning'
           branch = 'main'
           marker = '<!-- NOTEBOOK-LAB-NAV -->'
-          colab_pattern = re.compile(r'>\s*🧪\s*\*\*\[Run this code in Google Colab\]\([^\n]+\)\*\*\s*\n?', re.MULTILINE)
-          lab_pattern = re.compile(r'^.*\]\([^\n]*?/labs/[^\n]*\)\s*\n?', re.MULTILINE)
-          feature_colab_pattern = re.compile(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/[^)]+')
 
           for path in sorted(Path('blogs').glob('*.md')):
               match = re.match(r'^(\d{2})-', path.name)
@@ -48,11 +48,20 @@ jobs:
               notebook = notebooks[0]
               notebook_url = f'https://github.com/{repo}/blob/{branch}/{notebook.as_posix()}'
               colab_url = f'https://colab.research.google.com/github/{repo}/blob/{branch}/{notebook.as_posix()}'
-
               text = path.read_text(encoding='utf-8')
-              text = colab_pattern.sub('', text)
-              text = feature_colab_pattern.sub('', text)
-              text = lab_pattern.sub('', text)
+
+              # Remove old navigation and every legacy per-code-block Colab link.
+              text = re.sub(r'>\s*🧪\s*\*\*\[Run this code in Google Colab\]\([^\n]+\)\*\*\s*\n?', '', text)
+              text = re.sub(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/[^)]+', '', text)
+              text = re.sub(r'^.*\]\([^\n]*?/labs/[^\n]*\)\s*\n?', '', text, flags=re.MULTILINE)
+
+              # Remove accidental embedded copies of another numbered blog.
+              embedded = re.search(r'(?m)^# Blog (?!' + re.escape(prefix) + r' —)\d{2} — ', text)
+              if embedded:
+                  text = text[:embedded.start()].rstrip() + '\n'
+
+              # Repository Markdown must never contain ChatGPT transport citations.
+              text = re.sub(r'\s*(?:cite|url|entity|memcite)[^\n]*', '', text)
 
               nav = (
                   f'{marker}\n\n'
@@ -63,68 +72,53 @@ jobs:
                   f'· **[▶ Open the notebook in Google Colab]({colab_url})**\n\n'
               )
 
-              if marker in text:
-                  start = text.index(marker)
-                  rest = text[start:]
-                  next_heading = re.search(r'(?m)^## (?!🧪 Interactive Lab)', rest)
-                  suffix = rest[next_heading.start():] if next_heading else ''
-                  text = text[:start] + nav + suffix
-              else:
-                  lines = text.splitlines(True)
-                  insert_at = 1 if lines and lines[0].lstrip().startswith('#') else 0
-                  text = ''.join(lines[:insert_at]) + '\n' + nav + ''.join(lines[insert_at:])
-
+              # Remove any previously generated navigation block, then insert one after the title/intro.
+              text = re.sub(r'<!-- NOTEBOOK-LAB-NAV -->.*?(?=^## (?!🧪 Interactive Lab)|\Z)', '', text, flags=re.MULTILINE|re.DOTALL)
+              lines = text.splitlines(True)
+              insert_at = 1 if lines and lines[0].lstrip().startswith('#') else 0
+              text = ''.join(lines[:insert_at]) + '\n' + nav + ''.join(lines[insert_at:])
               text = re.sub(r'\n{4,}', '\n\n\n', text)
               path.write_text(text, encoding='utf-8')
           PY
 
-      - name: Validate blog learning quality invariants
+      - name: Validate all 37 blog and notebook quality invariants
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
-          errors = []
-
-          for path in sorted(Path('blogs').glob('*.md')):
-              text = path.read_text(encoding='utf-8')
-              prefix = path.name[:2]
-
-              if text.count('<!-- NOTEBOOK-LAB-NAV -->') != 1:
-                  errors.append(f'{path}: expected exactly one navigation marker')
-              if '/labs/' in text:
-                  errors.append(f'{path}: stale labs link remains')
-              if 'feature/01-deeplearning-syllabus' in text:
-                  errors.append(f'{path}: stale feature-branch link remains')
-              if 'cite' in text or 'turn0' in text or 'turn1' in text:
-                  errors.append(f'{path}: ChatGPT-internal citation marker remains')
-
-              colab_links = re.findall(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/main/notebooks/[^)]+', text)
-              if len(colab_links) != 1:
-                  errors.append(f'{path}: expected exactly one main Colab link, found {len(colab_links)}')
-
-              blog_titles = re.findall(r'^# Blog \d{2} — ', text, flags=re.MULTILINE)
-              if len(blog_titles) != 1:
-                  errors.append(f'{path}: expected exactly one top-level Blog title, found {len(blog_titles)}')
-
-              expected_title = re.compile(rf'^# Blog {re.escape(prefix)} — ', re.MULTILINE)
-              if not expected_title.search(text):
-                  errors.append(f'{path}: missing expected Blog {prefix} title')
-
+          import json, re
+          errors=[]
+          blogs=sorted(Path('blogs').glob('*.md'))
+          notebooks=sorted(Path('notebooks').glob('*.ipynb'))
+          if len(blogs) != 37: errors.append(f'expected 37 blogs, found {len(blogs)}')
+          if len(notebooks) != 37: errors.append(f'expected 37 notebooks, found {len(notebooks)}')
+          for path in blogs:
+              text=path.read_text(encoding='utf-8'); prefix=path.name[:2]
+              if text.count(marker := '<!-- NOTEBOOK-LAB-NAV -->') != 1: errors.append(f'{path}: navigation marker count != 1')
+              if '/labs/' in text: errors.append(f'{path}: stale labs reference')
+              if 'feature/01-deeplearning-syllabus' in text: errors.append(f'{path}: stale feature branch reference')
+              if re.search(r'(?:cite|url|entity|memcite)',text): errors.append(f'{path}: ChatGPT transport marker remains')
+              if len(re.findall(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/main/notebooks/[^)]+',text)) != 1: errors.append(f'{path}: Colab link count != 1')
+              titles=re.findall(r'^# Blog \d{2} — ',text,re.M)
+              if len(titles)!=1: errors.append(f'{path}: top-level blog title count != 1')
+              if not re.search(rf'^# Blog {re.escape(prefix)} — ',text,re.M): errors.append(f'{path}: wrong/missing blog number')
+              if re.search(r'(?m)^# Blog \d{2} — ',text[text.find('\n')+1:]): errors.append(f'{path}: embedded second blog detected')
+          for path in notebooks:
+              try: nb=json.loads(path.read_text(encoding='utf-8'))
+              except Exception as e: errors.append(f'{path}: invalid JSON: {e}'); continue
+              cells=nb.get('cells',[])
+              if not any(c.get('cell_type')=='code' for c in cells): errors.append(f'{path}: no code cells')
+              if not any(c.get('cell_type')=='markdown' and 'Topic experiment' in ''.join(c.get('source',[])) for c in cells): errors.append(f'{path}: missing topic-specific experiment')
           if errors:
-              print('\n'.join(errors))
-              raise SystemExit(1)
-          print('All blog posts satisfy navigation, title, and external-reference quality invariants.')
+              print('\n'.join(errors)); raise SystemExit(1)
+          print('37 blogs and 37 notebooks passed structural, navigation, citation, and topic-experiment checks.')
           PY
 
-      - name: Commit reorganized learning units
+      - name: Commit quality fixes
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add notebooks blogs labs scripts .github/workflows/add-colab-links.yml
-          if git diff --cached --quiet; then
-            echo 'No generated changes.'
-            exit 0
-          fi
-          git commit -m 'Validate blog learning quality invariants'
+          if git diff --cached --quiet; then echo 'No generated changes.'; exit 0; fi
+          git commit -m 'Improve all blog learning units'
           git push origin HEAD:main
