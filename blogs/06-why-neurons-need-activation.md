@@ -1,100 +1,255 @@
 # Blog 06 — Why Does a Neuron Need an Activation Function?
 
-Our neuron so far is:
+We have a neuron:
 
-`z = wx + b`
+$$
+z=\mathbf w^T\mathbf x+b
+$$
 
-This is useful, but it has a surprising limitation.
+It can multiply and add. But there is a problem.
 
-A purely linear system cannot learn every kind of pattern.
+> **If we stack only linear calculations, the whole network is still just one linear calculation.**
 
-## 1. A simple line
+We need something nonlinear.
 
-If:
+---
 
-`y = 2x + 1`
+## 1. The line problem
 
-then the graph is a straight line.
+Suppose
 
-No matter how complicated our calculations become, if every layer only performs linear transformations, the entire network can still be simplified into one big linear transformation.
+$$
+f(x)=2x+1
+$$
 
-That means we need something that bends the rules.
+Now apply another linear function:
+
+$$
+g(x)=3x-4
+$$
+
+Then
+
+$$
+g(f(x))=3(2x+1)-4=6x-1
+$$
+
+Still a line.
+
+Add ten linear layers and we still get another linear transformation.
+
+That means depth alone is not enough.
+
+---
 
 ## 2. Enter the activation function
 
-After calculating `z`, we apply a function:
+A neuron first calculates
 
-`a = f(z)`
+$$
+z=\mathbf w^T\mathbf x+b
+$$
 
-The function `f` is called an **activation function**.
+and then applies a nonlinear function:
 
-One famous activation is ReLU:
+$$
+a=f(z)
+$$
 
-`ReLU(z) = max(0, z)`
+This function is called an **activation function**.
+
+The full neuron is therefore
+
+$$
+a=f(\mathbf w^T\mathbf x+b)
+$$
+
+---
+
+## 3. ReLU: the simple superstar
+
+A very common activation is ReLU:
+
+$$
+\operatorname{ReLU}(x)=\max(0,x)
+$$
 
 So:
 
-- ReLU(-3) = 0
-- ReLU(2) = 2
-- ReLU(7) = 7
+| $x$ | ReLU$(x)$ |
+|---:|---:|
+| -3 | 0 |
+| -1 | 0 |
+| 0 | 0 |
+| 2 | 2 |
+| 5 | 5 |
 
-It removes negative values but keeps positive ones.
+It simply removes negative values.
 
-## 3. Why is bending useful?
+```text
+ReLU(x)
+  |
+  |       /
+  |      /
+  |     /
+  |____/________ x
+       0
+```
 
-Imagine trying to separate two groups of points with a straight line.
+---
 
-Sometimes it works.
+## 4. Why this changes everything
 
-But suppose the red points are in the middle of a circle and blue points are outside the circle.
+Consider two layers:
 
-One straight line cannot separate them perfectly.
+$$
+h=W_1x+b_1
+$$
 
-A neural network needs to create more complicated boundaries.
+$$
+y=W_2h+b_2
+$$
 
-Activation functions introduce the non-linearity that makes this possible.
+Without activation:
 
-## 4. A tiny network
+$$
+y=W_2(W_1x+b_1)+b_2
+$$
 
-Imagine:
+which can be rearranged into another affine transformation.
 
-`input → matrix multiplication → ReLU → matrix multiplication → output`
+But with ReLU:
 
-The first layer can transform the input.
-The ReLU can bend the representation.
-The next layer can combine the transformed features.
+$$
+h=\operatorname{ReLU}(W_1x+b_1)
+$$
 
-Repeating this process lets the network represent increasingly complicated functions.
+$$
+y=W_2h+b_2
+$$
+
+Now the transformation is piecewise and can bend around regions of input space.
+
+That is the beginning of nonlinear decision boundaries.
+
+---
 
 ## 5. Other activations
 
-You will eventually meet:
+### Sigmoid
 
-- sigmoid
-- tanh
-- ReLU
-- GELU
-- softmax
+$$
+\sigma(x)=\frac{1}{1+e^{-x}}
+$$
 
-Each has a different mathematical shape and purpose.
+Its output lies between 0 and 1.
 
-For now, remember the key idea:
+It is useful when we want a number that can be interpreted as a probability-like score, although whether it is a calibrated probability depends on the model and training.
 
-> **Activation functions prevent a neural network from collapsing into one giant straight-line calculation.**
+### Tanh
 
-## 6. A programmer's experiment
+$$
+\tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}
+$$
+
+Its output lies between $-1$ and $1$.
+
+### ReLU
+
+$$
+\operatorname{ReLU}(x)=\max(0,x)
+$$
+
+Simple, fast and widely used in hidden layers.
+
+---
+
+## 6. Python
+
+```python
+import numpy as np
+
+def relu(x):
+    return np.maximum(0, x)
+
+z = np.array([-3., -1., 0., 2., 5.])
+print(relu(z))
+```
+
+Output:
+
+```text
+[0. 0. 0. 2. 5.]
+```
+
+---
+
+## 7. PyTorch
 
 ```python
 import torch
 
-x = torch.tensor([-3.0, 2.0, 7.0])
+x = torch.tensor([-2., -1., 0., 1., 2.])
 print(torch.relu(x))
 ```
 
-The result is:
+The operation is tiny. Its consequence for deep networks is enormous.
 
-`tensor([0., 2., 7.])`
+---
 
-A tiny mathematical rule has become a reusable program.
+## 8. A network as alternating operations
 
-And now our neural network has learned its first trick: it can create non-linear representations.
+```mermaid
+flowchart LR
+    X[Input] --> L1[Linear: W1x + b1]
+    L1 --> A1[Activation: ReLU]
+    A1 --> L2[Linear: W2h + b2]
+    L2 --> A2[Activation]
+    A2 --> Y[Output]
+```
+
+This pattern repeats across many neural networks.
+
+---
+
+## Think Like a Scientist 🧠
+
+Compare:
+
+$$
+f(x)=2x+1
+$$
+
+with
+
+$$
+g(x)=\operatorname{ReLU}(2x+1)
+$$
+
+What happens for $x=-2,-1,0,1,2$?
+
+You will notice that the second function behaves differently on different parts of the input space.
+
+That “different behavior in different regions” is one reason nonlinear networks can model complicated patterns.
+
+---
+
+## What you should remember
+
+> **Activation functions give neural networks nonlinearity.**
+
+The key equation is
+
+$$
+a=f(\mathbf w^T\mathbf x+b)
+$$
+
+Without nonlinear activation, stacking linear layers does not create fundamentally richer functions.
+
+Now our network can produce complicated functions.
+
+But there is still a giant missing piece:
+
+> **How does the network know whether its prediction is good or bad?**
+
+Next we introduce the loss function and the actual learning problem.
