@@ -50,12 +50,8 @@ jobs:
               colab_url = f'https://colab.research.google.com/github/{repo}/blob/{branch}/{notebook.as_posix()}'
 
               text = path.read_text(encoding='utf-8')
-
-              # Remove every legacy per-code-block Colab link, including old feature-branch links.
               text = colab_pattern.sub('', text)
               text = feature_colab_pattern.sub('', text)
-
-              # Remove references to the deleted standalone labs directory.
               text = lab_pattern.sub('', text)
 
               nav = (
@@ -70,7 +66,6 @@ jobs:
               if marker in text:
                   start = text.index(marker)
                   rest = text[start:]
-                  # Replace only the existing navigation block, stopping at the next normal heading.
                   next_heading = re.search(r'(?m)^## (?!🧪 Interactive Lab)', rest)
                   suffix = rest[next_heading.start():] if next_heading else ''
                   text = text[:start] + nav + suffix
@@ -79,33 +74,47 @@ jobs:
                   insert_at = 1 if lines and lines[0].lstrip().startswith('#') else 0
                   text = ''.join(lines[:insert_at]) + '\n' + nav + ''.join(lines[insert_at:])
 
-              # Collapse accidental repeated blank lines created during cleanup.
               text = re.sub(r'\n{4,}', '\n\n\n', text)
               path.write_text(text, encoding='utf-8')
           PY
 
-      - name: Validate blog navigation
+      - name: Validate blog learning quality invariants
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
           errors = []
+
           for path in sorted(Path('blogs').glob('*.md')):
               text = path.read_text(encoding='utf-8')
+              prefix = path.name[:2]
+
               if text.count('<!-- NOTEBOOK-LAB-NAV -->') != 1:
                   errors.append(f'{path}: expected exactly one navigation marker')
               if '/labs/' in text:
                   errors.append(f'{path}: stale labs link remains')
               if 'feature/01-deeplearning-syllabus' in text:
                   errors.append(f'{path}: stale feature-branch link remains')
-              links = re.findall(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/main/notebooks/[^)]+', text)
-              if len(links) != 1:
-                  errors.append(f'{path}: expected exactly one main Colab link, found {len(links)}')
+              if 'cite' in text or 'turn0' in text or 'turn1' in text:
+                  errors.append(f'{path}: ChatGPT-internal citation marker remains')
+
+              colab_links = re.findall(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/main/notebooks/[^)]+', text)
+              if len(colab_links) != 1:
+                  errors.append(f'{path}: expected exactly one main Colab link, found {len(colab_links)}')
+
+              blog_titles = re.findall(r'^# Blog \d{2} — ', text, flags=re.MULTILINE)
+              if len(blog_titles) != 1:
+                  errors.append(f'{path}: expected exactly one top-level Blog title, found {len(blog_titles)}')
+
+              expected_title = re.compile(rf'^# Blog {re.escape(prefix)} — ', re.MULTILINE)
+              if not expected_title.search(text):
+                  errors.append(f'{path}: missing expected Blog {prefix} title')
+
           if errors:
               print('\n'.join(errors))
               raise SystemExit(1)
-          print('All blog posts have exactly one clean notebook/Colab navigation block.')
+          print('All blog posts satisfy navigation, title, and external-reference quality invariants.')
           PY
 
       - name: Commit reorganized learning units
@@ -117,5 +126,5 @@ jobs:
             echo 'No generated changes.'
             exit 0
           fi
-          git commit -m 'Normalize blog notebook navigation'
+          git commit -m 'Validate blog learning quality invariants'
           git push origin HEAD:main
