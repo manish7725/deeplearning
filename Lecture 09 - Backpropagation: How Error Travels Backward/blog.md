@@ -6,7 +6,7 @@
 
 The matching notebook is the hands-on laboratory for this lesson.
 
-**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/Lecture%2009%20-%20Backpropagation:%20How%20Error%20Travels%20Backward/notebook.ipynb)** · **[▶ Open in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2009%20-%20Backpropagation:%20How%20Error%20Travels%20Backward/notebook.ipynb)**
+**[📓 Open the notebook on GitHub](notebook.ipynb)** · **[▶ Open in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2009%20-%20Backpropagation:%20How%20Error%20Travels%20Backward/notebook.ipynb)**
 
 ## 🧭 Where this lesson fits
 
@@ -27,29 +27,22 @@ The big question is simple:
 Start with three operations:
 
 $$
-x \rightarrow z \rightarrow y \rightarrow L$$
+x \rightarrow z \rightarrow y \rightarrow L
+$$
 
 Let
 
-$$
-z = 2x$$
+$$z=2x$$
 
-$$
-y = z + 3$$
+$$y=z+3$$
 
-$$
-L = y^2
-$$
+$$L=y^2$$
 
 Suppose $x=1$.
 
 Then
 
-$$
-z=2,
-\qquad y=5,
-\qquad L=25
-$$
+$$z=2,\qquad y=5,\qquad L=25$$
 
 The computer can move forward easily.
 
@@ -59,19 +52,15 @@ But learning asks the reverse question:
 
 That is
 
-$$
-\frac{dL}{dx}
-$$
+$$\frac{dL}{dx}$$
 
 ---
 
 ## 2. The chain rule is the bridge
 
-The loss does not depend on $x$ directly.
+The loss does not depend on $x$ directly. It depends on $x$ through $z$ and $y$.
 
-It depends on $x$ through $z$ and $y$.
-
-So we break one difficult derivative into three understandable pieces:
+So we break one difficult derivative into understandable pieces:
 
 $$
 \frac{dL}{dx}
@@ -83,23 +72,15 @@ $$
 
 For our example:
 
-$$
-\frac{dL}{dy}=2y=10
-$$
+$$\frac{dL}{dy}=2y=10$$
 
-$$
-\frac{dy}{dz}=1
-$$
+$$\frac{dy}{dz}=1$$
 
-$$
-\frac{dz}{dx}=2
-$$
+$$\frac{dz}{dx}=2$$
 
 Therefore
 
-$$
-\frac{dL}{dx}=10\times1\times2=20
-$$
+$$\frac{dL}{dx}=10\times1\times2=20$$
 
 A small change in $x$ produces an approximately $20$ times larger change in the loss near this point.
 
@@ -147,76 +128,49 @@ The backward pass computes **sensitivities**.
 
 Now let the model be a single neuron:
 
-$$
-z = wx+b$$
+$$z=wx+b$$
 
 and use squared loss:
 
-$$
-L=(z-y)^2
-$$
+$$L=(z-y)^2$$
 
 Take
 
-$$
-x=2,\quad y=7,\quad w=1,\quad b=0
-$$
+$$x=2,\quad y=7,\quad w=1,\quad b=0$$
 
 Forward pass:
 
-$$
-z=1(2)+0=2
-$$
+$$z=1(2)+0=2$$
 
 So
 
-$$
-L=(2-7)^2=25
-$$
+$$L=(2-7)^2=25$$
 
 Now work backward.
 
 First:
 
-$$
-\frac{dL}{dz}=2(z-y)=2(2-7)=-10
-$$
+$$\frac{dL}{dz}=2(z-y)=2(2-7)=-10$$
 
 Because
 
-$$
-z=wx+b
-$$
+$$z=wx+b$$
 
 we have
 
-$$
-\frac{dz}{dw}=x=2
-$$
+$$\frac{dz}{dw}=x=2$$
 
 and
 
-$$
-\frac{dz}{db}=1
-$$
+$$\frac{dz}{db}=1$$
 
 Therefore
 
-$$
-\frac{dL}{dw}
-=
-\frac{dL}{dz}\frac{dz}{dw}
-=(-10)(2)=-20
-$$
+$$\frac{dL}{dw}=\frac{dL}{dz}\frac{dz}{dw}=(-10)(2)=-20$$
 
 and
 
-$$
-\frac{dL}{db}
-=
-\frac{dL}{dz}\frac{dz}{db}
-=(-10)(1)=-10
-$$
+$$\frac{dL}{db}=\frac{dL}{dz}\frac{dz}{db}=(-10)(1)=-10$$
 
 The two parameters have different gradients because they influence the output differently.
 
@@ -228,33 +182,25 @@ Now gradient descent can take over.
 
 Choose
 
-$$
-\eta=0.1
-$$
+$$\eta=0.1$$
 
 Then
 
-$$
-w_{new}=w-\eta\frac{dL}{dw}
-=1-0.1(-20)=3
-$$
+$$w_{new}=w-\eta\frac{dL}{dw}=1-0.1(-20)=3$$
 
 and
 
-$$
-b_{new}=b-\eta\frac{dL}{db}
-=0-0.1(-10)=1
-$$
+$$b_{new}=b-\eta\frac{dL}{db}=0-0.1(-10)=1$$
 
-The parameters moved in directions that should reduce the loss.
+At the new parameters,
+
+$$z=3(2)+1=7$$
+
+so the new squared loss is exactly $0$ for this single training example.
 
 So the complete learning story is now:
 
-$$
-\boxed{
-\text{forward}\rightarrow\text{loss}\rightarrow\text{backward}\rightarrow\text{update}
-}
-$$
+$$\boxed{\text{forward}\rightarrow\text{loss}\rightarrow\text{backward}\rightarrow\text{update}}$$
 
 ---
 
@@ -265,8 +211,6 @@ This distinction matters.
 **Calculus** gives us the chain rule.
 
 **Backpropagation** is an efficient procedure for applying that rule to a computational graph.
-
-So:
 
 | Idea | What it means |
 |---|---|
@@ -293,29 +237,21 @@ b ------------+
 
 Each operation has a local derivative.
 
-For multiplication:
+For multiplication,
 
-$$
-z=wx
-$$
+$$z=wx$$
 
 we know
 
-$$
-\frac{\partial z}{\partial w}=x
-$$
+$$\frac{\partial z}{\partial w}=x$$
 
 and
 
-$$
-\frac{\partial z}{\partial x}=w
-$$
+$$\frac{\partial z}{\partial x}=w$$
 
-For addition:
+For addition,
 
-$$
-z=a+b
-$$
+$$z=a+b$$
 
 both local derivatives are $1$.
 
@@ -352,9 +288,9 @@ z = w * x + b
 loss = (z - y) ** 2
 
 # backward
-_dloss_dz = 2 * (z - y)
-dloss_dw = _dloss_dz * x
-dloss_db = _dloss_dz
+dloss_dz = 2 * (z - y)
+dloss_dw = dloss_dz * x
+dloss_db = dloss_dz
 
 print("prediction:", z)
 print("loss:", loss)
@@ -407,23 +343,17 @@ The backward pass asks:
 
 > How much does the output care about each input?
 
-For a multiplication node:
+For a multiplication node,
 
-$$
-z=ab
-$$
+$$z=ab$$
 
 if the gradient arriving from the right is $g=\partial L/\partial z$, then the node sends back
 
-$$
-\frac{\partial L}{\partial a}=gb
-$$
+$$\frac{\partial L}{\partial a}=gb$$
 
 and
 
-$$
-\frac{\partial L}{\partial b}=ga
-$$
+$$\frac{\partial L}{\partial b}=ga$$
 
 That local rule can be reused everywhere.
 
@@ -433,10 +363,7 @@ That local rule can be reused everywhere.
 
 For
 
-$$
-u=3x+2,
-\qquad L=(u-10)^2
-$$
+$$u=3x+2,\qquad L=(u-10)^2$$
 
 start with $x=1$.
 
@@ -454,19 +381,9 @@ The goal is not memorization. The goal is to see the chain.
 
 > **Backpropagation is the chain rule applied backward through a computational graph so that every parameter receives its gradient.**
 
-The pattern is:
+The pattern is
 
-$$
-\boxed{
-\text{forward values}
-\rightarrow
-\text{loss}
-\rightarrow
-\text{local derivatives}
-\rightarrow
-\text{backward gradients}
-}
-$$
+$$\boxed{\text{forward values}\rightarrow\text{loss}\rightarrow\text{local derivatives}\rightarrow\text{backward gradients}}$$
 
 We now have all the ingredients for one trainable neuron.
 
@@ -478,10 +395,8 @@ But a real network does not contain only one number flowing through one equation
 
 # 📚 Go Deeper
 
-Draw a computational graph for any expression you know, such as
+Draw a computational graph for
 
-$$
-L=(2x+1)^2
-$$
+$$L=(2x+1)^2$$
 
 Then derive its gradient in two ways: expand the square first, or apply the chain rule node by node. You should get the same answer.
