@@ -409,6 +409,8 @@ This is the foundation of gradient descent.
 
 You can implement the same idea directly in Python without a deep-learning framework:
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/01-what-is-learning.ipynb)**
+
 ```python
 import numpy as np
 
@@ -589,6 +591,8 @@ Because before a machine can learn from information, **we need to teach the mach
 Use [`../labs/01-learning-lab.md`](../labs/01-learning-lab.md).
 
 Start with the smallest possible learning experiment:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/01-what-is-learning.ipynb)**
 
 ```python
 import numpy as np

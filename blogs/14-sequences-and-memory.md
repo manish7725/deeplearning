@@ -134,6 +134,8 @@ Both LSTM and GRU were important milestones in sequence modeling.
 
 ## 7. PyTorch RNN example
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/14-sequence-models.ipynb)**
+
 ```python
 import torch
 import torch.nn as nn
@@ -218,6 +220,8 @@ But a new mechanism offers a radically different idea:
 Use [`../labs/14-sequence-lab.md`](../labs/14-sequence-lab.md).
 
 Start with a tiny recurrence:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/14-sequence-models.ipynb)**
 
 ```python
 import torch

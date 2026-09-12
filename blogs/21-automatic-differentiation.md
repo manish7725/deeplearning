@@ -118,6 +118,8 @@ That is the basic idea behind **backpropagation + autodiff**.
 
 # 3. PyTorch does the bookkeeping
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/21-automatic-differentiation.ipynb)**
+
 ```python
 import torch
 

@@ -183,6 +183,8 @@ A neuron will soon use almost exactly this calculation.
 
 ## 8. Python: turn the mathematics into an experiment
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
+
 ```python
 import numpy as np
 
@@ -232,6 +234,8 @@ A photograph can contain millions of numerical values. A language model can repr
 
 ## 10. Dimension and shape are not the same idea
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
+
 ```python
 x = np.array([2, 3, 4])
 print(x.shape)
@@ -244,6 +248,8 @@ Output:
 ```
 
 Now create three examples:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
 
 ```python
 X = np.array([
@@ -350,6 +356,8 @@ So next we need a mathematical structure that can hold many vectors at once.
 The companion exercise is [`../labs/02-vectors-lab.md`](../labs/02-vectors-lab.md).
 
 Start with NumPy and make the mathematics visible in code:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
 
 ```python
 import numpy as np

@@ -170,6 +170,8 @@ They use the same mathematical foundation with different architectures and objec
 
 ## 7. A conceptual PyTorch autoencoder
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/19-generative-models.ipynb)**
+
 ```python
 import torch
 import torch.nn as nn
@@ -238,6 +240,8 @@ Now it is time to put everything together.
 Use [`../labs/19-generative-models-lab.md`](../labs/19-generative-models-lab.md).
 
 Start with an autoencoder because it exposes the idea clearly:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/19-generative-models.ipynb)**
 
 ```python
 import torch

@@ -153,6 +153,8 @@ This is gradient-based learning at very large scale.
 
 ## 8. Tiny PyTorch example
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/18-language-models.ipynb)**
+
 ```python
 import torch
 import torch.nn.functional as F
@@ -272,6 +274,8 @@ But prediction is not the only thing neural networks can learn to do.
 Use [`../labs/18-language-model-lab.md`](../labs/18-language-model-lab.md).
 
 Start with a tiny vocabulary and a tiny text corpus. Your first goal is not performance; it is understanding the training signal.
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/18-language-models.ipynb)**
 
 ```python
 import torch

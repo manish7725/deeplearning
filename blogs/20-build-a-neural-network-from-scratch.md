@@ -48,6 +48,8 @@ $$
 
 Use four examples:
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/20-neural-network-from-scratch.ipynb)**
+
 ```python
 import numpy as np
 
@@ -66,6 +68,8 @@ to discover $w\approx2$ and $b\approx1$.
 ---
 
 ## 2. Start with terrible parameters
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/20-neural-network-from-scratch.ipynb)**
 
 ```python
 w = 0.0
@@ -150,6 +154,8 @@ That is the entire learning algorithm for this toy model.
 
 ## 6. Full NumPy implementation
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/20-neural-network-from-scratch.ipynb)**
+
 ```python
 import numpy as np
 
@@ -216,6 +222,8 @@ The model started with poor parameters and repeatedly changed them according to 
 ## 8. Now let PyTorch do the bookkeeping
 
 The same model can be written with PyTorch:
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/20-neural-network-from-scratch.ipynb)**
 
 ```python
 import torch
