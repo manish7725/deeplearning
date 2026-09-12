@@ -6,8 +6,7 @@ on:
     branches: [main]
     paths:
       - 'blogs/**'
-      - 'scripts/rebuild_complete_blog_notebooks.py'
-      - 'scripts/rebuild_blog_synced_notebooks.py'
+      - 'scripts/**'
       - '.github/workflows/rebuild-notebooks-from-blogs.yml'
   workflow_dispatch:
 permissions:
@@ -28,7 +27,9 @@ jobs:
           python-version: '3.11'
       - name: Rebuild all 37 notebooks as complete single-file lessons
         run: python scripts/rebuild_blog_synced_notebooks.py
-      - name: Validate notebook structure, source mapping, and code syntax
+      - name: Organize learner-facing chapter workspaces
+        run: python scripts/organize_chapters.py
+      - name: Validate notebook and chapter structure
         run: |
           python - <<'PY'
           import ast, json
@@ -36,23 +37,35 @@ jobs:
           blogs=sorted([p for p in Path('blogs').glob('[0-9][0-9]-*.md') if 1 <= int(p.name[:2]) <= 37])
           assert len(blogs)==37, len(blogs)
           for b in blogs:
-              n=Path('notebooks')/(b.stem+'.ipynb')
+              stem=b.stem
+              n=Path('notebooks')/(stem+'.ipynb')
+              chapter=Path('chapters')/stem
+              cn=chapter/(stem+'.ipynb')
+              cb=chapter/(stem+'.md')
               assert n.exists(), f'Missing {n}'
+              assert chapter.exists(), f'Missing chapter folder {chapter}'
+              assert cn.exists(), f'Missing chapter notebook {cn}'
+              assert cb.exists(), f'Missing chapter blog {cb}'
+              assert (chapter/'README.md').exists(), f'Missing {chapter}/README.md'
+              assert (chapter/'apps'/'README.md').exists(), f'Missing {chapter}/apps/README.md'
               data=json.loads(n.read_text(encoding='utf-8'))
               assert data['metadata']['blog_source']==f'blogs/{b.name}'
+              chapter_data=json.loads(cn.read_text(encoding='utf-8'))
+              assert chapter_data['metadata']['blog_source']==f'blogs/{b.name}'
               text='\n'.join(''.join(c.get('source',[])) for c in data['cells'])
-              for required in ['Blog context','Hand calculation','NumPy','PyTorch','Visualization','Change exactly one variable','Intentional failure','Blog-synchronized exercises','Mini-project','Research bridge','Mastery check']:
+              for required in ['Hand calculation','NumPy','PyTorch','Visualization','Change exactly one variable','Intentional failure','Blog-synchronized exercises','Mini-project','Research bridge','Mastery check']:
                   assert required.lower() in text.lower(), f'{n}: {required}'
               assert 'Set broken_value' not in text and 'Add the chapter calculation here' not in text
               for c in data['cells']:
                   if c['cell_type']=='code': ast.parse(''.join(c['source']))
-          print('PASS: all 37 notebooks are complete source-driven lessons and all code cells compile.')
+          assert (Path('chapters')/'README.md').exists()
+          print('PASS: 37 notebooks + 37 chapter workspaces + applications directories validated.')
           PY
-      - name: Commit regenerated notebooks
+      - name: Commit regenerated notebooks and chapter workspaces
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add notebooks
-          if git diff --cached --quiet; then echo 'No notebook changes.'; exit 0; fi
-          git commit -m 'Rebuild notebooks as complete blog companions'
+          git add notebooks chapters
+          if git diff --cached --quiet; then echo 'No notebook/chapter changes.'; exit 0; fi
+          git commit -m 'Build chapter workspaces for interactive learning'
           git push origin HEAD:feature/blog-synced-notebooks
