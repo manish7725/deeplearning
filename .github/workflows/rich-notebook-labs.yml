@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - feature/rich-notebook-labs
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'notebooks/**'
+      - 'scripts/rich_notebook_labs.py'
+      - '.github/workflows/rich-notebook-labs.yml'
   workflow_dispatch:
 
 permissions:
