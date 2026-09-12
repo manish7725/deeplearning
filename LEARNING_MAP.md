@@ -49,14 +49,7 @@
 - Blogs: **37**
 - Notebooks: **37**
 - Missing notebook matches: **0**
-- Content-review queue: **4**
-
-### Content-review queue
-
-- 25 25-why-neural-networks-generalize.md
-- 29 29-conditional-generative-models.md
-- 31 31-transfer-learning-and-fine-tuning.md
-- 35 35-architectural-bias-and-representations.md
+- Content-review queue: **0**
 
 ## Learning contract
 

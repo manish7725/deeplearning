@@ -1,4 +1,4 @@
 blogs=37
 notebooks=37
 missing_notebooks=0
-content_review_queue=4
+content_review_queue=0
