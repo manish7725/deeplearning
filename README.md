@@ -4,70 +4,104 @@ A first-principles path from **school mathematics to deep-learning research**.
 
 > **Notebook = interactive textbook + laboratory. Markdown = parallel source. Applications = projects. Experiments = discovery. Papers = research.**
 
+## The five-stage learning journey
+
+This repository is intentionally **gated by difficulty and depth**. It is not a flat collection of 37 tutorials.
+
+```text
+STAGE 1  Foundations of Learning
+   ↓ pass mastery gate
+STAGE 2  Mathematics of Learning
+   ↓ pass mastery gate
+STAGE 3  Core Deep Learning
+   ↓ pass mastery gate
+STAGE 4  Deep Learning Theory & Modern Learning
+   ↓ pass mastery gate
+STAGE 5  Advanced Deep Learning & Research
+```
+
+👉 **[Open the five-stage curriculum](chapters/)**
+
+👉 **[Read the stage goals and mastery gates](STAGES.md)**
+
+### Stage map
+
+| Stage | Focus | Chapters |
+|---:|---|---:|
+| 1 | Foundations of Learning | 01–07 |
+| 2 | Mathematics of Learning | 08–12 |
+| 3 | Core Deep Learning | 13–20 |
+| 4 | Deep Learning Theory & Modern Learning | 21–30 |
+| 5 | Advanced Deep Learning & Research | 31–37 |
+
+**Rule:** finish a stage, pass its mastery gate, then continue. A learner should not be expected to understand Stage 5 material while still building Stage 1–2 foundations.
+
 ## Start learning
 
 A Class 8 student should start from the **chapter notebook**, not from a separate blog page.
 
-👉 **[Open the 37 interactive chapters](chapters/)**
-
-Each chapter is self-contained:
+Every chapter is self-contained:
 
 ```text
 Story → Intuition → Math → Hand calculation → NumPy → PyTorch
-      → Visualization → Interactive experiment → Failure mode
-      → Exercises → Application → Research question
+      → Visualization → Controlled experiment → Failure mode
+      → Exercises → Application → Research bridge → Mastery check
 ```
 
 The notebook is the complete lesson even when the student never opens the Markdown source.
 
 ## Chapter workspace
 
-Every topic now has one learner-facing folder:
+The learner-facing repository is organized by stage:
 
 ```text
 chapters/
-  01-what-is-learning/
+  stage-1-foundations-of-learning/
     README.md
-    01-what-is-learning.ipynb   ← START HERE
-    01-what-is-learning.md      ← parallel Markdown source
-    apps/                        ← applications built from this chapter
-
-  02-numbers-become-vectors/
+    01-what-is-learning/
+      01-what-is-learning.ipynb   ← START HERE
+      01-what-is-learning.md      ← parallel source
+      README.md
+      apps/
     ...
 
-  ...
+  stage-2-mathematics-of-learning/
+    08-derivatives-the-compass/
+    ...
 
-  37-preference-learning-and-policy-optimization/
+  stage-3-core-deep-learning/
+    13-convolution/
+    ...
+
+  stage-4-deep-learning-theory-and-modern-learning/
+    21-automatic-differentiation/
+    ...
+
+  stage-5-advanced-deep-learning-and-research/
+    31-transfer-learning-and-fine-tuning/
     ...
 ```
 
-The chapter notebook is the primary learning artifact. The parallel Markdown copy remains intact for authoring, publishing, provenance, and future synchronization.
+Each chapter contains the notebook, parallel Markdown source, chapter README, and an `apps/` directory for applications. The notebook is the primary learning artifact.
 
-## Curriculum
+## Master curriculum
 
-Start with [`SYLLABUS.md`](SYLLABUS.md) for the master map from Class 8 through PhD-level research.
+The broader [`SYLLABUS.md`](SYLLABUS.md) remains the long-term Class 8 → PhD roadmap. The five-stage structure is the **gated learner-facing spine** for the current 37 first-principles lessons.
 
-```text
-LEVEL 0  Class 8 intuition + Python
-LEVEL 1  High-school mathematics for ML
-LEVEL 2  Undergraduate mathematics + classical ML
-LEVEL 3  First-principles deep learning
-LEVEL 4  Core architectures
-LEVEL 5  Representation + generative learning
-LEVEL 6  LLMs + foundation models
-LEVEL 7  Deep-learning systems
-LEVEL 8  Graduate mathematical theory
-LEVEL 9  Research methodology
-LEVEL 10 PhD research
-```
+## Learning contract
 
-## The learning loop
+A concept is not considered mastered merely because the learner read it. For each important idea, the learner should be able to:
 
-Every important idea is taught at three levels:
+1. explain it to a younger student;
+2. calculate a small example by hand;
+3. implement it in NumPy;
+4. implement it in PyTorch when appropriate;
+5. visualize or test its important behaviour;
+6. explain at least one failure mode;
+7. solve unfamiliar exercises;
+8. connect it to the next abstraction.
 
-1. **Class 8 intuition** — pictures, stories and tiny numbers.
-2. **Engineering implementation** — NumPy/PyTorch and controlled experiments.
-3. **Research mathematics** — derivations, assumptions, limitations, proofs and open questions.
+At the advanced/research stage, add controlled ablations, reproducibility, uncertainty analysis, and falsifiable research questions.
 
 ## Source architecture
 
@@ -79,27 +113,17 @@ blogs/NN-topic.md
 lesson parser / curriculum builder
        │
        ├──────────────► notebooks/NN-topic.ipynb
-       │                 legacy/parallel notebook location
+       │                 legacy notebook collection
        │
        ▼
-chapters/NN-topic/
+chapters/stage-N-.../NN-topic/
        ├── NN-topic.ipynb   ← learner-facing interactive textbook + lab
        ├── NN-topic.md      ← parallel source
-       ├── README.md        ← chapter map
-       └── apps/            ← chapter applications
+       ├── README.md        ← chapter map + prerequisites
+       └── apps/            ← applications built from the chapter
 ```
 
-For now the original `blogs/` and `notebooks/` directories remain intact. The new `chapters/` tree is the learner-facing structure. Future cleanup can remove duplicate legacy copies after all links and workflows have migrated.
-
-## Existing resources
-
-- 📚 **[Interactive chapters](chapters/)** — primary learning path
-- 📖 **[Source blogs](blogs/)** — parallel canonical Markdown source
-- 📓 **[Legacy notebook collection](notebooks/)** — retained during migration
-- 🧭 **[Master syllabus](SYLLABUS.md)**
-- 📐 **[Learning contract](LEARNING_CONTRACT.md)**
-- 🧪 **[Interactive playground plan](INTERACTIVE_PLAYGROUND.md)**
-- 🧠 **[Research methodology](RESEARCH_PLAYBOOK.md)**
+For now the original `blogs/` and `notebooks/` directories remain intact. They are migration/source assets; the staged `chapters/` tree is the learner-facing curriculum.
 
 ## Interactive mathematics
 
@@ -130,6 +154,6 @@ Question → hypothesis → baseline → measurement → intervention
 
 `main` is the stable published construct.
 
-`reorg/class8-to-phd-curriculum` is the full experimental construct. **When the old structure conflicts with the new design, the new design wins.** This branch can be reshaped aggressively until the complete learning experience is ready.
+`reorg/5-stage-deep-learning` is the current experimental construct for this refactor. **When the old structure conflicts with the new five-stage design, the new design wins.**
 
-Nothing is merged into `main` until the repository is reviewed as a complete curriculum.
+Nothing is merged into `main` until the complete five-stage curriculum, all chapter notebooks, synchronization, links, applications, and mastery gates pass review.
