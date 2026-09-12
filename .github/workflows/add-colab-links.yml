@@ -23,6 +23,9 @@ jobs:
       - name: Add topic-specific laboratory experiments
         run: python scripts/upgrade_notebooks.py
 
+      - name: Apply Class 8 student walkthrough fixes
+        run: python scripts/student_walkthrough_fixes.py
+
       - name: Merge labs into notebooks and remove obsolete labs
         run: python scripts/merge_labs_into_notebooks.py
 
@@ -50,29 +53,21 @@ jobs:
               colab_url = f'https://colab.research.google.com/github/{repo}/blob/{branch}/{notebook.as_posix()}'
               text = path.read_text(encoding='utf-8')
 
-              # Remove old navigation and every legacy per-code-block Colab link.
               text = re.sub(r'>\s*🧪\s*\*\*\[Run this code in Google Colab\]\([^\n]+\)\*\*\s*\n?', '', text)
               text = re.sub(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/[^)]+', '', text)
               text = re.sub(r'^.*\]\([^\n]*?/labs/[^\n]*\)\s*\n?', '', text, flags=re.MULTILINE)
-
-              # Remove accidental embedded copies of another numbered blog.
               embedded = re.search(r'(?m)^# Blog (?!' + re.escape(prefix) + r' —)\d{2} — ', text)
               if embedded:
                   text = text[:embedded.start()].rstrip() + '\n'
-
-              # Repository Markdown must never contain ChatGPT transport citations.
               text = re.sub(r'\s*(?:cite|url|entity|memcite)[^\n]*', '', text)
 
               nav = (
                   f'{marker}\n\n'
                   '## 🧪 Interactive Lab\n\n'
-                  'The matching notebook is the complete hands-on laboratory for this lesson. '
-                  'It contains the runnable code, experiments, visualizations, and challenges.\n\n'
+                  'The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.\n\n'
                   f'**[📓 Open the notebook on GitHub]({notebook_url})**  '
                   f'· **[▶ Open the notebook in Google Colab]({colab_url})**\n\n'
               )
-
-              # Remove any previously generated navigation block, then insert one after the title/intro.
               text = re.sub(r'<!-- NOTEBOOK-LAB-NAV -->.*?(?=^## (?!🧪 Interactive Lab)|\Z)', '', text, flags=re.MULTILINE|re.DOTALL)
               lines = text.splitlines(True)
               insert_at = 1 if lines and lines[0].lstrip().startswith('#') else 0
@@ -81,7 +76,7 @@ jobs:
               path.write_text(text, encoding='utf-8')
           PY
 
-      - name: Validate all 37 blog and notebook quality invariants
+      - name: Validate all 37 learning units
         shell: bash
         run: |
           python - <<'PY'
@@ -92,9 +87,10 @@ jobs:
           notebooks=sorted(Path('notebooks').glob('*.ipynb'))
           if len(blogs) != 37: errors.append(f'expected 37 blogs, found {len(blogs)}')
           if len(notebooks) != 37: errors.append(f'expected 37 notebooks, found {len(notebooks)}')
+          all_blogs = {p.name[:2]: p for p in blogs}
           for path in blogs:
               text=path.read_text(encoding='utf-8'); prefix=path.name[:2]
-              if text.count(marker := '<!-- NOTEBOOK-LAB-NAV -->') != 1: errors.append(f'{path}: navigation marker count != 1')
+              if text.count('<!-- NOTEBOOK-LAB-NAV -->') != 1: errors.append(f'{path}: navigation marker count != 1')
               if '/labs/' in text: errors.append(f'{path}: stale labs reference')
               if 'feature/01-deeplearning-syllabus' in text: errors.append(f'{path}: stale feature branch reference')
               if re.search(r'(?:cite|url|entity|memcite)',text): errors.append(f'{path}: ChatGPT transport marker remains')
@@ -103,15 +99,21 @@ jobs:
               if len(titles)!=1: errors.append(f'{path}: top-level blog title count != 1')
               if not re.search(rf'^# Blog {re.escape(prefix)} — ',text,re.M): errors.append(f'{path}: wrong/missing blog number')
               if re.search(r'(?m)^# Blog \d{2} — ',text[text.find('\n')+1:]): errors.append(f'{path}: embedded second blog detected')
+              if '## 🧭 Where this lesson fits' not in text: errors.append(f'{path}: missing lesson bridge')
+              if path.name.startswith('03-') and 'print(2*10 + 3*20)' in text: errors.append(f'{path}: malformed old verification section remains')
           for path in notebooks:
               try: nb=json.loads(path.read_text(encoding='utf-8'))
               except Exception as e: errors.append(f'{path}: invalid JSON: {e}'); continue
               cells=nb.get('cells',[])
+              markdown='\n'.join(''.join(c.get('source',[])) for c in cells if c.get('cell_type')=='markdown')
               if not any(c.get('cell_type')=='code' for c in cells): errors.append(f'{path}: no code cells')
-              if not any(c.get('cell_type')=='markdown' and 'Topic experiment' in ''.join(c.get('source',[])) for c in cells): errors.append(f'{path}: missing topic-specific experiment')
+              if 'Where this lesson fits' not in markdown: errors.append(f'{path}: missing lesson bridge')
+              if 'Topic experiment' not in markdown: errors.append(f'{path}: missing topic-specific experiment')
+              prefix=path.name[:2]
+              if prefix in all_blogs and all_blogs[prefix].name not in markdown: errors.append(f'{path}: matching blog link missing')
           if errors:
               print('\n'.join(errors)); raise SystemExit(1)
-          print('37 blogs and 37 notebooks passed structural, navigation, citation, and topic-experiment checks.')
+          print('37 blogs and 37 notebooks passed the Class 8 student-walkthrough quality checks.')
           PY
 
       - name: Commit quality fixes
@@ -120,5 +122,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add notebooks blogs labs scripts .github/workflows/add-colab-links.yml
           if git diff --cached --quiet; then echo 'No generated changes.'; exit 0; fi
-          git commit -m 'Improve all blog learning units'
+          git commit -m 'Fix Class 8 learning path coherence'
           git push origin HEAD:main
