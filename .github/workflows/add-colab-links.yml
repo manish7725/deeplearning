@@ -40,6 +40,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Upgrade short chapter blogs
+        run: python scripts/upgrade_blogs.py
+
       - name: Run Class 8 walkthrough fixes
         run: python scripts/student_walkthrough_fixes.py
 
@@ -92,5 +95,5 @@ jobs:
             echo 'No generated curriculum changes.'
             exit 0
           fi
-          git commit -m 'Complete Class 8 to PhD chapter labs'
+          git commit -m 'Complete Class 8 to PhD chapter curriculum'
           git push origin HEAD:reorg/class8-to-phd-curriculum
