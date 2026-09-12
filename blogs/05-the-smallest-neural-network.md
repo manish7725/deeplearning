@@ -1,16 +1,14 @@
 # Blog 05 — Meet the Smallest Neural Network
 
-> A neural network begins with a tiny mathematical machine: multiply, add, and learn the numbers that control the calculation.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Imagine the king asks:
+## 🧪 Interactive Lab
 
-> “Can we build the smallest possible machine that learns from examples?”
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-The scientist says:
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
 
-> “Yes. We only need a few numbers called **parameters**.”
-
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. The smallest possible model
 
@@ -237,16 +235,6 @@ The artificial neuron is a useful abstraction, not a complete simulation of biol
 
 ## 9. Python: build a neuron yourself
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
 ```python
 import numpy as np
 
@@ -274,16 +262,6 @@ The magic of deep learning comes later, when we learn how to **change $w$ and $b
 ---
 
 ## 10. A PyTorch version
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
 
 ```python
 import torch
@@ -385,67 +363,6 @@ But a model that only calculates a prediction has not necessarily learned anythi
 Next we need to define **how wrong the prediction is**.
 
 > **Next: prediction is not the same as learning.**
-
----
-
-# 🧪 Hands-on Lab — Build a Neuron From Scratch
-
-Use [`../labs/05-neuron-lab.md`](../labs/05-neuron-lab.md) as the companion exercise.
-
-Start without PyTorch:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-```python
-import numpy as np
-
-x = np.array([2., 3., 4.])
-w = np.array([1., -2., 0.5])
-b = 1.
-
-z = np.dot(w, x) + b
-print(z)
-```
-
-Then write the same calculation using an explicit loop:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
-
-```python
-z = b
-for xi, wi in zip(x, w):
-    z += xi * wi
-```
-
-### Challenges
-
-1. Add a fourth feature.
-2. Make one weight negative.
-3. Set one weight to zero and explain what disappears.
-4. Create three neurons with three different weight vectors.
-5. Replace the manual calculation with a matrix multiplication.
-
-### Mastery test
-
-Given $n$ inputs and $m$ neurons, predict the shape of the weight matrix before writing any code.
-
-That single habit will prevent a huge number of PyTorch errors later.
 
 ---
 

@@ -1,16 +1,14 @@
 # Blog 12 — How Do We Know If Our Model Really Learned?
 
-Imagine a student memorizes every question in a practice book.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Give the exact same questions again and the student gets everything right.
+## 🧪 Interactive Lab
 
-Did the student understand the subject?
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-Maybe. Maybe not.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
 
-Machine learning has exactly the same problem.
-
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. Training accuracy can fool us
 
@@ -175,16 +173,6 @@ A model can have an impressive score and still be scientifically invalid.
 
 ## 9. A tiny PyTorch evaluation pattern
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/12-training-and-testing.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
-
 ```python
 model.eval()
 
@@ -266,60 +254,6 @@ $$
 Now we can move from abstract numbers to one of the richest sources of data humans have: images.
 
 > **Next: convolution — how a neural network learns to see local patterns.**
-
----
-
-# 🧪 Hands-on Lab — Detect Overfitting Yourself
-
-Use [`../labs/12-training-testing-lab.md`](../labs/12-training-testing-lab.md).
-
-Create a deliberately small training set and a separate validation set.
-
-Track both losses during training:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/12-training-and-testing.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
-
-```python
-history = {
-    "train": [],
-    "validation": []
-}
-```
-
-### Experiments
-
-1. Train a tiny model.
-2. Increase the model capacity.
-3. Train for more epochs.
-4. Plot training and validation loss.
-5. Find the point where validation performance stops improving.
-
-Then intentionally create leakage by normalizing the full dataset before splitting it.
-
-Discuss why that can make evaluation overly optimistic.
-
-### Mastery challenge
-
-Build a confusion matrix by hand for:
-
-```text
-TP = 80
-FP = 20
-FN = 10
-TN = 90
-```
-
-Calculate precision and recall.
-
-Then explain which metric you would prioritize if false negatives were extremely costly.
 
 ---
 

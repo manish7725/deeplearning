@@ -1,19 +1,14 @@
 # Blog 02 — How Do Numbers Become Vectors?
 
-> **Deep Learning from First Principles**  
-> Written so a Class 7 student can follow the story, while the mathematics stays honest.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Imagine a king walking into the royal laboratory with a strange question:
+## 🧪 Interactive Lab
 
-> **“Can a machine understand which student is likely to become a great scientist?”**
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-The scientist does not start with a neural network. He starts with a much simpler question:
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
 
-> **“How will we describe a student using numbers?”**
-
-That question leads us to one of the most important objects in machine learning: the **vector**.
-
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. A computer needs a numerical description
 
@@ -183,16 +178,6 @@ A neuron will soon use almost exactly this calculation.
 
 ## 8. Python: turn the mathematics into an experiment
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
 ```python
 import numpy as np
 
@@ -242,16 +227,6 @@ A photograph can contain millions of numerical values. A language model can repr
 
 ## 10. Dimension and shape are not the same idea
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
 ```python
 x = np.array([2, 3, 4])
 print(x.shape)
@@ -264,16 +239,6 @@ Output:
 ```
 
 Now create three examples:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
 
 ```python
 X = np.array([
@@ -372,64 +337,6 @@ One vector describes one example. Real models learn from many examples.
 So next we need a mathematical structure that can hold many vectors at once.
 
 > **Next: matrices — the spreadsheet of mathematics.**
-
----
-
-# 🧪 Hands-on Lab — Build Your Own Vector World
-
-The companion exercise is [`../labs/02-vectors-lab.md`](../labs/02-vectors-lab.md).
-
-Start with NumPy and make the mathematics visible in code:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
-
-```python
-import numpy as np
-
-students = np.array([
-    [9., 8.],
-    [8., 9.],
-    [3., 4.]
-])
-
-alice = students[0]
-bob = students[1]
-
-print("Alice:", alice)
-print("Bob:", bob)
-print("Distance:", np.linalg.norm(alice - bob))
-print("Dot product:", alice @ bob)
-```
-
-### Experiment
-
-Change the vectors and predict the result **before** running the code.
-
-Then investigate:
-
-1. What happens when two vectors point in the same direction?
-2. What happens to the distance if every coordinate is multiplied by 10?
-3. Can two vectors have the same length but point in different directions?
-4. What does a negative dot product tell you about direction?
-5. Why would a model care about the difference between `[9, 8]` and `[8, 9]`?
-
-### Mastery challenge
-
-Create 100 random two-dimensional vectors and find the five vectors closest to `[5, 5]`.
-
-Then repeat the experiment after multiplying the first feature by 100.
-
-**Question:** Why did the meaning of “closest” change?
-
-That experiment is your first glimpse of **feature scaling** and why representation matters.
 
 ---
 

@@ -1,44 +1,14 @@
 # Blog 20 — Build a Tiny Neural Network From Scratch
 
-> 🧪 **Run the code yourself:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb) · [📓 View notebook on GitHub](../notebooks/20-neural-network-from-scratch.ipynb)
+<!-- NOTEBOOK-LAB-NAV -->
 
-We have travelled a long way:
+## 🧪 Interactive Lab
 
-```text
-numbers
-  ↓
-vectors
-  ↓
-matrix multiplication
-  ↓
-linear transformations
-  ↓
-neurons
-  ↓
-activations
-  ↓
-loss
-  ↓
-derivatives
-  ↓
-gradient descent
-  ↓
-backpropagation
-  ↓
-tensors
-  ↓
-CNNs / sequence models
-  ↓
-attention
-  ↓
-Transformers
-  ↓
-generative models
-```
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-Now we will remove the framework magic and build a tiny trainable neural network ourselves.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
 
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. Our toy problem
 
@@ -49,16 +19,6 @@ y = 2x + 1
 ```
 
 Use four examples:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
 
 ```python
 import numpy as np
@@ -78,16 +38,6 @@ to discover $w \approx 2$ and $b \approx 1$.
 ---
 
 ## 2. Start with terrible parameters
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
 
 ```python
 w = 0.0
@@ -186,16 +136,6 @@ That is the entire learning algorithm for this toy model.
 
 ## 6. Full NumPy implementation
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
 ```python
 import numpy as np
 
@@ -290,16 +230,6 @@ The model started with poor parameters and repeatedly changed them according to 
 ## 8. Now let PyTorch do the bookkeeping
 
 The same model can be written with PyTorch:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
 
 ```python
 import torch

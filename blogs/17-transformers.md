@@ -1,12 +1,14 @@
 # Blog 17 — Transformers: Building With Attention
 
-Attention is a mechanism.
+<!-- NOTEBOOK-LAB-NAV -->
 
-A Transformer is an architecture built around attention plus several other important components.
+## 🧪 Interactive Lab
 
-It became the foundation of many modern language models.
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
----
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
+
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. From tokens to representations
 
@@ -162,16 +164,6 @@ This is why “Transformer” describes an architecture family rather than one s
 
 ## 9. A small PyTorch module
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/17-transformers.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
-
 ```python
 import torch
 import torch.nn as nn
@@ -255,68 +247,6 @@ The surrounding architecture makes those interactions trainable and reusable at 
 Now we can finally ask the question that powers modern language models:
 
 > **How does a model learn to predict text?**
-
----
-
-# 🧪 Hands-on Lab — Build a Mini Transformer Block
-
-Use [`../labs/17-transformer-lab.md`](../labs/17-transformer-lab.md).
-
-Start with PyTorch's building blocks:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/17-transformers.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
-
-```python
-import torch
-import torch.nn as nn
-
-layer = nn.TransformerEncoderLayer(
-    d_model=64,
-    nhead=4,
-    batch_first=True
-)
-
-x = torch.randn(2, 8, 64)
-y = layer(x)
-
-print(x.shape)
-print(y.shape)
-```
-
-### Challenges
-
-1. Change the sequence length.
-2. Change the number of heads.
-3. Explain why `d_model` must be compatible with the chosen number of heads.
-4. Inspect the model parameters.
-5. Implement one attention head manually using the equation from Blog 16.
-6. Compare your result conceptually with the PyTorch layer.
-
-### Architecture challenge
-
-Draw the complete data path:
-
-```text
-token IDs
-→ embeddings
-→ position information
-→ attention
-→ residual
-→ normalization
-→ feed-forward
-→ residual
-→ normalization
-```
-
-Then explain what each component contributes.
 
 ---
 

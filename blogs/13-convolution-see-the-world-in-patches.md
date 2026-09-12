@@ -1,18 +1,14 @@
 # Blog 13 — How a Neural Network Learns to See: Convolution
 
-A photograph contains millions of pixels.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Does a neural network need to look at every pixel independently every time?
+## 🧪 Interactive Lab
 
-Not necessarily.
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-Images have a powerful property: **nearby pixels often form local patterns**.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
 
-Edges, corners and textures are local.
-
-Convolutional neural networks exploit this structure.
-
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. Start with a tiny image
 
@@ -167,16 +163,6 @@ This hierarchy is learned from data; it is not a rule that every CNN must follow
 
 ## 8. PyTorch example
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
 ```python
 import torch
 import torch.nn as nn
@@ -217,16 +203,6 @@ Older CNN architectures often used pooling layers to reduce spatial resolution.
 
 For example, max pooling keeps the largest value in a local window.
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
 ```python
 pool = nn.MaxPool2d(kernel_size=2)
 ```
@@ -264,59 +240,6 @@ But images are not the only kind of data.
 In language, music and time-series data, **order matters**.
 
 > **Next: sequences and memory.**
-
----
-
-# 🧪 Hands-on Lab — Build an Edge Detector
-
-Use [`../labs/13-convolution-lab.md`](../labs/13-convolution-lab.md).
-
-Start with a tiny image and a manually chosen kernel:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
-
-```python
-import torch
-
-image = torch.tensor([
-    [0., 0., 0., 0., 0.],
-    [0., 0., 1., 0., 0.],
-    [0., 0., 1., 0., 0.],
-    [0., 0., 1., 0., 0.],
-    [0., 0., 0., 0., 0.]
-])
-
-kernel = torch.tensor([
-    [-1., 0., 1.],
-    [-1., 0., 1.],
-    [-1., 0., 1.]
-])
-```
-
-Implement the sliding-window calculation yourself before using `nn.Conv2d`.
-
-### Challenges
-
-1. Design a horizontal-edge detector.
-2. Design a vertical-edge detector.
-3. Change the stride.
-4. Add padding.
-5. Predict the output shape before running PyTorch.
-6. Visualize the input and feature map.
-
-### Mastery question
-
-Why is weight sharing such a powerful idea for images?
-
-Your answer should mention **locality**, **parameter efficiency**, and **translation-related reuse of patterns**.
 
 ---
 

@@ -1,20 +1,14 @@
 # Blog 14 — When Order Matters: Learning From Sequences
 
-A photograph can often be understood from its pixels.
+<!-- NOTEBOOK-LAB-NAV -->
 
-But consider this sentence:
+## 🧪 Interactive Lab
 
-> “The dog chased the cat.”
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-Swap the words:
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
 
-> “The cat chased the dog.”
-
-The same words appear, but the meaning changes.
-
-For sequences, **order matters**.
-
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. What is a sequence?
 
@@ -134,16 +128,6 @@ Both LSTM and GRU were important milestones in sequence modeling.
 
 ## 7. PyTorch RNN example
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/14-sequence-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
-
 ```python
 import torch
 import torch.nn as nn
@@ -220,52 +204,6 @@ But a new mechanism offers a radically different idea:
 > **Instead of carrying everything through one memory state, let each token look directly at the other tokens it needs.**
 
 > **Next: attention.**
-
----
-
-# 🧪 Hands-on Lab — Build Memory Step by Step
-
-Use [`../labs/14-sequence-lab.md`](../labs/14-sequence-lab.md).
-
-Start with a tiny recurrence:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/14-sequence-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
-
-```python
-import torch
-
-x = torch.tensor([1., 2., 3.])
-h = torch.tensor(0.)
-
-w_x = 0.5
-w_h = 0.8
-
-for value in x:
-    h = torch.tanh(w_x * value + w_h * h)
-    print(h.item())
-```
-
-### Experiments
-
-1. Change `w_h` and observe how strongly the past affects the future.
-2. Run a much longer sequence.
-3. Compare `w_h=0.5` with `w_h=1.5`.
-4. Build the same idea with `nn.RNN`.
-5. Compare the recurrence with a simple attention calculation.
-
-### Mastery question
-
-Why can recurrence create a long chain of gradient multiplications?
-
-Explain vanishing gradients using the idea of repeated multiplication before memorizing the term.
 
 ---
 

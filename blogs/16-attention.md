@@ -1,16 +1,14 @@
 # Blog 16 — Attention: What Should I Look At?
 
-Consider this sentence:
+<!-- NOTEBOOK-LAB-NAV -->
 
-> **“The animal didn't cross the road because it was tired.”**
+## 🧪 Interactive Lab
 
-What does “it” refer to?
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-A good language model needs to examine the surrounding words and decide which information matters.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
 
-That is the intuition behind **attention**.
-
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. The central question
 
@@ -187,16 +185,6 @@ The exact mask convention depends on implementation, but the principle is future
 
 Modern PyTorch provides attention-related building blocks. A conceptual example is:
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/16-attention.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
-
 ```python
 import torch
 import torch.nn.functional as F
@@ -250,74 +238,6 @@ $$
 This single idea became the foundation of the Transformer architecture.
 
 > **Next: Transformers — building an entire architecture around attention.**
-
----
-
-# 🧪 Hands-on Lab — Calculate Attention by Hand
-
-Use [`../labs/16-attention-lab.md`](../labs/16-attention-lab.md).
-
-Start with tiny matrices so every number can be checked:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/16-attention.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
-
-```python
-import torch
-import torch.nn.functional as F
-
-Q = torch.tensor([[1., 0.]])
-K = torch.tensor([
-    [1., 0.],
-    [0., 1.]
-])
-V = torch.tensor([
-    [10., 0.],
-    [0., 20.]
-])
-
-scores = Q @ K.T
-weights = F.softmax(scores, dim=-1)
-out = weights @ V
-
-print("scores:", scores)
-print("weights:", weights)
-print("output:", out)
-```
-
-### Challenges
-
-1. Compute the scores by hand.
-2. Compute the softmax by hand.
-3. Predict which value receives more weight.
-4. Change `Q` to `[0, 1]`.
-5. Add a third key/value.
-6. Implement causal masking.
-
-### Mastery challenge
-
-Explain the difference between:
-
-```text
-Q = what I am looking for
-K = what I can be matched on
-V = what I contribute if selected
-```
-
-Then derive the shape of every matrix in
-
-$$
-softmax(QK^T/\sqrt{d_k})V
-$$
-
-for a sequence of length $T$ and model dimension $d$.
 
 ---
 

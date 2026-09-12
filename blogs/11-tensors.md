@@ -1,16 +1,14 @@
 # Blog 11 — Tensors: Numbers in Many Dimensions
 
-Vectors are 1-dimensional collections of numbers.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Matrices are 2-dimensional collections.
+## 🧪 Interactive Lab
 
-Deep learning needs more.
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-A batch of color images, for example, naturally has dimensions for batch, height, width and color channels.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
-We need a general container: the **tensor**.
-
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. The family tree
 
@@ -67,16 +65,6 @@ Tensor
 ## 3. Shape is the first thing to inspect
 
 In PyTorch:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
 ```python
 import torch
@@ -167,16 +155,6 @@ One powerful tensor concept is broadcasting.
 
 Suppose
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
 ```python
 x = torch.tensor([
     [1., 2., 3.],
@@ -213,16 +191,6 @@ Broadcasting is convenient, but it is important to understand the shapes rather 
 ## 7. Tensor operations are the language of deep learning
 
 You will repeatedly see operations such as:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
 ```python
 x @ W       # matrix multiplication
@@ -261,16 +229,6 @@ Always ask:
 ---
 
 ## 9. Code: inspect a tensor
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
 ```python
 x = torch.randn(8, 3, 64, 64)
@@ -328,70 +286,6 @@ That is the problem of training, validation and testing.
 
 ---
 
-# 🧪 Hands-on Lab — Become a Tensor Shape Detective
-
-Use [`../labs/11-tensors-lab.md`](../labs/11-tensors-lab.md).
-
-Start with:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-```python
-import torch
-
-x = torch.randn(8, 3, 32, 32)
-
-print("shape:", x.shape)
-print("ndim:", x.ndim)
-print("numel:", x.numel())
-print("dtype:", x.dtype)
-```
-
-### Challenges
-
-For each operation, predict the shape before running it:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-```python
-x.mean(dim=0)
-x.mean(dim=(2, 3))
-x.reshape(8, -1)
-x.permute(0, 2, 3, 1)
-```
-
-Then explain what each dimension means.
-
-### Mastery challenge
-
-Create a fake batch of:
-
-- 64 RGB images;
-- 128 audio sequences;
-- 32 sentences of 20 tokens each, represented with 768-dimensional embeddings.
-
-Write down the expected tensor shapes before creating them.
-
-This is the beginning of **shape-first programming**: understand the mathematics of dimensions before debugging code.
-
----
-
 # 📚 Go Deeper — Tensors, Code and Hardware
 
 Use **PyTorch's official tutorials** when you want to move from the mathematical tensor abstraction into real framework usage.
@@ -409,16 +303,6 @@ Use **MrJensenMath10** for the underlying arithmetic and algebraic fluency.
 Whenever PyTorch gives a shape error, do not immediately reshape randomly.
 
 Print:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
 ```python
 print(x.shape)

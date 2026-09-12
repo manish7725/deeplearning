@@ -1,24 +1,14 @@
 # Blog 01 — What Does It Mean for a Machine to Learn?
 
-> **Deep Learning from First Principles — written for a Class 7 mind, but with the mathematics kept honest.**
+<!-- NOTEBOOK-LAB-NAV -->
 
-Imagine you show a friend ten pictures of apples and ten pictures of oranges.
+## 🧪 Interactive Lab
 
-At first, your friend may confuse them.
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-But after seeing enough examples, something interesting happens.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
 
-You show a new fruit and your friend says:
-
-> **“I think that is an orange.”** 🍊
-
-You never gave your friend a rule for every possible orange.
-
-Your friend discovered a **pattern**.
-
-That tiny idea is the doorway to Machine Learning.
-
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 👑 The King's Question
 
@@ -409,16 +399,6 @@ This is the foundation of gradient descent.
 
 You can implement the same idea directly in Python without a deep-learning framework:
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/01-what-is-learning.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
-
 ```python
 import numpy as np
 
@@ -591,67 +571,6 @@ Because before a machine can learn from information, **we need to teach the mach
 9. Deep learning builds complicated functions from many simple transformations.
 
 > **Data gives the machine examples. Mathematics gives it a way to learn from those examples.**
-
----
-
-# 🧪 Hands-on Lab — Make Learning Observable
-
-Use [`../labs/01-learning-lab.md`](../labs/01-learning-lab.md).
-
-Start with the smallest possible learning experiment:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/01-what-is-learning.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
-
-```python
-import numpy as np
-
-x = np.array([1., 2., 3., 4.])
-y = np.array([3., 5., 7., 9.])
-
-w = 0.0
-b = 0.0
-lr = 0.01
-
-for step in range(2000):
-    prediction = w * x + b
-    error = prediction - y
-    loss = np.mean(error ** 2)
-
-    dw = np.mean(2 * error * x)
-    db = np.mean(2 * error)
-
-    w -= lr * dw
-    b -= lr * db
-
-print(w, b)
-```
-
-### Challenges
-
-1. Start with different values of `w` and `b`.
-2. Try three learning rates.
-3. Record the loss every 100 steps.
-4. Plot the loss.
-5. Explain why the loss decreases.
-6. Change the data to $y=3x-2$ and train again.
-
-### Final question
-
-Before moving to Blog 02, explain this loop without using the words “AI” or “magic”:
-
-$$
-\boxed{\text{predict}\rightarrow\text{measure}\rightarrow\text{differentiate}\rightarrow\text{update}}
-$$
-
-If you can explain that, you have understood the seed from which the rest of deep learning grows.
 
 ---
 

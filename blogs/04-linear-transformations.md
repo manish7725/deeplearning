@@ -1,16 +1,14 @@
 # Blog 04 — A Matrix Can Transform Space
 
-> A matrix is not merely a rectangle of numbers. It can behave like a machine that transforms a vector into another vector.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Imagine drawing a square grid on a rubber sheet.
+## 🧪 Interactive Lab
 
-Now pull the sheet.
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-Some points move. The grid stretches. Shapes change.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
 
-A matrix gives us an algebraic way to describe transformations like these.
-
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. Start with one vector
 
@@ -262,16 +260,6 @@ That will be our next discovery.
 
 ## 11. Python experiment
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
 ```python
 import numpy as np
 
@@ -292,16 +280,6 @@ Output:
 ```
 
 Try replacing $A$ with the swap matrix:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
 
 ```python
 A = np.array([
@@ -365,68 +343,6 @@ So the next question is unavoidable:
 > **What happens when we introduce a nonlinear function?**
 
 That is where the neuron begins to become interesting.
-
----
-
-# 🧪 Hands-on Lab — Transform a Square, Then Break It
-
-The companion exercise is [`../labs/04-transformations-lab.md`](../labs/04-transformations-lab.md).
-
-Use a tiny square so that every coordinate can be inspected:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
-
-```python
-import numpy as np
-
-square = np.array([
-    [0., 0.],
-    [1., 0.],
-    [1., 1.],
-    [0., 1.]
-])
-
-scale = np.array([[2., 0.],
-                  [0., 0.5]])
-
-rotation = np.array([[0., -1.],
-                     [1.,  0.]])
-
-print("scaled:\n", square @ scale.T)
-print("rotated:\n", square @ rotation.T)
-```
-
-### Challenges
-
-1. Make the square twice as wide.
-2. Rotate it by $90^\circ$ and then $90^\circ$ again.
-3. Reflect it across the $x$-axis.
-4. Create a shear transformation.
-5. Compare `A @ B @ x` with `B @ A @ x`.
-
-You should discover experimentally that, in general,
-
-$$
-AB\neq BA
-$$
-
-### Deeper experiment
-
-Take two transformations and apply them in different orders to the same point.
-
-Ask:
-
-> **Why does changing the order change the result?**
-
-This is not merely a matrix trick. Later, when neural networks stack transformations, **order becomes part of the model's meaning**.
 
 ---
 

@@ -1,10 +1,14 @@
 # Blog 07 — Prediction Is Not the Same as Learning
 
-A neural network can make a prediction without learning.
+<!-- NOTEBOOK-LAB-NAV -->
 
-That sounds strange, so let us make the distinction precise.
+## 🧪 Interactive Lab
 
----
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
+
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
+
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. A model can calculate before it can learn
 
@@ -218,16 +222,6 @@ Real deep-learning problems are much harder because the parameter space may cont
 
 ## 9. Code it
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
 ```python
 import numpy as np
 
@@ -328,56 +322,6 @@ Now comes the mathematical question:
 > **How do we know which direction will reduce the loss?**
 
 For that, we need derivatives.
-
----
-
-# 🧪 Hands-on Lab — Turn Loss Into an Experiment
-
-Use [`../labs/07-loss-lab.md`](../labs/07-loss-lab.md).
-
-Start with a parameter sweep:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
-
-```python
-import numpy as np
-
-x = np.array([1., 2., 3., 4.])
-y = np.array([3., 5., 7., 9.])
-
-for w in [0., 0.5, 1., 1.5, 2., 2.5, 3.]:
-    prediction = w * x
-    loss = np.mean((prediction - y) ** 2)
-    print(f"w={w:3.1f} loss={loss:5.2f}")
-```
-
-### Challenges
-
-1. Add the bias parameter.
-2. Search over both `w` and `b`.
-3. Find the lowest-loss pair using only loops.
-4. Plot the loss as a function of `w`.
-5. Explain why the best parameter is at the bottom of the loss curve.
-
-### Important experiment
-
-Replace squared error with absolute error:
-
-$$
-L=|\hat y-y|
-$$
-
-Compare the two losses for a small error and a very large error.
-
-This is your first introduction to the idea that **the choice of loss function changes what the model is encouraged to optimize**.
 
 ---
 

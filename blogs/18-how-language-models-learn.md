@@ -1,14 +1,14 @@
 # Blog 18 — How Does a Language Model Learn to Predict Text?
 
-Imagine reading:
+<!-- NOTEBOOK-LAB-NAV -->
 
-> “The sun rises in the ___.”
+## 🧪 Interactive Lab
 
-Your brain expects a word such as “east”.
+The explanation and the hands-on experiment now live together: the notebook contains the complete runnable lab for this lesson.
 
-A language model turns this prediction problem into mathematics.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
 
----
+Run the cells, change the values, observe the result, and then return to this blog to connect the experiment back to the idea.
 
 ## 1. The training task
 
@@ -153,16 +153,6 @@ This is gradient-based learning at very large scale.
 
 ## 8. Tiny PyTorch example
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/18-language-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
-
 ```python
 import torch
 import torch.nn.functional as F
@@ -274,50 +264,6 @@ The same basic learning machinery we studied at the beginning is now operating i
 But prediction is not the only thing neural networks can learn to do.
 
 > **Next: generative models — how machines create new data.**
-
----
-
-# 🧪 Hands-on Lab — Train a Tiny Character Language Model
-
-Use [`../labs/18-language-model-lab.md`](../labs/18-language-model-lab.md).
-
-Start with a tiny vocabulary and a tiny text corpus. Your first goal is not performance; it is understanding the training signal.
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/18-language-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
-
-```python
-import torch
-import torch.nn.functional as F
-
-logits = torch.randn(4, 10)
-targets = torch.tensor([1, 4, 2, 7])
-
-loss = F.cross_entropy(logits, targets)
-print(loss.item())
-```
-
-### Challenges
-
-1. Convert a tiny text corpus into token IDs.
-2. Create input/target pairs shifted by one token.
-3. Compute cross-entropy.
-4. Train a tiny model until the loss decreases.
-5. Generate text one token at a time.
-6. Compare greedy decoding with sampling.
-
-### Mastery question
-
-Explain why a model can be trained on many next-token predictions simultaneously while generation is performed step by step.
-
-That distinction is central to understanding modern LLM training versus inference.
 
 ---
 
