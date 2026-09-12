@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/20-neural-network-from-scratch.ipynb)**
 
+
 ## 1. Our toy problem
 
 Suppose the data follows:
@@ -503,9 +504,9 @@ If you can do all eight levels, you have crossed an important boundary: you unde
 
 # 📚 Your Mastery Resource Stack
 
-Use **3Blue1Brown** for visual mathematics and neural-network intuition. citeturn0youtube30turn0youtube31
+Use **3Blue1Brown** for visual mathematics and neural-network intuition.
 
-Use **Welch Labs** for hands-on mathematical explanations, graphics and supporting code; its Neural Networks Demystified sequence and newer AI material strongly reinforce the build-and-understand approach. citeturn0search0turn0search1
+Use **Welch Labs** for hands-on mathematical explanations, graphics and supporting code; its Neural Networks Demystified sequence and newer AI material strongly reinforce the build-and-understand approach.
 
 Use **Frame Zero** for first-principles machine-learning intuition.
 

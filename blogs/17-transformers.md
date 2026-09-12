@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/17-transformers.ipynb)**
 
+
 ## 1. From tokens to representations
 
 Suppose the input is
@@ -250,7 +251,7 @@ Now we can finally ask the question that powers modern language models:
 
 # 📚 Go Deeper — Understand the Architecture, Not Just the Name
 
-**3Blue1Brown** is one of the best visual companions for understanding the mathematical structure behind neural networks and attention. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is one of the best visual companions for understanding the mathematical structure behind neural networks and attention.
 
 **ZacharyLLM** is particularly relevant here for connecting the Transformer architecture to modern LLMs.
 
@@ -258,7 +259,7 @@ Now we can finally ask the question that powers modern language models:
 
 **Visual Kernel** can provide another visual/technical perspective on model internals.
 
-**Welch Labs** is valuable for its implementation-first philosophy and supporting code; its AI material explicitly combines exercises, graphics and code. citeturn0search1turn0search3
+**Welch Labs** is valuable for its implementation-first philosophy and supporting code; its AI material explicitly combines exercises, graphics and code.
 
 Use **MrJensenMath10** when the underlying algebra, functions or matrix operations need reinforcement.
 

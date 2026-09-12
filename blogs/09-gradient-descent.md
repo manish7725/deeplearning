@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/09-gradient-descent.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/09-gradient-descent.ipynb)**
 
+
 ## 1. Imagine a mountain
 
 Suppose the loss is a landscape.
@@ -298,9 +299,9 @@ The answer is the chain rule applied systematically.
 
 # 📚 Go Deeper — Optimization Through Different Teachers
 
-**3Blue1Brown** is excellent for seeing gradient descent as movement across a landscape and for building geometric intuition around derivatives and optimization. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is excellent for seeing gradient descent as movement across a landscape and for building geometric intuition around derivatives and optimization.
 
-**Welch Labs** provides a particularly useful implementation-oriented progression from gradient descent into backpropagation and numerical gradient checking. citeturn0search0turn0search8
+**Welch Labs** provides a particularly useful implementation-oriented progression from gradient descent into backpropagation and numerical gradient checking.
 
 Use **Frame Zero** for first-principles ML intuition and **MrJensenMath10** for the calculus/algebra needed to reason about slopes.
 

@@ -8,3 +8,4 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/34-hackers-guide-to-deep-learning.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/34-hackers-guide-to-deep-learning.ipynb)**
 
+

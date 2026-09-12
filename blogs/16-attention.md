@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
 
+
 ## 1. The central question
 
 For a token, ask:
@@ -241,7 +242,7 @@ This single idea became the foundation of the Transformer architecture.
 
 # 📚 Go Deeper — The Core of Modern LLMs
 
-**3Blue1Brown** is an excellent visual companion for understanding attention and Transformer ideas. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is an excellent visual companion for understanding attention and Transformer ideas.
 
 **ZacharyLLM** is especially relevant from this point forward because attention, token representations and Transformer internals are central to modern LLMs.
 
@@ -249,7 +250,7 @@ This single idea became the foundation of the Transformer architecture.
 
 **Visual Kernel** is useful when you want additional visual/technical intuition about model internals.
 
-**Welch Labs** provides a valuable hands-on philosophy: derive the mechanism, implement it, and inspect what the model is doing. Its AI resources explicitly combine detailed graphics with exercises and supporting code. citeturn0search1turn0search3
+**Welch Labs** provides a valuable hands-on philosophy: derive the mechanism, implement it, and inspect what the model is doing. Its AI resources explicitly combine detailed graphics with exercises and supporting code.
 
 Use **MrJensenMath10** to reinforce dot products, matrices, exponentials and probability—the exact mathematical ingredients appearing here.
 

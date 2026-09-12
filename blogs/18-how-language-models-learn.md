@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
 
+
 ## 1. The training task
 
 Given a sequence of tokens
@@ -269,13 +270,13 @@ But prediction is not the only thing neural networks can learn to do.
 
 **ZacharyLLM** is particularly useful from this point forward because the concepts here—tokenization, next-token prediction, Transformers, inference and LLM behavior—are its natural territory.
 
-**3Blue1Brown** provides the visual mathematics behind neural networks, attention and language-model concepts. citeturn0youtube30turn0youtube31
+**3Blue1Brown** provides the visual mathematics behind neural networks, attention and language-model concepts.
 
 **Frame Zero** provides a complementary first-principles perspective on ML and modern AI.
 
 **Visual Kernel** is useful when you want another visual/technical explanation of model internals.
 
-**Welch Labs** is valuable for reinforcing the implementation mindset: build small systems, inspect the equations and use supporting code. Its AI resources explicitly emphasize hands-on exploration and supporting code. citeturn0search1turn0search3
+**Welch Labs** is valuable for reinforcing the implementation mindset: build small systems, inspect the equations and use supporting code. Its AI resources explicitly emphasize hands-on exploration and supporting code.
 
 Use **MrJensenMath10** to strengthen probability, logarithms and algebra.
 

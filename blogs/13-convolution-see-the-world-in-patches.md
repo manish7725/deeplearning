@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/13-convolution.ipynb)**
 
+
 ## 1. Start with a tiny image
 
 Imagine a grayscale image represented by
@@ -243,9 +244,9 @@ In language, music and time-series data, **order matters**.
 
 # 📚 Go Deeper — See Vision From Three Angles
 
-**3Blue1Brown** is useful for the underlying linear-algebra viewpoint: convolution is fundamentally a structured numerical operation. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is useful for the underlying linear-algebra viewpoint: convolution is fundamentally a structured numerical operation.
 
-**Welch Labs** provides a strong hands-on/visual philosophy for understanding how learned representations develop through neural layers. Its AI material emphasizes graphics, exercises and supporting code. citeturn0search1turn0search3
+**Welch Labs** provides a strong hands-on/visual philosophy for understanding how learned representations develop through neural layers. Its AI material emphasizes graphics, exercises and supporting code.
 
 Use **Frame Zero** for first-principles ML explanations and **Visual Kernel** for additional visual intuition about modern neural computation.
 

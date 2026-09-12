@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/03-matrices-the-spreadsheet-of-math.ipynb)**
 
+
 ## 1. A dataset is naturally a matrix
 
 Suppose we measure mathematics and science for three students:

@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**
 
+
 ## 1. Start with a simple curve
 
 Consider
@@ -341,11 +342,11 @@ Next we turn that idea into an algorithm.
 
 # 📚 Go Deeper — Learn Calculus Three Ways
 
-**3Blue1Brown** is the visual route: use it when derivative notation feels abstract and you want to understand slope, local change and geometry. The same visual thinking later becomes useful for gradients and neural networks. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is the visual route: use it when derivative notation feels abstract and you want to understand slope, local change and geometry. The same visual thinking later becomes useful for gradients and neural networks.
 
 **MrJensenMath10** is the practice route: strengthen algebra, functions, slopes and exponentials until derivative manipulation becomes comfortable.
 
-**Welch Labs** is the ML route: its neural-network series uses high-school-level calculus to derive backpropagation and connects derivatives directly to training. citeturn0search8
+**Welch Labs** is the ML route: its neural-network series uses high-school-level calculus to derive backpropagation and connects derivatives directly to training.
 
 Use **Frame Zero** for first-principles ML intuition and later **ZacharyLLM/Visual Kernel** to see where differentiation and optimization appear in modern models.
 

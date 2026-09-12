@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
 
+
 ## 1. Training accuracy can fool us
 
 Suppose a model sees 1,000 training examples.
@@ -257,9 +258,9 @@ Now we can move from abstract numbers to one of the richest sources of data huma
 
 # 📚 Go Deeper — The Science of Evaluation
 
-**Welch Labs** explicitly covers overfitting, testing and regularization in its neural-network series, making it a useful companion for this lesson. citeturn0search5
+**Welch Labs** explicitly covers overfitting, testing and regularization in its neural-network series, making it a useful companion for this lesson.
 
-**3Blue1Brown** helps with the geometric intuition behind model fitting and representation, while **Frame Zero** is useful for first-principles ML reasoning. citeturn0youtube30turn0youtube31
+**3Blue1Brown** helps with the geometric intuition behind model fitting and representation, while **Frame Zero** is useful for first-principles ML reasoning.
 
 Use **MrJensenMath10** for the arithmetic and probability foundations behind metrics.
 

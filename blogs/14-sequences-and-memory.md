@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/14-sequence-models.ipynb)**
 
+
 ## 1. What is a sequence?
 
 A sequence is an ordered collection:
@@ -207,9 +208,9 @@ But a new mechanism offers a radically different idea:
 
 # 📚 Go Deeper — From Recurrence to Attention
 
-Use **3Blue1Brown** for visual intuition around neural networks and mathematical transformations. citeturn0youtube30turn0youtube31
+Use **3Blue1Brown** for visual intuition around neural networks and mathematical transformations.
 
-Use **Welch Labs** for the hands-on neural-network mindset and supporting code. Its material emphasizes building models rather than only describing them. citeturn0search1turn0search3
+Use **Welch Labs** for the hands-on neural-network mindset and supporting code. Its material emphasizes building models rather than only describing them.
 
 Use **Frame Zero** for first-principles sequence/ML intuition, **MrJensenMath10** for the mathematics, and **ZacharyLLM/Visual Kernel** when you are ready to connect sequence modeling to modern attention-based systems.
 

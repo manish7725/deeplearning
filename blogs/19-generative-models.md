@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/19-generative-models.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/19-generative-models.ipynb)**
 
+
 ## 1. What does “generate” mean?
 
 A generative model learns a probability distribution over data.
@@ -230,7 +231,7 @@ Now it is time to put everything together.
 
 # 📚 Go Deeper — Generative AI Through Multiple Lenses
 
-**Welch Labs** is especially relevant here because its current AI material includes generative modeling and combines detailed graphics, exercises and supporting Python code. citeturn0search1turn0search3
+**Welch Labs** is especially relevant here because its current AI material includes generative modeling and combines detailed graphics, exercises and supporting Python code.
 
 **ZacharyLLM** is useful for connecting generative modeling to modern language and multimodal systems.
 
@@ -238,7 +239,7 @@ Now it is time to put everything together.
 
 **Visual Kernel** provides another visual/technical lens for modern generative architectures.
 
-**3Blue1Brown** remains useful for the mathematical intuition behind neural networks, vectors, probability and transformations. citeturn0youtube30turn0youtube31
+**3Blue1Brown** remains useful for the mathematical intuition behind neural networks, vectors, probability and transformations.
 
 Use **MrJensenMath10** for probability, logarithms, functions and algebra.
 

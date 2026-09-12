@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
 
+
 ## 1. A computer needs a numerical description
 
 Suppose we describe three students using two measurements:
@@ -345,7 +346,7 @@ You do not need another resource to finish this lesson. Use these when you want 
 ### 🎨 Visual mathematics
 
 - **3Blue1Brown — Essence of Linear Algebra:** use it when you want to *see* vectors, coordinates, linear combinations and transformations rather than only calculate them.
-- **Welch Labs:** use its visual, experiment-driven style when you want to connect mathematical objects to neural-network computation. Welch Labs explicitly combines graphics, exercises and supporting code in its AI material. citeturn0search1turn0search3
+- **Welch Labs:** use its visual, experiment-driven style when you want to connect mathematical objects to neural-network computation. Welch Labs explicitly combines graphics, exercises and supporting code in its AI material.
 
 ### 🧮 Mathematics practice
 

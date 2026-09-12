@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
 
+
 ## 👑 The King's Question
 
 Imagine a king asks his royal engineer:
@@ -519,7 +520,7 @@ objects
 
 The exact internal features learned by a network depend on the architecture and data; this hierarchy is a useful mental model rather than a guaranteed rule.
 
-The 3Blue1Brown neural-network series provides an especially useful visual intuition for neurons, layers, weights, biases and the linear-algebra structure behind them. citeturn0youtube30turn0youtube31
+The 3Blue1Brown neural-network series provides an especially useful visual intuition for neurons, layers, weights, biases and the linear-algebra structure behind them.
 
 ---
 
@@ -549,61 +550,3 @@ A useful measurement gives the model information.
 So even before neural networks, we need to learn how to represent the world using numbers.
 
 That takes us naturally to our next lesson.
-
-# Blog 02 — How Do Numbers Become Vectors?
-
-Because before a machine can learn from information, **we need to teach the machine how to represent information mathematically.**
-
----
-
-## 🧠 What you should remember
-
-1. Machine learning learns patterns from examples.
-2. Data can be represented using numbers.
-3. A model is a mathematical function.
-4. Parameters such as weights and biases can be adjusted.
-5. A prediction can be compared with the correct answer.
-6. A loss function turns “wrong” into a number.
-7. Learning means changing parameters to reduce loss.
-8. Derivatives tell us how changes in parameters affect the loss.
-9. Deep learning builds complicated functions from many simple transformations.
-
-> **Data gives the machine examples. Mathematics gives it a way to learn from those examples.**
-
----
-
-# 📚 Go Deeper — Your First Resource Ladder
-
-Use **3Blue1Brown** when you want a visual mathematical explanation of neural networks, vectors, transformations and calculus. Its neural-network material is particularly useful for seeing how the equations map onto the network. citeturn0youtube30turn0youtube31
-
-Use **Welch Labs** when you want to build the ideas with code. Its Neural Networks Demystified sequence explicitly progresses through architecture, forward propagation, gradient descent, backpropagation, numerical gradient checking, training and overfitting. citeturn0search0turn0search8turn0search5
-
-Use **Frame Zero** for another first-principles ML perspective.
-
-Use **MrJensenMath10** for the school-level mathematics that makes algebra, functions, graphs and calculus comfortable.
-
-Use **ZacharyLLM** once the series reaches embeddings, attention, Transformers and LLMs.
-
-Use **Visual Kernel** as an additional visual/technical perspective on modern ML systems.
-
-### How to use these resources
-
-Do not watch every resource before continuing.
-
-Use a resource only when you can name what is missing:
-
-> **I can calculate it but cannot visualize it.** → 3Blue1Brown
-
-> **I understand the idea but my mathematics is weak.** → mathematics practice
-
-> **I understand the math but cannot implement it.** → Welch Labs / PyTorch practice
-
-> **I understand the mechanism but not its modern application.** → Frame Zero / ZacharyLLM / Visual Kernel
-
-The goal of this series is not to replace excellent teachers.
-
-It is to connect their explanations into one coherent path:
-
-$$
-\boxed{\text{intuition}\rightarrow\text{mathematics}\rightarrow\text{code}\rightarrow\text{experiment}\rightarrow\text{mastery}}
-$$

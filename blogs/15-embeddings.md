@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/15-word-embeddings.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/15-word-embeddings.ipynb)**
 
+
 ## 1. From word to ID
 
 A tokenizer might map words or subword pieces to integers:
@@ -234,7 +235,7 @@ Now we are ready for the mechanism that lets one token ask:
 
 # 📚 Go Deeper — From Geometry to LLMs
 
-**3Blue1Brown** is useful for the geometric intuition behind vectors, dot products and high-dimensional representations. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is useful for the geometric intuition behind vectors, dot products and high-dimensional representations.
 
 **Frame Zero** is a strong companion for first-principles representation learning.
 
@@ -242,7 +243,7 @@ Now we are ready for the mechanism that lets one token ask:
 
 **Visual Kernel** can provide another visual/technical lens on representations and model internals.
 
-Use **Welch Labs** when you want to reinforce the general pattern of learning representations through code and experiments; its AI material emphasizes supporting code and hands-on exploration. citeturn0search1turn0search3
+Use **Welch Labs** when you want to reinforce the general pattern of learning representations through code and experiments; its AI material emphasizes supporting code and hands-on exploration.
 
 Use **MrJensenMath10** for the vector and algebra foundations.
 

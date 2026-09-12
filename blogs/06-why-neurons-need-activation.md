@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**
 
+
 ## 1. The line problem
 
 Suppose
@@ -252,9 +253,9 @@ Next we introduce the loss function and the actual learning problem.
 
 # 📚 Go Deeper — Three Different Lenses
 
-**3Blue1Brown** gives the strongest visual intuition for why layers, weights and nonlinearities create expressive neural networks. citeturn0youtube30turn0youtube31
+**3Blue1Brown** gives the strongest visual intuition for why layers, weights and nonlinearities create expressive neural networks.
 
-**Welch Labs** is useful for seeing the activation function inside an actual trainable network and then following the path toward gradient descent and backpropagation. citeturn0search0turn0search8
+**Welch Labs** is useful for seeing the activation function inside an actual trainable network and then following the path toward gradient descent and backpropagation.
 
 **MrJensenMath10** is the supporting mathematics resource: functions, graphs, slopes and exponentials are exactly the school-level ideas behind these activation functions.
 

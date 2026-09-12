@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/07-prediction-is-not-learning-yet.ipynb)**
 
+
 ## 1. A model can calculate before it can learn
 
 Suppose
@@ -325,9 +326,9 @@ For that, we need derivatives.
 
 # 📚 Go Deeper — Optimization Starts Here
 
-**Welch Labs** is particularly relevant at this point. Its Neural Networks Demystified sequence moves from architecture to forward propagation and then to gradient descent, backpropagation and training. citeturn0search0turn0search8
+**Welch Labs** is particularly relevant at this point. Its Neural Networks Demystified sequence moves from architecture to forward propagation and then to gradient descent, backpropagation and training.
 
-**3Blue1Brown** is the visual companion when you want to see a model and its loss as geometry rather than only equations. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is the visual companion when you want to see a model and its loss as geometry rather than only equations.
 
 Use **MrJensenMath10** to strengthen algebra and graph-reading skills. Use **Frame Zero** for additional first-principles ML intuition.
 

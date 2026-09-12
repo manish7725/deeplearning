@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
 
+
 ## 1. Start with one vector
 
 Take
@@ -352,11 +353,11 @@ Use **3Blue1Brown's Essence of Linear Algebra** when you want to see what a matr
 
 ### 🧠 Neural-network connection
 
-The 3Blue1Brown neural-network material is especially useful here because it connects the geometric idea of transformations to weights, biases, layers and linear algebra. citeturn0youtube30turn0youtube31
+The 3Blue1Brown neural-network material is especially useful here because it connects the geometric idea of transformations to weights, biases, layers and linear algebra.
 
 ### 🧪 Welch Labs
 
-Welch Labs is valuable when you want the next step: turn the mathematical transformation into an actual trainable neural network. Its neural-network sequence progresses from architecture through forward propagation, gradient descent and backpropagation. citeturn0search0turn0search8
+Welch Labs is valuable when you want the next step: turn the mathematical transformation into an actual trainable neural network. Its neural-network sequence progresses from architecture through forward propagation, gradient descent and backpropagation.
 
 ### 🧮 Mathematics support
 

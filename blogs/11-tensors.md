@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
+
 ## 1. The family tree
 
 Think of tensors as a hierarchy:
@@ -288,9 +289,9 @@ That is the problem of training, validation and testing.
 
 Use **PyTorch's official tutorials** when you want to move from the mathematical tensor abstraction into real framework usage.
 
-Use **3Blue1Brown** for the linear-algebra intuition that sits underneath tensor operations. citeturn0youtube30turn0youtube31
+Use **3Blue1Brown** for the linear-algebra intuition that sits underneath tensor operations.
 
-Use **Welch Labs** when you want to see tensors and numerical operations inside complete neural-network experiments; its AI material emphasizes hands-on exercises, graphics and supporting code. citeturn0search1turn0search3
+Use **Welch Labs** when you want to see tensors and numerical operations inside complete neural-network experiments; its AI material emphasizes hands-on exercises, graphics and supporting code.
 
 Use **Frame Zero** for first-principles ML intuition and **Visual Kernel** when you want to connect tensor operations to modern model internals.
 

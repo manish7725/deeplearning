@@ -8,6 +8,7 @@ The matching notebook is the complete hands-on laboratory for this lesson. It co
 
 **[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/10-backpropagation.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/10-backpropagation.ipynb)**
 
+
 ## 1. A tiny two-step network
 
 Imagine
@@ -308,9 +309,9 @@ Next we need a larger mathematical container capable of representing images, bat
 
 # 📚 Go Deeper — Backpropagation From Multiple Angles
 
-**Welch Labs** is particularly valuable for this exact topic: its backpropagation material explicitly derives the algorithm using high-school-level calculus and provides supporting code and equations. citeturn0search8
+**Welch Labs** is particularly valuable for this exact topic: its backpropagation material explicitly derives the algorithm using high-school-level calculus and provides supporting code and equations.
 
-**3Blue1Brown** is the visual companion for understanding what gradients mean inside a network and how the algebra maps onto the architecture. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is the visual companion for understanding what gradients mean inside a network and how the algebra maps onto the architecture.
 
 Use **MrJensenMath10** for chain-rule and calculus fluency, and **Frame Zero** for another intuitive ML explanation.
 
