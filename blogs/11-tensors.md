@@ -76,6 +76,8 @@ In PyTorch:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
+
 ```python
 import torch
 
@@ -173,6 +175,8 @@ Suppose
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
+
 ```python
 x = torch.tensor([
     [1., 2., 3.],
@@ -211,6 +215,8 @@ Broadcasting is convenient, but it is important to understand the shapes rather 
 You will repeatedly see operations such as:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
@@ -257,6 +263,8 @@ Always ask:
 ## 9. Code: inspect a tensor
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
@@ -334,6 +342,8 @@ Start with:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
+
 ```python
 import torch
 
@@ -350,6 +360,8 @@ print("dtype:", x.dtype)
 For each operation, predict the shape before running it:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
@@ -399,6 +411,8 @@ Whenever PyTorch gives a shape error, do not immediately reshape randomly.
 Print:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 

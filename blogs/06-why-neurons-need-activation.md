@@ -174,6 +174,8 @@ Simple, fast and widely used in hidden layers.
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**
+
 ```python
 import numpy as np
 
@@ -195,6 +197,8 @@ Output:
 ## 7. PyTorch
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/06-why-neurons-need-activation.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**
 
@@ -279,6 +283,8 @@ Use [`../labs/06-activation-lab.md`](../labs/06-activation-lab.md).
 Start by comparing a linear function and ReLU:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/06-why-neurons-need-activation.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/06-why-neurons-need-activation.ipynb)**
 

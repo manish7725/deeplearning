@@ -417,6 +417,8 @@ You can implement the same idea directly in Python without a deep-learning frame
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
+
 ```python
 import numpy as np
 
@@ -599,6 +601,8 @@ Use [`../labs/01-learning-lab.md`](../labs/01-learning-lab.md).
 Start with the smallest possible learning experiment:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/01-what-is-learning.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)**
 
