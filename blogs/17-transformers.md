@@ -1,86 +1,248 @@
 # Blog 17 — Transformers: Building With Attention
 
-Attention is powerful by itself, but the real breakthrough came from organizing it into a complete architecture called the **Transformer**.
+Attention is a mechanism.
 
-## 1. From words to vectors
+A Transformer is an architecture built around attention plus several other important components.
 
-A sentence first becomes a sequence of numerical representations.
+It became the foundation of many modern language models.
 
-For example:
+---
 
-`The → vector`
+## 1. From tokens to representations
 
-`cat → vector`
+Suppose the input is
 
-`sleeps → vector`
+```text
+The cat sat
+```
 
-But the model also needs information about order.
+The text is converted into tokens, then token embeddings.
+
+But embeddings alone do not tell the model where each token occurs.
+
+We therefore need positional information.
+
+---
 
 ## 2. Position matters
 
-Compare:
+These sequences contain the same words:
 
-`dog bites man`
+```text
+cat chased dog
+dog chased cat
+```
 
-and:
+but their meanings differ.
 
-`man bites dog`
+A Transformer therefore needs information about token position.
 
-The words are similar, but the meaning is very different.
+One family of methods uses sinusoidal positional encodings such as
 
-Transformers therefore need a way to represent position, using positional encodings or learned positional representations depending on the architecture.
+$$
+PE(pos,2i)=\sin\left(\frac{pos}{10000^{2i/d}}ight)
+$$
 
-## 3. Self-attention
+$$
+PE(pos,2i+1)=\cos\left(\frac{pos}{10000^{2i/d}}
+\right)
+$$
 
-In self-attention, every token can compare itself with other tokens in the same sequence.
+Modern models may instead use learned or relative/rotary positional methods. The central requirement is the same: **the model needs access to positional information**.
 
-A token can effectively ask:
+---
 
-“What other information in this sentence helps me understand myself?”
+## 3. One Transformer block
 
-The answer is computed using queries, keys, and values.
+A simplified Transformer block can be pictured as:
+
+```mermaid
+flowchart TD
+    X[Token representations] --> A[Multi-head self-attention]
+    A --> R1[Residual connection + normalization]
+    R1 --> F[Feed-forward network]
+    F --> R2[Residual connection + normalization]
+    R2 --> O[Output representations]
+```
+
+Different Transformer variants use slightly different ordering and normalization conventions, but these are the major ideas.
+
+---
 
 ## 4. Multi-head attention
 
-One attention mechanism may discover one kind of relationship.
+One attention mechanism may learn one type of relationship.
 
-Multiple attention heads can examine different relationships simultaneously.
+Instead of using one head, Transformers use multiple heads.
 
-One head might focus on nearby grammatical structure.
-Another might learn long-range relationships.
-Another might respond to semantic connections.
+For head $i$:
 
-The network discovers useful patterns during training.
+$$
+head_i=Attention(QW_i^Q,KW_i^K,VW_i^V)
+$$
 
-## 5. Feed-forward layers
+Then concatenate the heads:
 
-After attention, Transformers usually apply neural-network transformations independently to each position.
+$$
+MultiHead(Q,K,V)=Concat(head_1,\ldots,head_h)W^O
+$$
 
-A simplified block looks like:
+Different heads can learn different interaction patterns.
 
-`Input → Attention → Feed Forward → Output`
+Do not assume that every head has a clean human-readable role; learned representations can be distributed and redundant.
 
-Residual connections and normalization help make deep stacks easier to train.
+---
 
-## 6. Stack many blocks
+## 5. Feed-forward network
 
-One Transformer block can learn useful relationships.
+After attention, each token representation passes through a position-wise feed-forward network.
 
-Many blocks can build increasingly rich representations.
+A simplified form is
 
-This is the architecture behind many modern language and multimodal systems.
+$$
+FFN(x)=W_2\sigma(W_1x+b_1)+b_2
+$$
 
-## 7. The big idea
+Attention mixes information **between positions**.
 
-A Transformer is not one mysterious algorithm.
+The feed-forward network transforms each position's representation **independently**.
 
-It is an organized combination of ideas we already know:
+This division is a useful mental model.
 
-- vectors
-- matrices
-- learned parameters
-- attention
-- non-linear transformations
-- optimization
+---
 
-> **Complex intelligence can emerge when simple mathematical components are composed into a powerful architecture and trained on large amounts of data.**
+## 6. Residual connections
+
+Suppose a block computes $F(x)$.
+
+A residual connection produces
+
+$$
+y=x+F(x)
+$$
+
+Instead of forcing a layer to learn an entirely new representation, the network can learn a useful modification of the existing one.
+
+Residual connections also help optimization in deep networks.
+
+---
+
+## 7. Why Transformers train efficiently
+
+RNNs naturally process tokens sequentially.
+
+Self-attention can process many sequence positions in parallel during training.
+
+For a sequence length $n$, the attention score matrix has shape
+
+$$
+(n,n)
+$$
+
+because every query can compare with every key.
+
+That gives attention a major computational cost as sequence length grows, roughly quadratic in $n$ for standard full attention.
+
+So Transformers trade sequential recurrence for highly parallel computation and a different scaling challenge.
+
+---
+
+## 8. Encoder and decoder families
+
+The original Transformer architecture had an encoder and decoder.
+
+Later models often use different subsets:
+
+- encoder-only models for representation tasks;
+- decoder-only models for autoregressive generation;
+- encoder-decoder models for sequence-to-sequence tasks.
+
+This is why “Transformer” describes an architecture family rather than one single model design.
+
+---
+
+## 9. A small PyTorch module
+
+```python
+import torch
+import torch.nn as nn
+
+layer = nn.TransformerEncoderLayer(
+    d_model=64,
+    nhead=4,
+    batch_first=True
+)
+
+x = torch.randn(8, 20, 64)
+y = layer(x)
+
+print(y.shape)
+```
+
+The shape remains
+
+```text
+8 × 20 × 64
+```
+
+The layer transforms the representations while preserving batch size, sequence length and model dimension in this example.
+
+---
+
+## 10. The big picture
+
+```text
+Text
+ ↓
+Tokens
+ ↓
+Embeddings + position information
+ ↓
+Transformer blocks
+ ├─ Self-attention
+ ├─ Residual + normalization
+ ├─ Feed-forward network
+ └─ Residual + normalization
+ ↓
+Contextual representations
+ ↓
+Prediction head
+```
+
+This architecture can be stacked many times.
+
+---
+
+## Think Like a Scientist 🧠
+
+Explain the difference between:
+
+$$
+\text{Embedding}
+$$
+
+and
+
+$$
+\text{Contextual representation}
+$$
+
+Then ask:
+
+> Why would the representation of “bank” need to change depending on the sentence?
+
+If you can answer that, you understand one of the central motivations behind attention.
+
+---
+
+## What you should remember
+
+> **A Transformer combines attention, nonlinear transformations, residual connections, normalization and positional information into a highly scalable sequence architecture.**
+
+Attention answers “what should interact with what?”
+
+The surrounding architecture makes those interactions trainable and reusable at scale.
+
+Now we can finally ask the question that powers modern language models:
+
+> **How does a model learn to predict text?**
