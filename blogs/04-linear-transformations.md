@@ -1,16 +1,24 @@
 # Blog 04 — A Matrix Can Transform Space
 
-> A matrix is not merely a rectangle of numbers. It can behave like a machine that transforms a vector into another vector.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Imagine drawing a square grid on a rubber sheet.
+## 🧪 Interactive Lab
 
-Now pull the sheet.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-Some points move. The grid stretches. Shapes change.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/04-linear-transformations.ipynb)**
 
-A matrix gives us an algebraic way to describe transformations like these.
 
----
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 03 — Matrices: The Spreadsheet of Mathematics.
+
+**Today:** Blog 04 — A Matrix Can Transform Space.
+
+**Next lesson:** Blog 05 — Meet the Smallest Neural Network.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. Start with one vector
 
@@ -262,8 +270,6 @@ That will be our next discovery.
 
 ## 11. Python experiment
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/04-linear-transformations.ipynb)**
-
 ```python
 import numpy as np
 
@@ -284,8 +290,6 @@ Output:
 ```
 
 Try replacing $A$ with the swap matrix:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/04-linear-transformations.ipynb)**
 
 ```python
 A = np.array([
@@ -352,60 +356,6 @@ That is where the neuron begins to become interesting.
 
 ---
 
-# 🧪 Hands-on Lab — Transform a Square, Then Break It
-
-The companion exercise is [`../labs/04-transformations-lab.md`](../labs/04-transformations-lab.md).
-
-Use a tiny square so that every coordinate can be inspected:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/04-linear-transformations.ipynb)**
-
-```python
-import numpy as np
-
-square = np.array([
-    [0., 0.],
-    [1., 0.],
-    [1., 1.],
-    [0., 1.]
-])
-
-scale = np.array([[2., 0.],
-                  [0., 0.5]])
-
-rotation = np.array([[0., -1.],
-                     [1.,  0.]])
-
-print("scaled:\n", square @ scale.T)
-print("rotated:\n", square @ rotation.T)
-```
-
-### Challenges
-
-1. Make the square twice as wide.
-2. Rotate it by $90^\circ$ and then $90^\circ$ again.
-3. Reflect it across the $x$-axis.
-4. Create a shear transformation.
-5. Compare `A @ B @ x` with `B @ A @ x`.
-
-You should discover experimentally that, in general,
-
-$$
-AB\neq BA
-$$
-
-### Deeper experiment
-
-Take two transformations and apply them in different orders to the same point.
-
-Ask:
-
-> **Why does changing the order change the result?**
-
-This is not merely a matrix trick. Later, when neural networks stack transformations, **order becomes part of the model's meaning**.
-
----
-
 # 📚 Go Deeper — Visualize the Algebra
 
 ### 🎨 3Blue1Brown
@@ -414,11 +364,11 @@ Use **3Blue1Brown's Essence of Linear Algebra** when you want to see what a matr
 
 ### 🧠 Neural-network connection
 
-The 3Blue1Brown neural-network material is especially useful here because it connects the geometric idea of transformations to weights, biases, layers and linear algebra. citeturn0youtube30turn0youtube31
+The 3Blue1Brown neural-network material is especially useful here because it connects the geometric idea of transformations to weights, biases, layers and linear algebra.
 
 ### 🧪 Welch Labs
 
-Welch Labs is valuable when you want the next step: turn the mathematical transformation into an actual trainable neural network. Its neural-network sequence progresses from architecture through forward propagation, gradient descent and backpropagation. citeturn0search0turn0search8
+Welch Labs is valuable when you want the next step: turn the mathematical transformation into an actual trainable neural network. Its neural-network sequence progresses from architecture through forward propagation, gradient descent and backpropagation.
 
 ### 🧮 Mathematics support
 

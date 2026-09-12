@@ -1,23 +1,38 @@
-name: Add Colab links to blog code
+name: Build the blog learning units
 
 on:
   push:
     branches:
-      - feature/01-deeplearning-syllabus
+      - main
 
 permissions:
   contents: write
 
 jobs:
-  add-colab-links:
+  build:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: feature/01-deeplearning-syllabus
+          ref: main
 
-      - name: Add links
+      - name: Generate rich notebooks
+        run: python scripts/enrich_notebooks.py
+
+      - name: Add topic-specific laboratory experiments
+        run: python scripts/upgrade_notebooks.py
+
+      - name: Apply Class 8 student walkthrough fixes
+        run: python scripts/student_walkthrough_fixes.py
+
+      - name: Make every notebook a self-contained code tutorial
+        run: python scripts/upgrade_notebook_tutorials.py
+
+      - name: Merge labs into notebooks and remove obsolete labs
+        run: python scripts/merge_labs_into_notebooks.py
+
+      - name: Normalize all blog notebook navigation and content hygiene
         shell: bash
         run: |
           python - <<'PY'
@@ -25,80 +40,93 @@ jobs:
           import re
 
           repo = 'manish7725/deeplearning'
-          branch = 'feature/01-deeplearning-syllabus'
-          notebook_map = {
-              '01': '01-what-is-learning.ipynb',
-              '02': '02-numbers-become-vectors.ipynb',
-              '03': '03-matrices-the-spreadsheet-of-math.ipynb',
-              '04': '04-linear-transformations.ipynb',
-              '05': '05-the-smallest-neural-network.ipynb',
-              '06': '06-why-neurons-need-activation.ipynb',
-              '07': '07-prediction-is-not-learning-yet.ipynb',
-              '08': '08-derivatives-the-compass.ipynb',
-              '09': '09-gradient-descent.ipynb',
-              '10': '10-backpropagation.ipynb',
-              '11': '11-tensors.ipynb',
-              '12': '12-training-and-testing.ipynb',
-              '13': '13-convolution.ipynb',
-              '14': '14-sequence-models.ipynb',
-              '15': '15-word-embeddings.ipynb',
-              '16': '16-attention.ipynb',
-              '17': '17-transformers.ipynb',
-              '18': '18-language-models.ipynb',
-              '19': '19-generative-models.ipynb',
-              '20': '20-neural-network-from-scratch.ipynb',
-              '21': '21-automatic-differentiation.ipynb',
-              '22': '22-neural-networks-as-function-approximators.ipynb',
-              '23': '23-geometry-invariance-and-equivariance.ipynb',
-              '24': '24-graph-neural-networks.ipynb',
-              '25': '25-why-neural-networks-generalize.ipynb',
-              '26': '26-scaling-rules-for-training.ipynb',
-              '27': '27-representation-learning.ipynb',
-              '28': '28-contrastive-learning.ipynb',
-              '29': '29-conditional-generative-models.ipynb',
-              '30': '30-out-of-distribution-and-robustness.ipynb',
-              '31': '31-transfer-learning-and-fine-tuning.ipynb',
-              '32': '32-scaling-laws.ipynb',
-              '33': '33-inference-methods.ipynb',
-              '34': '34-hackers-guide-to-deep-learning.ipynb',
-              '35': '35-architectural-bias-and-representations.ipynb',
-              '36': '36-metrized-deep-learning.ipynb',
-              '37': '37-preference-learning-and-policy-optimization.ipynb',
-          }
+          branch = 'main'
+          marker = '<!-- NOTEBOOK-LAB-NAV -->'
 
-          fence = re.compile(r'^(\s*)```(?:python|py|py3)\s*$', re.I)
-          changed = []
           for path in sorted(Path('blogs').glob('*.md')):
-              m = re.match(r'^(\d{2})-', path.name)
-              if not m or m.group(1) not in notebook_map:
+              match = re.match(r'^(\d{2})-', path.name)
+              if not match:
                   continue
-              url = f'https://colab.research.google.com/github/{repo}/blob/{branch}/notebooks/{notebook_map[m.group(1)]}'
-              lines = path.read_text(encoding='utf-8').splitlines(True)
-              out = []
-              for line in lines:
-                  if fence.match(line) and not (out and 'Run this code in Google Colab' in out[-1]):
-                      out.append(f'> 🧪 **[Run this code in Google Colab]({url})**\n\n')
-                  out.append(line)
-              new = ''.join(out)
-              if new != ''.join(lines):
-                  path.write_text(new, encoding='utf-8')
-                  changed.append(str(path))
+              prefix = match.group(1)
+              notebooks = sorted(Path('notebooks').glob(f'{prefix}-*.ipynb'))
+              if not notebooks:
+                  continue
+              notebook = notebooks[0]
+              notebook_url = f'https://github.com/{repo}/blob/{branch}/{notebook.as_posix()}'
+              colab_url = f'https://colab.research.google.com/github/{repo}/blob/{branch}/{notebook.as_posix()}'
+              text = path.read_text(encoding='utf-8')
 
-          test = Path('notebooks/colab-links-test.md')
-          if test.exists():
-              test.unlink()
+              text = re.sub(r'>\s*🧪\s*\*\*\[Run this code in Google Colab\]\([^\n]+\)\*\*\s*\n?', '', text)
+              text = re.sub(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/[^)]+', '', text)
+              text = re.sub(r'^.*\]\([^\n]*?/labs/[^\n]*\)\s*\n?', '', text, flags=re.MULTILINE)
+              embedded = re.search(r'(?m)^# Blog (?!' + re.escape(prefix) + r' —)\d{2} — ', text)
+              if embedded:
+                  text = text[:embedded.start()].rstrip() + '\n'
+              text = re.sub(r'\s*(?:cite|url|entity|memcite)[^\n]*', '', text)
 
-          print('Updated:', ', '.join(changed) if changed else 'none')
+              nav = (
+                  f'{marker}\n\n'
+                  '## 🧪 Interactive Lab\n\n'
+                  'The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.\n\n'
+                  f'**[📓 Open the notebook on GitHub]({notebook_url})**  '
+                  f'· **[▶ Open the notebook in Google Colab]({colab_url})**\n\n'
+              )
+              text = re.sub(r'<!-- NOTEBOOK-LAB-NAV -->\n\n## 🧪 Interactive Lab\n\n.*?\n\n\*\*\[▶ Open the notebook in Google Colab\]\([^\n]+\)\*\*\n*', '', text, flags=re.DOTALL)
+              lines = text.splitlines(True)
+              insert_at = 1 if lines and lines[0].lstrip().startswith('#') else 0
+              text = ''.join(lines[:insert_at]) + '\n' + nav + ''.join(lines[insert_at:])
+              text = re.sub(r'\n{4,}', '\n\n\n', text)
+              path.write_text(text, encoding='utf-8')
           PY
 
-      - name: Commit changes
+      - name: Validate all 37 learning units
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+          errors=[]
+          blogs=sorted(Path('blogs').glob('*.md'))
+          notebooks=sorted(Path('notebooks').glob('*.ipynb'))
+          if len(blogs) != 37: errors.append(f'expected 37 blogs, found {len(blogs)}')
+          if len(notebooks) != 37: errors.append(f'expected 37 notebooks, found {len(notebooks)}')
+          all_blogs = {p.name[:2]: p for p in blogs}
+          for path in blogs:
+              text=path.read_text(encoding='utf-8'); prefix=path.name[:2]
+              if text.count('<!-- NOTEBOOK-LAB-NAV -->') != 1: errors.append(f'{path}: navigation marker count != 1')
+              if '/labs/' in text: errors.append(f'{path}: stale labs reference')
+              if 'feature/01-deeplearning-syllabus' in text: errors.append(f'{path}: stale feature branch reference')
+              if re.search(r'(?:cite|url|entity|memcite)',text): errors.append(f'{path}: ChatGPT transport marker remains')
+              if len(re.findall(r'https://colab\.research\.google\.com/github/manish7725/deeplearning/blob/main/notebooks/[^)]+',text)) != 1: errors.append(f'{path}: Colab link count != 1')
+              titles=re.findall(r'^# Blog \d{2} — ',text,re.M)
+              if len(titles)!=1: errors.append(f'{path}: top-level blog title count != 1')
+              if not re.search(rf'^# Blog {re.escape(prefix)} — ',text,re.M): errors.append(f'{path}: wrong/missing blog number')
+              if re.search(r'(?m)^# Blog \d{2} — ',text[text.find('\n')+1:]): errors.append(f'{path}: embedded second blog detected')
+              if '## 🧭 Where this lesson fits' not in text: errors.append(f'{path}: missing lesson bridge')
+              if path.name.startswith('03-') and 'print(2*10 + 3*20)' in text: errors.append(f'{path}: malformed old verification section remains')
+          for path in notebooks:
+              try: nb=json.loads(path.read_text(encoding='utf-8'))
+              except Exception as e: errors.append(f'{path}: invalid JSON: {e}'); continue
+              cells=nb.get('cells',[])
+              markdown='\n'.join(''.join(c.get('source',[])) for c in cells if c.get('cell_type')=='markdown')
+              if not any(c.get('cell_type')=='code' for c in cells): errors.append(f'{path}: no code cells')
+              if 'Where this lesson fits' not in markdown: errors.append(f'{path}: missing lesson bridge')
+              if 'Topic experiment' not in markdown: errors.append(f'{path}: missing topic-specific experiment')
+              if '<!-- SELF-CONTAINED-CODE-TUTORIAL -->' not in markdown: errors.append(f'{path}: missing self-contained tutorial guide')
+              if 'Lab objective and blog connection' not in markdown: errors.append(f'{path}: missing blog/lab objective')
+              if 'Code tutorial — what to notice' not in markdown: errors.append(f'{path}: missing code explanations')
+              prefix=path.name[:2]
+              if prefix in all_blogs and all_blogs[prefix].name not in markdown: errors.append(f'{path}: matching blog link missing')
+          if errors:
+              print('\n'.join(errors)); raise SystemExit(1)
+          print('37 blogs and 37 notebooks passed the Class 8 student-walkthrough and self-contained notebook tutorial checks.')
+          PY
+
+      - name: Commit quality fixes
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add blogs notebooks/colab-links-test.md
-          if git diff --cached --quiet; then
-            echo 'No changes to commit.'
-            exit 0
-          fi
-          git commit -m 'Add clickable Colab links to blog code blocks'
-          git push origin HEAD:feature/01-deeplearning-syllabus
+          git add notebooks blogs labs scripts .github/workflows/add-colab-links.yml
+          if git diff --cached --quiet; then echo 'No generated changes.'; exit 0; fi
+          git commit -m 'Make notebooks self-contained code tutorials'
+          git push origin HEAD:main

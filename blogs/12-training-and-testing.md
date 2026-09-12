@@ -1,16 +1,24 @@
 # Blog 12 — How Do We Know If Our Model Really Learned?
 
-Imagine a student memorizes every question in a practice book.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Give the exact same questions again and the student gets everything right.
+## 🧪 Interactive Lab
 
-Did the student understand the subject?
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-Maybe. Maybe not.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/12-training-and-testing.ipynb)**
 
-Machine learning has exactly the same problem.
 
----
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 11 — Tensors: Numbers in Many Dimensions.
+
+**Today:** Blog 12 — How Do We Know If Our Model Really Learned?.
+
+**Next lesson:** Blog 13 — How a Neural Network Learns to See: Convolution.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. Training accuracy can fool us
 
@@ -175,8 +183,6 @@ A model can have an impressive score and still be scientifically invalid.
 
 ## 9. A tiny PyTorch evaluation pattern
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/12-training-and-testing.ipynb)**
-
 ```python
 model.eval()
 
@@ -261,57 +267,11 @@ Now we can move from abstract numbers to one of the richest sources of data huma
 
 ---
 
-# 🧪 Hands-on Lab — Detect Overfitting Yourself
-
-Use [`../labs/12-training-testing-lab.md`](../labs/12-training-testing-lab.md).
-
-Create a deliberately small training set and a separate validation set.
-
-Track both losses during training:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/12-training-and-testing.ipynb)**
-
-```python
-history = {
-    "train": [],
-    "validation": []
-}
-```
-
-### Experiments
-
-1. Train a tiny model.
-2. Increase the model capacity.
-3. Train for more epochs.
-4. Plot training and validation loss.
-5. Find the point where validation performance stops improving.
-
-Then intentionally create leakage by normalizing the full dataset before splitting it.
-
-Discuss why that can make evaluation overly optimistic.
-
-### Mastery challenge
-
-Build a confusion matrix by hand for:
-
-```text
-TP = 80
-FP = 20
-FN = 10
-TN = 90
-```
-
-Calculate precision and recall.
-
-Then explain which metric you would prioritize if false negatives were extremely costly.
-
----
-
 # 📚 Go Deeper — The Science of Evaluation
 
-**Welch Labs** explicitly covers overfitting, testing and regularization in its neural-network series, making it a useful companion for this lesson. citeturn0search5
+**Welch Labs** explicitly covers overfitting, testing and regularization in its neural-network series, making it a useful companion for this lesson.
 
-**3Blue1Brown** helps with the geometric intuition behind model fitting and representation, while **Frame Zero** is useful for first-principles ML reasoning. citeturn0youtube30turn0youtube31
+**3Blue1Brown** helps with the geometric intuition behind model fitting and representation, while **Frame Zero** is useful for first-principles ML reasoning.
 
 Use **MrJensenMath10** for the arithmetic and probability foundations behind metrics.
 

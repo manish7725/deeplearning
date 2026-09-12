@@ -1,16 +1,24 @@
 # Blog 11 — Tensors: Numbers in Many Dimensions
 
-Vectors are 1-dimensional collections of numbers.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Matrices are 2-dimensional collections.
+## 🧪 Interactive Lab
 
-Deep learning needs more.
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-A batch of color images, for example, naturally has dimensions for batch, height, width and color channels.
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/11-tensors.ipynb)**
 
-We need a general container: the **tensor**.
 
----
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 10 — Backpropagation: Sending the Error Backward.
+
+**Today:** Blog 11 — Tensors: Numbers in Many Dimensions.
+
+**Next lesson:** Blog 12 — How Do We Know If Our Model Really Learned?.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. The family tree
 
@@ -67,8 +75,6 @@ Tensor
 ## 3. Shape is the first thing to inspect
 
 In PyTorch:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
 
 ```python
 import torch
@@ -159,8 +165,6 @@ One powerful tensor concept is broadcasting.
 
 Suppose
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
 ```python
 x = torch.tensor([
     [1., 2., 3.],
@@ -197,8 +201,6 @@ Broadcasting is convenient, but it is important to understand the shapes rather 
 ## 7. Tensor operations are the language of deep learning
 
 You will repeatedly see operations such as:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
 
 ```python
 x @ W       # matrix multiplication
@@ -237,8 +239,6 @@ Always ask:
 ---
 
 ## 9. Code: inspect a tensor
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
 
 ```python
 x = torch.randn(8, 3, 64, 64)
@@ -296,61 +296,13 @@ That is the problem of training, validation and testing.
 
 ---
 
-# 🧪 Hands-on Lab — Become a Tensor Shape Detective
-
-Use [`../labs/11-tensors-lab.md`](../labs/11-tensors-lab.md).
-
-Start with:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
-```python
-import torch
-
-x = torch.randn(8, 3, 32, 32)
-
-print("shape:", x.shape)
-print("ndim:", x.ndim)
-print("numel:", x.numel())
-print("dtype:", x.dtype)
-```
-
-### Challenges
-
-For each operation, predict the shape before running it:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
-
-```python
-x.mean(dim=0)
-x.mean(dim=(2, 3))
-x.reshape(8, -1)
-x.permute(0, 2, 3, 1)
-```
-
-Then explain what each dimension means.
-
-### Mastery challenge
-
-Create a fake batch of:
-
-- 64 RGB images;
-- 128 audio sequences;
-- 32 sentences of 20 tokens each, represented with 768-dimensional embeddings.
-
-Write down the expected tensor shapes before creating them.
-
-This is the beginning of **shape-first programming**: understand the mathematics of dimensions before debugging code.
-
----
-
 # 📚 Go Deeper — Tensors, Code and Hardware
 
 Use **PyTorch's official tutorials** when you want to move from the mathematical tensor abstraction into real framework usage.
 
-Use **3Blue1Brown** for the linear-algebra intuition that sits underneath tensor operations. citeturn0youtube30turn0youtube31
+Use **3Blue1Brown** for the linear-algebra intuition that sits underneath tensor operations.
 
-Use **Welch Labs** when you want to see tensors and numerical operations inside complete neural-network experiments; its AI material emphasizes hands-on exercises, graphics and supporting code. citeturn0search1turn0search3
+Use **Welch Labs** when you want to see tensors and numerical operations inside complete neural-network experiments; its AI material emphasizes hands-on exercises, graphics and supporting code.
 
 Use **Frame Zero** for first-principles ML intuition and **Visual Kernel** when you want to connect tensor operations to modern model internals.
 
@@ -361,8 +313,6 @@ Use **MrJensenMath10** for the underlying arithmetic and algebraic fluency.
 Whenever PyTorch gives a shape error, do not immediately reshape randomly.
 
 Print:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/11-tensors.ipynb)**
 
 ```python
 print(x.shape)

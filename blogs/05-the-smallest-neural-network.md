@@ -1,16 +1,24 @@
 # Blog 05 — Meet the Smallest Neural Network
 
-> A neural network begins with a tiny mathematical machine: multiply, add, and learn the numbers that control the calculation.
+<!-- NOTEBOOK-LAB-NAV -->
 
-Imagine the king asks:
+## 🧪 Interactive Lab
 
-> “Can we build the smallest possible machine that learns from examples?”
+The matching notebook is the complete hands-on laboratory for this lesson. It contains the runnable code, experiments, visualizations, and challenges.
 
-The scientist says:
+**[📓 Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**  · **[▶ Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/05-the-smallest-neural-network.ipynb)**
 
-> “Yes. We only need a few numbers called **parameters**.”
 
----
+## 🧭 Where this lesson fits
+
+**Previous lesson:** Blog 04 — A Matrix Can Transform Space.
+
+**Today:** Blog 05 — Meet the Smallest Neural Network.
+
+**Next lesson:** Blog 06 — Why Does a Neuron Need an Activation Function?.
+
+**Student rule:** if you cannot explain why this lesson follows the previous one, stop and reread the final takeaway of the previous blog. The equations below should feel like a continuation, not a new language.
+
 
 ## 1. The smallest possible model
 
@@ -237,8 +245,6 @@ The artificial neuron is a useful abstraction, not a complete simulation of biol
 
 ## 9. Python: build a neuron yourself
 
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
-
 ```python
 import numpy as np
 
@@ -266,8 +272,6 @@ The magic of deep learning comes later, when we learn how to **change $w$ and $b
 ---
 
 ## 10. A PyTorch version
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
 
 ```python
 import torch
@@ -372,56 +376,11 @@ Next we need to define **how wrong the prediction is**.
 
 ---
 
-# 🧪 Hands-on Lab — Build a Neuron From Scratch
-
-Use [`../labs/05-neuron-lab.md`](../labs/05-neuron-lab.md) as the companion exercise.
-
-Start without PyTorch:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
-
-```python
-import numpy as np
-
-x = np.array([2., 3., 4.])
-w = np.array([1., -2., 0.5])
-b = 1.
-
-z = np.dot(w, x) + b
-print(z)
-```
-
-Then write the same calculation using an explicit loop:
-
-> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/05-the-smallest-neural-network.ipynb)**
-
-```python
-z = b
-for xi, wi in zip(x, w):
-    z += xi * wi
-```
-
-### Challenges
-
-1. Add a fourth feature.
-2. Make one weight negative.
-3. Set one weight to zero and explain what disappears.
-4. Create three neurons with three different weight vectors.
-5. Replace the manual calculation with a matrix multiplication.
-
-### Mastery test
-
-Given $n$ inputs and $m$ neurons, predict the shape of the weight matrix before writing any code.
-
-That single habit will prevent a huge number of PyTorch errors later.
-
----
-
 # 📚 Go Deeper — From One Neuron to Deep Networks
 
-**3Blue1Brown** is the best visual companion when you want to understand why a neuron is naturally described using vectors, weights, biases and matrix multiplication. citeturn0youtube30turn0youtube31
+**3Blue1Brown** is the best visual companion when you want to understand why a neuron is naturally described using vectors, weights, biases and matrix multiplication.
 
-**Welch Labs** is especially useful here because its Neural Networks Demystified series builds a complete network in Python and then moves through forward propagation, gradient descent and backpropagation. citeturn0search0turn0search8
+**Welch Labs** is especially useful here because its Neural Networks Demystified series builds a complete network in Python and then moves through forward propagation, gradient descent and backpropagation.
 
 Use **Frame Zero** for another first-principles ML perspective and **MrJensenMath10** when algebraic manipulation is the part you need to strengthen.
 
