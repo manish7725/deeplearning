@@ -187,6 +187,8 @@ A neuron will soon use almost exactly this calculation.
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
+
 ```python
 import numpy as np
 
@@ -240,6 +242,8 @@ A photograph can contain millions of numerical values. A language model can repr
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
+
 ```python
 x = np.array([2, 3, 4])
 print(x.shape)
@@ -254,6 +258,8 @@ Output:
 Now create three examples:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
 
@@ -364,6 +370,8 @@ The companion exercise is [`../labs/02-vectors-lab.md`](../labs/02-vectors-lab.m
 Start with NumPy and make the mathematics visible in code:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/02-numbers-become-vectors.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/02-numbers-become-vectors.ipynb)**
 

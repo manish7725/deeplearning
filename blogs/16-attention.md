@@ -191,6 +191,8 @@ Modern PyTorch provides attention-related building blocks. A conceptual example 
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
+
 ```python
 import torch
 import torch.nn.functional as F
@@ -254,6 +256,8 @@ Use [`../labs/16-attention-lab.md`](../labs/16-attention-lab.md).
 Start with tiny matrices so every number can be checked:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/16-attention.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/16-attention.ipynb)**
 

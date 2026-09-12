@@ -157,6 +157,8 @@ This is gradient-based learning at very large scale.
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
+
 ```python
 import torch
 import torch.nn.functional as F
@@ -278,6 +280,8 @@ Use [`../labs/18-language-model-lab.md`](../labs/18-language-model-lab.md).
 Start with a tiny vocabulary and a tiny text corpus. Your first goal is not performance; it is understanding the training signal.
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/18-language-models.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/18-language-models.ipynb)**
 
