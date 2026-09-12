@@ -297,3 +297,83 @@ A modern network may contain millions of parameters. How can we efficiently calc
 The answer is the chain rule applied systematically.
 
 > **Next: backpropagation — sending the error backward.**
+
+---
+
+# 🧪 Hands-on Lab — Watch Optimization Happen
+
+Use [`../labs/09-gradient-descent-lab.md`](../labs/09-gradient-descent-lab.md).
+
+Implement the algorithm without PyTorch first:
+
+```python
+w = 0.0
+lr = 0.1
+
+for step in range(20):
+    loss = (w - 3)**2
+    grad = 2 * (w - 3)
+    w -= lr * grad
+    print(step, w, loss)
+```
+
+### Learning-rate experiment
+
+Run the same problem with:
+
+```text
+0.001
+0.01
+0.1
+0.5
+1.0
+1.1
+```
+
+Record what happens.
+
+You should discover that optimization is not only about the direction of movement. **Step size matters.**
+
+### Mastery challenge
+
+Modify the program to optimize
+
+$$
+L(x,y)=x^2+4y^2
+$$
+
+from a starting point such as $(5,5)$.
+
+Why do the two coordinates behave differently?
+
+That experiment prepares you for gradients in many dimensions.
+
+---
+
+# 📚 Go Deeper — Optimization Through Different Teachers
+
+**3Blue1Brown** is excellent for seeing gradient descent as movement across a landscape and for building geometric intuition around derivatives and optimization. citeturn0youtube30turn0youtube31
+
+**Welch Labs** provides a particularly useful implementation-oriented progression from gradient descent into backpropagation and numerical gradient checking. citeturn0search0turn0search8
+
+Use **Frame Zero** for first-principles ML intuition and **MrJensenMath10** for the calculus/algebra needed to reason about slopes.
+
+When you later study modern optimizers, use **ZacharyLLM** and **Visual Kernel** to connect the basic update equation to large-scale model training.
+
+### One experiment before moving on
+
+Try to deliberately make gradient descent fail.
+
+Choose a learning rate that is too large.
+
+Observe the loss.
+
+Then explain why the update
+
+$$
+\theta\leftarrow\theta-\eta\nabla L
+$$
+
+can move *past* a good solution.
+
+Understanding failure modes is part of understanding optimization.
