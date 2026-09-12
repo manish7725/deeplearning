@@ -1,125 +1,344 @@
-# Blog 02 — How Numbers Become Vectors
+# Blog 02 — How Do Numbers Become Vectors?
 
-A computer does not see a red apple the way you do. It sees numbers.
+> **Deep Learning from First Principles**  
+> Written so a Class 7 student can follow the story, while the mathematics stays honest.
 
-That sounds boring, but it is actually powerful: once something becomes numbers, mathematics can work with it.
+Imagine a king walking into the royal laboratory with a strange question:
 
-## 1. One object, many measurements
+> **“Can a machine understand which student is likely to become a great scientist?”**
 
-Suppose we describe a fruit using:
+The scientist does not start with a neural network. He starts with a much simpler question:
 
-`weight = 150`
+> **“How will we describe a student using numbers?”**
 
-`roundness = 9`
+That question leads us to one of the most important objects in machine learning: the **vector**.
 
-`color = 8`
+---
 
-We can collect them into one object:
+## 1. A computer needs a numerical description
 
-`x = [150, 9, 8]`
+Suppose we describe three students using two measurements:
 
-This is a **vector**.
+- mathematics score
+- science score
 
-You can think of a vector as a box containing several related numbers.
+```text
+Alice → [9, 8]
+Bob   → [8, 9]
+Cara  → [3, 4]
+```
 
-## 2. Why put numbers together?
+We can write Alice as
 
-Imagine three students:
+$$
+\mathbf{x}=\begin{bmatrix}9\\8\end{bmatrix}
+$$
 
-`A = [8, 7]`
+A vector is an **ordered collection of numbers**. Order matters:
 
-`B = [9, 8]`
+$$
+[9,8]\neq[8,9]
+$$
 
-`C = [3, 4]`
+because each position can have a different meaning.
 
-Suppose the first number means mathematics marks and the second means science marks.
+---
 
-A and B are similar. C is quite different.
+## 2. From a story to a coordinate
 
-We can measure similarity using distance.
+The vector $[9,8]$ can also be treated as the point $(9,8)$ on a graph.
 
-For two-dimensional vectors:
+- first coordinate → horizontal position
+- second coordinate → vertical position
 
-`distance = √((x₁-y₁)² + (x₂-y₂)²)`
+We have converted a real-world object into a location in mathematical space.
 
-For A and B:
+That is the beginning of **numerical representation**.
 
-`distance = √((8-9)² + (7-8)²)`
+---
 
-`= √(1 + 1)`
+## 3. Distance gives us a notion of similarity
 
-`= √2`
+For Alice $A=(9,8)$ and Bob $B=(8,9)$:
 
-A small distance means the students are close in this mathematical space.
+$$
+d(A,B)=\sqrt{(9-8)^2+(8-9)^2}=\sqrt2
+$$
 
-## 3. A vector is also a point
+For Alice and Cara $C=(3,4)$:
 
-The vector `[8, 7]` can be drawn as a point on a graph.
+$$
+d(A,C)=\sqrt{(9-3)^2+(8-4)^2}=\sqrt{52}\approx7.21
+$$
 
-The first number tells us how far to move horizontally. The second tells us how far to move vertically.
+So Alice is much closer to Bob than to Cara in this representation.
 
-So a vector can be both:
+> **Once objects become vectors, relationships between objects can become mathematics.**
 
-- a list of numbers
-- a point in a mathematical space
+---
 
-This idea becomes extremely important in machine learning.
+## 4. A vector can be an arrow
 
-## 4. What if we have 100 features?
+For
 
-A fruit might have 100 measurements. A photograph can have millions of pixel values. A language model can work with very large numerical representations.
+$$
+\mathbf{v}=\begin{bmatrix}3\\2\end{bmatrix}
+$$
 
-We simply extend the vector:
+start at $(0,0)$ and move 3 units right and 2 units up.
 
-`x = [x₁, x₂, x₃, ..., x₁₀₀]`
+Its length is
 
-We may not be able to draw a 100-dimensional space, but the mathematics still works.
+$$
+\|\mathbf v\|=\sqrt{3^2+2^2}=\sqrt{13}
+$$
 
-Dimensions are not limited by what our eyes can visualize.
+This length is called the **norm**.
 
-## 5. Vectors can be transformed
+The same object can therefore be understood in three ways:
 
-Suppose:
+| View | Meaning |
+|---|---|
+| List | A collection of numbers |
+| Point | A location in feature space |
+| Arrow | Direction + magnitude |
 
-`x = [2, 3]`
+---
 
-and we multiply every component by 2:
+## 5. Vector addition
 
-`2x = [4, 6]`
+Let
 
-The vector became twice as long.
+$$
+\mathbf a=\begin{bmatrix}2\\1\end{bmatrix},\qquad
+\mathbf b=\begin{bmatrix}1\\3\end{bmatrix}
+$$
 
-Now suppose we add another vector:
+Then
 
-`a = [1, 5]`
+$$
+\mathbf a+\mathbf b
+=\begin{bmatrix}2+1\\1+3\end{bmatrix}
+=\begin{bmatrix}3\\4\end{bmatrix}
+$$
 
-Then:
+Think of this as two consecutive movements. First move $(2,1)$, then $(1,3)$. The total movement is $(3,4)$.
 
-`x + a = [2+1, 3+5] = [3, 8]`
+---
 
-These simple operations are the building blocks of much more complicated systems.
+## 6. Scalar multiplication
 
-## 6. The programmer's view
+If
 
-In Python, a vector can be represented using NumPy:
+$$
+\mathbf x=\begin{bmatrix}2\\3\end{bmatrix}
+$$
+
+then
+
+$$
+2\mathbf x=\begin{bmatrix}4\\6\end{bmatrix}
+$$
+
+The direction stays the same while the magnitude doubles.
+
+With $-1$:
+
+$$
+-\mathbf x=\begin{bmatrix}-2\\-3\end{bmatrix}
+$$
+
+The arrow reverses direction.
+
+These simple operations become building blocks for neural networks.
+
+---
+
+## 7. The dot product — the calculator inside a neuron
+
+Take
+
+$$
+\mathbf x=\begin{bmatrix}2\\3\end{bmatrix},\qquad
+\mathbf w=\begin{bmatrix}4\\5\end{bmatrix}
+$$
+
+Their dot product is
+
+$$
+\mathbf x\cdot\mathbf w=2(4)+3(5)=23
+$$
+
+In general,
+
+$$
+\mathbf x\cdot\mathbf w=\sum_{i=1}^{n}x_iw_i
+$$
+
+This is a **weighted sum**. The weights tell us how strongly each feature contributes.
+
+A neuron will soon use almost exactly this calculation.
+
+---
+
+## 8. Python: turn the mathematics into an experiment
 
 ```python
 import numpy as np
 
-x = np.array([150, 9, 8])
-print(x)
+x = np.array([2.0, 3.0])
+w = np.array([4.0, 5.0])
+
+print("x + w =", x + w)
+print("2x    =", 2 * x)
+print("x · w =", x @ w)
+print("||x|| =", np.linalg.norm(x))
 ```
 
-The computer now has a mathematical object that we can multiply, add, compare, and transform.
+Expected output:
 
-## 7. The deeper idea
+```text
+x + w = [6. 8.]
+2x    = [4. 6.]
+x · w = 23.0
+||x|| = 3.6055...
+```
 
-When we convert something into numbers, we are creating a **representation**.
+Try changing the numbers before running the code. Predict first; verify second.
 
-A good representation makes the important patterns easier to discover.
+---
 
-That gives us a powerful principle:
+## 9. Dimension: how many coordinates?
 
-> **Machine learning often begins by finding a useful numerical representation of the real world.**
+$$
+[4,7]\quad\text{has 2 dimensions}
+$$
 
-Next, we will see what happens when many vectors are placed together.
+$$
+[4,7,2]\quad\text{has 3 dimensions}
+$$
+
+$$
+[x_1,x_2,\ldots,x_{100}]\quad\text{has 100 dimensions}
+$$
+
+We cannot easily draw 100 dimensions, but the algebra still works.
+
+A photograph can contain millions of numerical values. A language model can represent a token using hundreds or thousands of coordinates.
+
+> **Visualization has limits. Algebra does not.**
+
+---
+
+## 10. Dimension and shape are not the same idea
+
+```python
+x = np.array([2, 3, 4])
+print(x.shape)
+```
+
+Output:
+
+```text
+(3,)
+```
+
+Now create three examples:
+
+```python
+X = np.array([
+    [2, 3, 4],
+    [5, 6, 7],
+    [8, 9, 10]
+])
+
+print(X.shape)
+```
+
+Output:
+
+```text
+(3, 3)
+```
+
+This means **3 examples × 3 features**.
+
+We have just reached the doorway of matrices.
+
+---
+
+## 11. The deep-learning pipeline
+
+```mermaid
+flowchart LR
+    A[Real world] --> B[Measurements]
+    B --> C[Numbers]
+    C --> D[Vector representation]
+    D --> E[Mathematical operations]
+    E --> F[Prediction]
+```
+
+A photograph, sound wave, sentence or sensor reading eventually has to become numerical data before a neural network can process it.
+
+But there is a deeper question:
+
+> **Did we choose numbers that preserve useful information?**
+
+That is the representation problem.
+
+---
+
+## 12. A common representation mistake
+
+Suppose we encode colors like this:
+
+```text
+red = 1
+blue = 2
+orange = 3
+```
+
+The model could interpret orange as numerically closer to blue than red. But color categories do not naturally have this ordering.
+
+So machine learning is not merely about converting things into numbers.
+
+It is about finding a **useful numerical representation**.
+
+---
+
+## Think Like a Scientist 🧠
+
+Pick three objects around you: perhaps a book, bottle and phone.
+
+Choose three measurable properties for each object. Write each object as a vector.
+
+Then ask:
+
+1. Which two objects are closest?
+2. Which feature contributes most to the distance?
+3. What happens if you change the units?
+
+You have created a tiny machine-learning dataset.
+
+---
+
+## What you should remember
+
+> **A vector is a structured numerical representation of something.**
+
+Remember:
+
+- vector = ordered numbers
+- point = location in feature space
+- arrow = direction and magnitude
+- distance = one way to compare representations
+- dot product = weighted combination
+- dimension = number of coordinates
+- shape = arrangement of dimensions
+- representation quality strongly affects learning
+
+One vector describes one example. Real models learn from many examples.
+
+So next we need a mathematical structure that can hold many vectors at once.
+
+> **Next: matrices — the spreadsheet of mathematics.**
