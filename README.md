@@ -2,25 +2,50 @@
 
 A first-principles path from **school mathematics to deep-learning research**.
 
-> **Blog = textbook. Notebook = laboratory. Experiments = discovery. Papers = research.**
+> **Notebook = interactive textbook + laboratory. Markdown = parallel source. Applications = projects. Experiments = discovery. Papers = research.**
 
-## The learning loop
+## Start learning
+
+A Class 8 student should start from the **chapter notebook**, not from a separate blog page.
+
+👉 **[Open the 37 interactive chapters](chapters/)**
+
+Each chapter is self-contained:
 
 ```text
 Story → Intuition → Math → Hand calculation → NumPy → PyTorch
       → Visualization → Interactive experiment → Failure mode
-      → Mini-project → Paper → Reproduction → Research question
+      → Exercises → Application → Research question
 ```
 
-Every important idea is taught at three levels:
+The notebook is designed to work as the complete lesson even when the student never opens the Markdown source. This follows the computational-textbook model used by modern Jupyter-based educational resources: reusable narrative, executable mathematics, and interactive exploration. citeturn0search0
 
-1. **Class 8 intuition** — pictures, stories and tiny numbers.
-2. **Engineering implementation** — NumPy/PyTorch and controlled experiments.
-3. **Research mathematics** — derivations, assumptions, limitations, proofs and open questions.
+## Chapter workspace
+
+Every topic now has one learner-facing folder:
+
+```text
+chapters/
+  01-what-is-learning/
+    README.md
+    01-what-is-learning.ipynb   ← START HERE
+    01-what-is-learning.md      ← parallel Markdown source
+    apps/                        ← applications built from this chapter
+
+  02-numbers-become-vectors/
+    ...
+
+  ...
+
+  37-preference-learning-and-policy-optimization/
+    ...
+```
+
+The chapter notebook is the primary learning artifact. The parallel Markdown copy remains intact for authoring, publishing, provenance, and future synchronization.
 
 ## Curriculum
 
-Start with [`SYLLABUS.md`](SYLLABUS.md). It is the master map from Class 8 through PhD-level research.
+Start with [`SYLLABUS.md`](SYLLABUS.md) for the master map from Class 8 through PhD-level research.
 
 ```text
 LEVEL 0  Class 8 intuition + Python
@@ -36,33 +61,45 @@ LEVEL 9  Research methodology
 LEVEL 10 PhD research
 ```
 
-## Blog and laboratory
+## The learning loop
 
-The numbered blogs are the conceptual spine. Matching Jupyter notebooks are the laboratory.
+Every important idea is taught at three levels:
 
-For each lesson:
+1. **Class 8 intuition** — pictures, stories and tiny numbers.
+2. **Engineering implementation** — NumPy/PyTorch and controlled experiments.
+3. **Research mathematics** — derivations, assumptions, limitations, proofs and open questions.
 
-1. Read the story and intuition.
-2. Recalculate the smallest numerical example by hand.
-3. Run the matching notebook.
-4. Implement the idea with NumPy.
-5. Implement it with PyTorch.
-6. Visualize what the mathematics predicts.
-7. Change one variable and observe the result.
-8. Break the experiment intentionally and explain why.
-9. Build the mini-project.
-10. At advanced levels, reproduce a paper and formulate a research question.
+## Source architecture
 
-## Existing first-principles spine
+```text
+blogs/NN-topic.md
+       │
+       │ canonical source
+       ▼
+lesson parser / curriculum builder
+       │
+       ├──────────────► notebooks/NN-topic.ipynb
+       │                 legacy/parallel notebook location
+       │
+       ▼
+chapters/NN-topic/
+       ├── NN-topic.ipynb   ← learner-facing interactive textbook + lab
+       ├── NN-topic.md      ← parallel source
+       ├── README.md        ← chapter map
+       └── apps/            ← chapter applications
+```
 
-The repository already contains the 37-lesson mathematical spine from learning and vectors through transformers, generative models, representation learning, scaling, inference and preference learning. The new curriculum organizes that spine into a much larger progression instead of discarding it.
+For now the original `blogs/` and `notebooks/` directories remain intact. The new `chapters/` tree is the learner-facing structure. Future cleanup can remove duplicate legacy copies after all links and workflows have migrated.
 
-- 📚 **Blogs:** [`blogs/`](blogs/)
-- 📓 **Laboratory notebooks:** [`notebooks/`](notebooks/)
-- 🧭 **Master syllabus:** [`SYLLABUS.md`](SYLLABUS.md)
-- 📐 **Learning contract:** [`LEARNING_CONTRACT.md`](LEARNING_CONTRACT.md)
-- 🧪 **Interactive playground plan:** [`INTERACTIVE_PLAYGROUND.md`](INTERACTIVE_PLAYGROUND.md)
-- 🧠 **Research methodology:** [`RESEARCH_PLAYBOOK.md`](RESEARCH_PLAYBOOK.md)
+## Existing resources
+
+- 📚 **[Interactive chapters](chapters/)** — primary learning path
+- 📖 **[Source blogs](blogs/)** — parallel canonical Markdown source
+- 📓 **[Legacy notebook collection](notebooks/)** — retained during migration
+- 🧭 **[Master syllabus](SYLLABUS.md)**
+- 📐 **[Learning contract](LEARNING_CONTRACT.md)**
+- 🧪 **[Interactive playground plan](INTERACTIVE_PLAYGROUND.md)**
+- 🧠 **[Research methodology](RESEARCH_PLAYBOOK.md)**
 
 ## Interactive mathematics
 
