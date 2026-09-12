@@ -1,67 +1,232 @@
 # Blog 19 — How Can a Machine Create Something New?
 
-So far we have discussed models that predict labels or the next token.
+So far, our models have mostly predicted labels, values or the next token.
 
-But what if we want a machine to generate something new?
+Now imagine asking a machine to generate:
 
-That is the world of **generative models**.
+- a new image;
+- a new piece of audio;
+- a new sentence;
+- a new molecule-like structure.
 
-## 1. Learning a distribution
+This is the world of **generative models**.
 
-Imagine a box containing thousands of drawings of cats.
+---
 
-A generative model tries to learn enough about the patterns in those drawings that it can produce a new example that looks like it belongs to the same family.
+## 1. What does “generate” mean?
 
-It does not need to copy one exact training image.
+A generative model learns a probability distribution over data.
 
-It learns a mathematical description of the data distribution.
+Conceptually:
 
-## 2. Autoencoders
+$$
+x\sim p_{data}(x)
+$$
 
-An autoencoder has two main parts:
+The model tries to learn a useful approximation of that distribution.
 
-`input → encoder → compressed representation → decoder → reconstruction`
+Then it can sample:
 
-The encoder turns the input into a smaller representation.
+$$
+\tilde x\sim p_\theta(x)
+$$
 
-The decoder tries to reconstruct the original.
+The generated example is new, but it is produced according to patterns learned from data.
 
-The middle representation is sometimes called a latent representation.
+---
+
+## 2. Autoencoders: compress and reconstruct
+
+An autoencoder has two major parts:
+
+$$
+z=Encoder(x)
+$$
+
+$$
+\hat x=Decoder(z)
+$$
+
+The goal is to reconstruct the input:
+
+$$
+L=\|x-\hat x\|^2
+$$
+
+The latent vector $z$ becomes a compressed representation.
+
+```mermaid
+flowchart LR
+    X[Input x] --> E[Encoder]
+    E --> Z[Latent representation z]
+    Z --> D[Decoder]
+    D --> X2[Reconstruction x-hat]
+    X -. reconstruction loss .-> X2
+```
+
+---
 
 ## 3. Variational autoencoders
 
-A VAE introduces probability into the latent representation.
+A VAE does something more interesting.
 
-Instead of learning only one exact point, it learns a structured latent distribution.
+Instead of mapping an input to one fixed latent point, the encoder predicts parameters of a probability distribution, commonly a Gaussian:
 
-This makes it possible to sample new points and decode them into new examples.
+$$
+q_\phi(z|x)=\mathcal N(\mu(x),\sigma(x)^2)
+$$
 
-## 4. GANs
+The model samples a latent variable and decodes it.
 
-A Generative Adversarial Network uses two models:
+A simplified VAE objective is
 
-- generator — creates examples
-- discriminator — tries to distinguish generated examples from real ones
+$$
+L=\text{reconstruction loss}+\text{KL divergence}
+$$
 
-They compete during training.
+The KL term encourages the learned latent distribution to stay organized relative to a chosen prior.
+
+This makes it possible to sample latent points and decode them into generated examples.
+
+---
+
+## 4. GANs: two networks compete
+
+Generative Adversarial Networks use:
+
+- a **generator** that creates samples;
+- a **discriminator** that tries to distinguish real from generated samples.
+
+The original minimax objective can be written conceptually as
+
+$$
+\min_G\max_D
+V(D,G)=
+\mathbb E_{x\sim p_{data}}[\log D(x)]
++
+\mathbb E_{z\sim p(z)}[\log(1-D(G(z)))]
+$$
 
 The generator improves by trying to fool the discriminator.
 
-## 5. Diffusion models
+```mermaid
+flowchart LR
+    Z[Random latent z] --> G[Generator]
+    G --> F[Fake sample]
+    R[Real data] --> D[Discriminator]
+    F --> D
+    D --> S[Real / fake score]
+```
 
-A diffusion model can be understood through a two-part idea:
+GANs were influential, especially for image generation, although their optimization can be difficult.
 
-1. gradually add noise to data during a forward process
-2. learn how to reverse that process and remove noise
+---
 
-Starting from noise, the learned reverse process can generate a structured sample.
+## 5. Diffusion models: learn to reverse noise
 
-## 6. The common idea
+A simplified diffusion story starts with clean data $x_0$ and gradually adds noise.
 
-Autoencoders, GANs, and diffusion models look very different.
+After many steps, the sample becomes approximately noise.
 
-But they share a deep idea:
+The model learns to reverse that process.
 
-> **Learn the structure of data well enough that the model can produce new samples from that learned structure.**
+```text
+clean image → noisy → very noisy → noise
+noise        → denoise → denoise → clean image
+```
 
-Generation is not simply “copying.” It is the result of learning a mathematical model of patterns.
+A simplified forward process can be represented as
+
+$$
+q(x_t|x_{t-1})
+$$
+
+and the model learns a reverse process
+
+$$
+p_\theta(x_{t-1}|x_t)
+$$
+
+Repeated denoising can produce a new sample.
+
+---
+
+## 6. Why generation is still learning
+
+Notice the same ingredients we studied earlier:
+
+- parameters;
+- forward computation;
+- loss;
+- derivatives;
+- backpropagation;
+- optimization.
+
+Generative models are not outside deep learning.
+
+They use the same mathematical foundation with different architectures and objectives.
+
+---
+
+## 7. A conceptual PyTorch autoencoder
+
+```python
+import torch
+import torch.nn as nn
+
+class Autoencoder(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.encoder = nn.Linear(784, 32)
+        self.decoder = nn.Linear(32, 784)
+
+    def forward(self, x):
+        z = torch.relu(self.encoder(x))
+        return self.decoder(z)
+
+model = Autoencoder()
+```
+
+Training would compare the reconstruction with the original input and optimize the parameters.
+
+---
+
+## 8. Generation versus copying
+
+A useful question is:
+
+> Is a generated sample simply a memorized training example?
+
+The answer depends on the model, data and training behavior.
+
+Generative models learn statistical structure, but they can also memorize or reproduce training examples in some circumstances.
+
+So responsible evaluation includes checking quality, diversity, robustness and possible memorization.
+
+---
+
+## Think Like a Scientist 🧠
+
+Imagine a model trained on thousands of handwritten digits.
+
+If it generates a digit that nobody in the training set wrote exactly, what makes it recognizable as a “7”?
+
+The interesting answer is that the model has learned statistical structure that defines the data distribution well enough to produce another plausible sample.
+
+---
+
+## What you should remember
+
+> **Generative models learn patterns in data so they can produce new samples according to those learned patterns.**
+
+Autoencoders learn useful representations and reconstruction.
+
+VAEs introduce structured probabilistic latent spaces.
+
+GANs use a generator and discriminator.
+
+Diffusion models learn a process for reversing controlled corruption/noise.
+
+Now it is time to put everything together.
+
+> **Next: build a tiny neural network from scratch.**
