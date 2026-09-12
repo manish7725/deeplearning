@@ -43,6 +43,9 @@ jobs:
       - name: Upgrade short chapter blogs
         run: python scripts/upgrade_blogs.py
 
+      - name: Build the common visual notebook foundation
+        run: python scripts/enrich_notebooks.py
+
       - name: Run Class 8 walkthrough fixes
         run: python scripts/student_walkthrough_fixes.py
 
@@ -51,9 +54,6 @@ jobs:
 
       - name: Add beginner-friendly code explanations
         run: python scripts/upgrade_notebook_tutorials.py
-
-      - name: Add visualization and animation guidance
-        run: python scripts/enrich_notebooks.py
 
       - name: Normalize experimental-branch navigation
         shell: bash
