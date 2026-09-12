@@ -8,8 +8,8 @@
 
 The matching notebook is the hands-on laboratory for this chapter.
 
-- 📓 [Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/notebooks/01-what-is-learning.ipynb)
-- ▶️ [Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/reorg/class8-to-phd-curriculum/notebooks/01-what-is-learning.ipynb)
+- 📓 [Open the notebook on GitHub](https://github.com/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)
+- ▶️ [Open the notebook in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/01-what-is-learning.ipynb)
 
 ---
 
