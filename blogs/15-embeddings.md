@@ -125,6 +125,8 @@ $$
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/15-word-embeddings.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/15-word-embeddings.ipynb)**
+
 ```python
 import torch
 import torch.nn as nn
@@ -247,6 +249,8 @@ Use [`../labs/15-embeddings-lab.md`](../labs/15-embeddings-lab.md).
 Create a tiny embedding table:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/15-word-embeddings.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/15-word-embeddings.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/15-word-embeddings.ipynb)**
 

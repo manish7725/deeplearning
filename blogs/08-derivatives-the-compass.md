@@ -266,6 +266,8 @@ That is already a miniature version of backpropagation.
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**
+
 ```python
 def f(x):
     return x ** 2
@@ -284,6 +286,8 @@ You should get something very close to 6.
 ## 11. PyTorch can calculate derivatives
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/08-derivatives-the-compass.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**
 
@@ -360,6 +364,8 @@ Use [`../labs/08-derivatives-lab.md`](../labs/08-derivatives-lab.md).
 First estimate a derivative numerically:
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/08-derivatives-the-compass.ipynb)**
+
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/08-derivatives-the-compass.ipynb)**
 

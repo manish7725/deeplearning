@@ -124,6 +124,8 @@ That is the basic idea behind **backpropagation + autodiff**.
 
 > 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/21-automatic-differentiation.ipynb)**
 
+> 🧪 **[Run this code in Google Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/notebooks/21-automatic-differentiation.ipynb)**
+
 ```python
 import torch
 
