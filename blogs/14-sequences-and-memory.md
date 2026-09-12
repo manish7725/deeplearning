@@ -210,3 +210,67 @@ But a new mechanism offers a radically different idea:
 > **Instead of carrying everything through one memory state, let each token look directly at the other tokens it needs.**
 
 > **Next: attention.**
+
+---
+
+# 🧪 Hands-on Lab — Build Memory Step by Step
+
+Use [`../labs/14-sequence-lab.md`](../labs/14-sequence-lab.md).
+
+Start with a tiny recurrence:
+
+```python
+import torch
+
+x = torch.tensor([1., 2., 3.])
+h = torch.tensor(0.)
+
+w_x = 0.5
+w_h = 0.8
+
+for value in x:
+    h = torch.tanh(w_x * value + w_h * h)
+    print(h.item())
+```
+
+### Experiments
+
+1. Change `w_h` and observe how strongly the past affects the future.
+2. Run a much longer sequence.
+3. Compare `w_h=0.5` with `w_h=1.5`.
+4. Build the same idea with `nn.RNN`.
+5. Compare the recurrence with a simple attention calculation.
+
+### Mastery question
+
+Why can recurrence create a long chain of gradient multiplications?
+
+Explain vanishing gradients using the idea of repeated multiplication before memorizing the term.
+
+---
+
+# 📚 Go Deeper — From Recurrence to Attention
+
+Use **3Blue1Brown** for visual intuition around neural networks and mathematical transformations. citeturn0youtube30turn0youtube31
+
+Use **Welch Labs** for the hands-on neural-network mindset and supporting code. Its material emphasizes building models rather than only describing them. citeturn0search1turn0search3
+
+Use **Frame Zero** for first-principles sequence/ML intuition, **MrJensenMath10** for the mathematics, and **ZacharyLLM/Visual Kernel** when you are ready to connect sequence modeling to modern attention-based systems.
+
+The important historical progression is:
+
+```text
+Sequence
+   ↓
+RNN
+   ↓
+Vanishing / exploding gradients
+   ↓
+LSTM / GRU
+   ↓
+Attention
+   ↓
+Transformer
+```
+
+Understanding *why* each step was useful is more valuable than memorizing the names.
