@@ -1,0 +1,47 @@
+# Google Colab Notebooks
+
+Every blog has a runnable Google Colab notebook. Open any notebook in Colab using:
+
+`https://colab.research.google.com/github/manish7725/deeplearning/blob/feature/01-deeplearning-syllabus/notebooks/<notebook>.ipynb`
+
+The notebooks are intentionally small: **read the blog → run the cells → change the code → experiment**.
+
+## Blogs 01–37
+
+01 `01-what-is-learning.ipynb`  
+02 `02-numbers-become-vectors.ipynb`  
+03 `03-matrices-the-spreadsheet-of-math.ipynb`  
+04 `04-linear-transformations.ipynb`  
+05 `05-the-smallest-neural-network.ipynb`  
+06 `06-why-neurons-need-activation.ipynb`  
+07 `07-prediction-is-not-learning-yet.ipynb`  
+08 `08-derivatives-the-compass.ipynb`  
+09 `09-gradient-descent.ipynb`  
+10 `10-backpropagation.ipynb`  
+11 `11-tensors.ipynb`  
+12 `12-training-and-testing.ipynb`  
+13 `13-convolution.ipynb`  
+14 `14-sequence-models.ipynb`  
+15 `15-word-embeddings.ipynb`  
+16 `16-attention.ipynb`  
+17 `17-transformers.ipynb`  
+18 `18-language-models.ipynb`  
+19 `19-generative-models.ipynb`  
+20 `20-neural-network-from-scratch.ipynb`  
+21 `21-automatic-differentiation.ipynb`  
+22 `22-neural-networks-as-function-approximators.ipynb`  
+23 `23-geometry-invariance-and-equivariance.ipynb`  
+24 `24-graph-neural-networks.ipynb`  
+25 `25-why-neural-networks-generalize.ipynb`  
+26 `26-scaling-rules-for-training.ipynb`  
+27 `27-representation-learning.ipynb`  
+28 `28-contrastive-learning.ipynb`  
+29 `29-conditional-generative-models.ipynb`  
+30 `30-out-of-distribution-and-robustness.ipynb`  
+31 `31-transfer-learning-and-fine-tuning.ipynb`  
+32 `32-scaling-laws.ipynb`  
+33 `33-inference-methods.ipynb`  
+34 `34-hackers-guide-to-deep-learning.ipynb`  
+35 `35-architectural-bias-and-representations.ipynb`  
+36 `36-metrized-deep-learning.ipynb`  
+37 `37-preference-learning-and-policy-optimization.ipynb`
