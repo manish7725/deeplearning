@@ -6,13 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Bayes' rule showed us how evidence changes belief. But we still need a principled way to choose the parameters of a model from observed data.
+We just learned **Maximum Likelihood: Where Loss Functions Come From**.
 
-**Today:** We ask a sharper question: *which parameter values make the data we actually saw most plausible?* That question leads to **maximum likelihood**, and then—almost surprisingly—to familiar loss functions.
+But using it creates a new question.
 
-**Next:** We will use this idea to build linear regression properly: likelihood, squared error, gradients, geometry, and prediction.
+> **What problem does this idea still leave us unable to solve?**
 
----
+That question leads naturally to **Linear Regression, Properly**.
+
+**Next → Linear Regression, Properly.**
 
 ## 1. The Problem: Two Coins, One Mystery
 

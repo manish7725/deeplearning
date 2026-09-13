@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Part I gave us the language of space — vectors, matrices, transformations, and the directions a transformation leaves alone. All of it describes structure that sits still.
-**Today:** We build the first tool in this course that measures **change**, and we use it to make Chapter 1's borrowed compass honest.
-**Next:** Our loss depends on two dials, not one — and a slope in many directions at once turns out to need a new object.
+We found special directions in a transformation.
 
----
+Now we have a different problem: during learning, the loss changes whenever we move a parameter.
+
+We need a way to measure **how fast something changes right here**.
+
+> **How can we measure the exact steepness of a curve at one point?**
+
+**Next → Derivatives.**
 
 ## 1. The Problem: The Speedometer Paradox
 

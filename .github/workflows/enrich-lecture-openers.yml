@@ -1,0 +1,107 @@
+name: Enrich lecture openers
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  enrich:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rewrite lecture openers
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          import urllib.parse
+
+          root = Path('.')
+          blogs = sorted(root.glob('Lecture */blog.md'), key=lambda p: p.parent.name)
+
+          special = {
+              1: """Four houses.\n\nFour prices.\n\n**No rule.**\n\nYet the machine has to price a fifth house.\n\n> **How can it discover a rule that nobody ever gave it?**\n\nThat's our starting point.\n\nBut there's a catch.\n\nA house isn't described by its number of rooms alone. It also has **area, location, age, bedrooms, and many other features.**\n\n> **So how do we describe one house using many numbers at once?**\n\n**Next → Vectors.**""",
+              2: """Yesterday, one number was enough to describe a house.\n\nNow imagine two houses with the same number of rooms — but very different prices.\n\n**Rooms alone are not enough.**\n\nWe need to describe a house using several measurements at once.\n\n> **How can we turn many numbers into one thing we can calculate with?**\n\n**Next → Vectors.**""",
+              3: """A vector lets us describe one house with many numbers.\n\nGreat. But what if we have **10,000 houses**, each with 20 features?\n\nHandling every vector one at a time would be painful.\n\n> **Can we put all those numbers together and work with them at once?**\n\n**Next → Matrices.**""",
+              4: """We can now store thousands of examples in a matrix.\n\nBut a matrix is more than a spreadsheet. It can **change a vector**.\n\nStretch it. Rotate it. Compress it. Mix its features together.\n\n> **What is a matrix actually doing to the space around us?**\n\n**Next → Transformations.**""",
+              5: """A matrix can transform space.\n\nBut most vectors change direction when a matrix acts on them.\n\nWhat if we could find a special direction that **doesn't turn** — it only gets stretched or shrunk?\n\n> **Are there directions a transformation leaves pointing the same way?**\n\n**Next → Eigenvectors.**""",
+              6: """We found special directions in a transformation.\n\nNow we have a different problem: during learning, the loss changes whenever we move a parameter.\n\nWe need a way to measure **how fast something changes right here**.\n\n> **How can we measure the exact steepness of a curve at one point?**\n\n**Next → Derivatives.**""",
+              7: """A derivative tells us how the loss changes when we move one parameter.\n\nBut a real model has many parameters. Changing one at a time is not enough.\n\n> **Can we describe all those directions of change with one object — and find the direction that rises fastest?**\n\n**Next → Gradients.**""",
+              8: """We now have a compass: the gradient tells us which way the loss rises fastest.\n\nSo the machine has a question it can finally answer: **which way should I move to make the loss smaller?**\n\n> **Can we turn the gradient into a simple repeatable learning process?**\n\n**Next → Gradient Descent.**""",
+          }
+
+          def lecture_number(path):
+              m = re.match(r'Lecture\s+(\d+)', path.parent.name)
+              return int(m.group(1)) if m else None
+
+          def lecture_title(path):
+              return re.sub(r'^Lecture\s+\d+\s*-\s*', '', path.parent.name)
+
+          for i, blog in enumerate(blogs):
+              n = lecture_number(blog)
+              if n is None:
+                  continue
+
+              text = blog.read_text(encoding='utf-8')
+              start = text.find('## Where We Are')
+              if start < 0:
+                  continue
+
+              next_heading = text.find('\n## ', start + len('## Where We Are'))
+              if next_heading < 0:
+                  next_heading = len(text)
+
+              if n in special:
+                  opener = special[n]
+              else:
+                  current = lecture_title(blog)
+                  next_title = lecture_title(blogs[i + 1]) if i + 1 < len(blogs) else None
+                  if next_title:
+                      opener = (
+                          f"We just learned **{current}**.\n\n"
+                          f"But using it creates a new question.\n\n"
+                          f"> **What problem does this idea still leave us unable to solve?**\n\n"
+                          f"That question leads naturally to **{next_title}**.\n\n"
+                          f"**Next → {next_title}.**"
+                      )
+                  else:
+                      opener = (
+                          f"We have just explored **{current}**.\n\n"
+                          "> **What happens when we try to use this idea on a real learning problem?**\n\n"
+                          "That is where the next part of the journey begins."
+                      )
+
+              replacement = '## Where We Are\n\n' + opener + '\n'
+              text = text[:start] + replacement + text[next_heading:]
+
+              # Add a consistent practice link immediately after the title/big-question area if no Colab link exists.
+              if 'colab.research.google.com/github/manish7725/deeplearning/blob/main/' not in text:
+                  notebook = blog.parent / 'notebook.ipynb'
+                  rel = notebook.as_posix()
+                  encoded = urllib.parse.quote(rel, safe='/')
+                  badge = f"\n▶️ **Practice in Google Colab:** [Open the notebook](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/{encoded})\n"
+                  first_rule = text.find('\n---')
+                  if first_rule > 0:
+                      text = text[:first_rule] + badge + text[first_rule:]
+
+              blog.write_text(text, encoding='utf-8')
+
+      - name: Commit generated improvements
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 'Lecture */blog.md'
+          if git diff --cached --quiet; then
+            echo "No lecture changes needed."
+            exit 0
+          fi
+          git commit -m "Improve lecture openers and Colab practice links"
+          git push

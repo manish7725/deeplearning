@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** A neural network can represent complicated functions once activations make the model nonlinear. But representation alone is not learning.
-**Today:** We follow the error backward through a tiny network and discover backpropagation as repeated chain rule.
-**Next:** One scalar derivative is not enough for a real layer. We will pack the same reasoning into matrix formulas for $dW$, $db$ and $dX$.
+We just learned **Backpropagation: Sending the Error Backward**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Matrix Backpropagation: dW, db, dX by Hand**.
+
+**Next → Matrix Backpropagation: dW, db, dX by Hand.**
 
 ## 1. The Problem: The First Layer Cannot See the Final Error
 

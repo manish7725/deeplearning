@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Logistic regression learned a binary decision by turning one score into a probability.
-**Today:** Our house is no longer simply *cheap* or *expensive*. We want the model to choose among **apartment, villa, and farmhouse**, and we want its learning rule to punish confident wrong answers more than honest uncertainty.
-**Next:** A linear model still draws one straight boundary. We need a model that can make decisions without assuming a straight line.
+We just learned **Softmax and Cross-Entropy**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Nearest Neighbours and the Curse of Dimensionality**.
+
+**Next → Nearest Neighbours and the Curse of Dimensionality.**
 
 ## 1. The Problem: One House, Three Possible Labels
 

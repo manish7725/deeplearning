@@ -6,11 +6,17 @@
 
 ## Where We Are
 
-**Previously:** A machine discovered $\hat{y} = wx + b$ from four house sales — ₹2 lakh per room, ₹1 lakh for the plot — by measuring its own wrongness and stepping downhill.
-**Today:** That model describes a house with **one** number. We find out what breaks when it needs three, and build the object that fixes it.
-**Next:** One house will be one vector. But we have thousands of houses, and we want to price them all at once — which forces us into **matrices**.
+Yesterday, one number was enough to describe a house.
 
----
+Now imagine two houses with the same number of rooms — but very different prices.
+
+**Rooms alone are not enough.**
+
+We need to describe a house using several measurements at once.
+
+> **How can we turn many numbers into one thing we can calculate with?**
+
+**Next → Vectors.**
 
 ## 1. The Problem: Two Houses, Same Rooms, Different Prices
 

@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Nearest neighbours classified a new house by looking at nearby houses, but high-dimensional distance can become unreliable.
-**Today:** We replace distance with a sequence of simple questions such as “Is the area less than 12?” and let the data choose which question to ask first.
-**Next:** One tree can memorize peculiar details. We will ask how several imperfect trees can become a stronger model.
+We just learned **Decision Trees**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Ensembles: Forests and Boosting**.
+
+**Next → Ensembles: Forests and Boosting.**
 
 ## 1. The Problem: A House Needs a Decision, Not a Coordinate
 

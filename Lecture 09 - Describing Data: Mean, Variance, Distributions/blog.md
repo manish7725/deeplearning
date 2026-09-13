@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Chapter 8 completed the training algorithm. We can minimize any loss, predict when it converges and when it explodes — *given a loss*. But squared error was picked by taste in Chapter 1 and never justified, and our four houses sat exactly on a line, which real houses never do.
-**Today:** We learn to describe scatter. By the end we will have the vocabulary that Chapter 12 uses to derive squared error from scratch.
-**Next:** Describing what already happened is not the same as reasoning about what might happen next.
+We just learned **Describing Data: Mean, Variance, Distributions**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Maximum Likelihood: Where Loss Functions Come From**.
+
+**Next → Maximum Likelihood: Where Loss Functions Come From.**
 
 ## 1. The Problem: Ten Identical Houses, Ten Different Prices
 

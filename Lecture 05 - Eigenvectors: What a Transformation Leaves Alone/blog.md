@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** A matrix is an action on space. Its columns say where the basis lands, its determinant says how area changes, and chaining matrices collapses into a single matrix.
-**Today:** We hunt for the directions a transformation does not turn — and find that they expose the skeleton the matrix is built around.
-**Next:** We can describe how a matrix changes space. We still cannot describe a *rate* of change, which is what learning actually needs.
+A matrix can transform space.
 
----
+But most vectors change direction when a matrix acts on them.
+
+What if we could find a special direction that **doesn't turn** — it only gets stretched or shrunk?
+
+> **Are there directions a transformation leaves pointing the same way?**
+
+**Next → Eigenvectors.**
 
 ## 1. The Problem: One Direction Refused to Move
 

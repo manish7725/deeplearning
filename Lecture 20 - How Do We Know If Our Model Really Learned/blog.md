@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Support vector machines chose a boundary by maximizing a geometric margin, and kernels let us work in richer feature spaces.
-**Today:** We discover that a perfect training score is not enough. We build train/validation/test splits, diagnose underfitting and overfitting, choose metrics carefully, and expose data leakage.
-**Next:** A metric is only useful when it matches the mistakes we actually care about. We turn that idea into a systematic study of **evaluation metrics**.
+We just learned **How Do We Know If Our Model Really Learned**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Meet the Smallest Neural Network**.
+
+**Next → Meet the Smallest Neural Network.**
 
 ## 1. The Problem: A Perfect Student Who Fails the Exam
 
