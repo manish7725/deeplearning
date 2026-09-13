@@ -41,8 +41,8 @@ skill, which carries the writing standard, the full spine and the verification r
 ### Part II — The Mathematics of Change
 
 06 ✅ [Derivatives: The Compass for Learning](<Lecture 06 - Derivatives: The Compass for Learning/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2006%20-%20Derivatives%3A%20The%20Compass%20for%20Learning/notebook.ipynb)  
-07 📄 [Partial Derivatives, Gradients and the Chain Rule](<Lecture 07 - Partial Derivatives, Gradients and the Chain Rule/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2007%20-%20Partial%20Derivatives%2C%20Gradients%20and%20the%20Chain%20Rule/notebook.ipynb)  
-08 📄 [Gradient Descent: Teaching a Model to Improve](<Lecture 08 - Gradient Descent: Teaching a Model to Improve/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2008%20-%20Gradient%20Descent%3A%20Teaching%20a%20Model%20to%20Improve/notebook.ipynb)  
+07 ✅ [Partial Derivatives, Gradients and the Chain Rule](<Lecture 07 - Partial Derivatives, Gradients and the Chain Rule/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2007%20-%20Partial%20Derivatives%2C%20Gradients%20and%20the%20Chain%20Rule/notebook.ipynb)  
+08 ✅ [Gradient Descent: Teaching a Model to Improve](<Lecture 08 - Gradient Descent: Teaching a Model to Improve/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2008%20-%20Gradient%20Descent%3A%20Teaching%20a%20Model%20to%20Improve/notebook.ipynb)  
 
 ### Part III — Uncertainty
 
@@ -128,4 +128,4 @@ skill, which carries the writing standard, the full spine and the verification r
 
 ---
 
-**6 written · 41 drafted · 13 planned · 60 total**
+**8 written · 39 drafted · 13 planned · 60 total**
