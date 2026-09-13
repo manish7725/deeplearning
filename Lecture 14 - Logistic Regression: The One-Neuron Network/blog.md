@@ -6,13 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Linear regression estimated a real-valued target by combining features linearly and fitting parameters under a Gaussian-noise model.
+We just learned **Logistic Regression: The One-Neuron Network**.
 
-**Today:** We keep the linear score but change what it means. A sigmoid turns the score into a number between 0 and 1, and the Bernoulli likelihood from Chapter 12 gives the objective.
+But using it creates a new question.
 
-**Next:** One yes/no output is useful. Real classifiers often choose among many classes, forcing us toward softmax and cross-entropy.
+> **What problem does this idea still leave us unable to solve?**
 
----
+That question leads naturally to **Softmax and Cross-Entropy**.
+
+**Next → Softmax and Cross-Entropy.**
 
 ## 1. The Problem: Spam or Not Spam?
 

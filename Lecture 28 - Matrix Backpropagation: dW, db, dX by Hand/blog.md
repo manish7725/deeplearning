@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** We followed one derivative backward through a tiny network. The chain rule told us how a change in an early weight changes the final loss.
-**Today:** A real dense layer has many inputs, many outputs, many weights and a bias vector. We will derive every gradient — $dW$, $db$, and $dX$ — from one small matrix example.
-**Next:** Matrix notation is still not enough for images and batches. We need one container that can hold numbers in many dimensions: **tensors**.
+We just learned **Matrix Backpropagation: dW, db, dX by Hand**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Tensors: Numbers in Many Dimensions**.
+
+**Next → Tensors: Numbers in Many Dimensions.**
 
 ## 1. The Problem: One Neuron Was Too Small
 

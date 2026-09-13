@@ -6,11 +6,25 @@
 
 ## Where We Are
 
-**Previously:** Nothing. This is where the road starts.
-**Today:** We watch a machine discover a rule from four examples — and we build every piece of the mathematics that makes it possible.
-**Next:** We will describe a house with *one* number today. Real things need many. That forces us into **vectors**.
+Four houses.
 
----
+Four prices.
+
+**No rule.**
+
+Yet the machine has to price a fifth house.
+
+> **How can it discover a rule that nobody ever gave it?**
+
+That's our starting point.
+
+But there's a catch.
+
+A house isn't described by its number of rooms alone. It also has **area, location, age, bedrooms, and many other features.**
+
+> **So how do we describe one house using many numbers at once?**
+
+**Next → Vectors.**
 
 ## 1. The Problem: Four Houses and a Question
 

@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Softmax gave us a probability distribution across several classes.
-**Today:** We throw away the global equation and try a very different idea: a house should inherit the label of the houses closest to it.
-**Next:** Nearest neighbours can memorize the training set. We need a model that can discover rules by asking a sequence of simple questions.
+We just learned **Nearest Neighbours and the Curse of Dimensionality**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Decision Trees**.
+
+**Next → Decision Trees.**
 
 ## 1. The Problem: What If We Refuse to Learn a Formula?
 

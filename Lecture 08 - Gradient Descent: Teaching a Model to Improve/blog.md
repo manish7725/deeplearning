@@ -6,11 +6,13 @@
 
 ## Where We Are
 
-**Previously:** Chapter 7 built the gradient — a vector that points along the steepest uphill direction, whose length is how steep that climb is. It is an honest answer to "which way", and it is honest only about the next instant.
-**Today:** We turn that compass into an algorithm, and prove exactly when the algorithm works, when it crawls, and when it explodes.
-**Next:** We will have minimized squared error thousands of times without ever justifying why squared error is the right thing to minimize.
+We now have a compass: the gradient tells us which way the loss rises fastest.
 
----
+So the machine has a question it can finally answer: **which way should I move to make the loss smaller?**
+
+> **Can we turn the gradient into a simple repeatable learning process?**
+
+**Next → Gradient Descent.**
 
 ## 1. The Problem: A Compass Is Not a Journey
 

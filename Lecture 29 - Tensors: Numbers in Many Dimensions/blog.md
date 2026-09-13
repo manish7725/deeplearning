@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** A dense layer used matrices, and we derived $dW$, $db$ and $dX$ from the scalar chain rule.
-**Today:** A matrix has two axes. Real deep-learning data often has more: a batch of colour images has four. We need one notation that keeps the numbers, their shape and the meaning of every axis together.
-**Next:** We will use these containers to build a tiny neural network from scratch, without hiding the mathematics inside a framework.
+We just learned **Tensors: Numbers in Many Dimensions**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Build a Tiny Neural Network From Scratch**.
+
+**Next → Build a Tiny Neural Network From Scratch.**
 
 ## 1. The Problem: A Matrix Cannot Naturally Hold an Image Batch
 

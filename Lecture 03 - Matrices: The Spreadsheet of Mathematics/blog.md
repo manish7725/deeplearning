@@ -6,13 +6,15 @@
 
 ## Where We Are
 
-**Previously:** One house became one vector, and one dot product priced it: $\hat y=\mathbf w\cdot\mathbf x+b$.
+A vector lets us describe one house with many numbers.
 
-**Today:** We have many houses and many outputs. We build the object that lets the same mathematics work for the whole batch.
+Great. But what if we have **10,000 houses**, each with 20 features?
 
-**Next:** We discover that matrix multiplication is not just bookkeeping. A matrix can **transform space**.
+Handling every vector one at a time would be painful.
 
----
+> **Can we put all those numbers together and work with them at once?**
+
+**Next → Matrices.**
 
 ## 1. The Problem: One House at a Time Does Not Scale
 

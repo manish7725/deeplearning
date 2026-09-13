@@ -6,13 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Maximum likelihood gave us a principled route from a probability model to an objective. Under Gaussian observation noise, that objective becomes squared error.
+We just learned **Linear Regression, Properly**.
 
-**Today:** We fit a complete linear regression model, derive its loss and gradients, understand its geometry, and see why the familiar “best-fit line” is a statistical model rather than a magic line-drawing rule.
+But using it creates a new question.
 
-**Next:** A line gives any real number. Many real tasks ask for a yes/no probability. That forces us to bend the linear model through a new function.
+> **What problem does this idea still leave us unable to solve?**
 
----
+That question leads naturally to **Logistic Regression: The One-Neuron Network**.
+
+**Next → Logistic Regression: The One-Neuron Network.**
 
 ## 1. The Problem: Predict a House Price
 

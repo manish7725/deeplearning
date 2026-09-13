@@ -6,11 +6,13 @@
 
 ## Where We Are
 
-**Previously:** Chapter 06 made Chapter 1's compass rigorous. We can now measure the rate of change of a function of **one** variable, at a single point, without ever dividing by zero. But to get there, Chapter 1 had to pin the bias at $b=1$ and study $w$ alone.
-**Today:** We take the pin out. The loss depends on every dial at once, so "how steep is it here?" is not yet a complete question — and answering it properly produces the single object that trains every model in this course.
-**Next:** Knowing which way is downhill is not the same as knowing how far to walk, or when to stop.
+A derivative tells us how the loss changes when we move one parameter.
 
----
+But a real model has many parameters. Changing one at a time is not enough.
+
+> **Can we describe all those directions of change with one object — and find the direction that rises fastest?**
+
+**Next → Gradients.**
 
 ## 1. The Problem: What Is the Slope of a Bowl?
 

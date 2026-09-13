@@ -6,13 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Chapter 4 showed that a matrix transforms a vector. We also discovered that $W\mathbf x+\mathbf b$ is an affine transformation and that nonlinear functions are needed to prevent stacked layers from collapsing into one affine map.
+We just learned **Meet the Smallest Neural Network**.
 
-**Today:** We turn that calculation into the smallest trainable neural network and identify every piece of it.
+But using it creates a new question.
 
-**Next:** We ask why the activation function is necessary and what changes when a neuron becomes nonlinear.
+> **What problem does this idea still leave us unable to solve?**
 
----
+That question leads naturally to **Why Does a Neuron Need an Activation Function**.
+
+**Next → Why Does a Neuron Need an Activation Function.**
 
 ## 1. Start With One Input
 

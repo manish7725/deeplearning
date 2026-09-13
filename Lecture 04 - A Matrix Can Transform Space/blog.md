@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** A matrix held an entire dataset, and $XW$ answered every question about every house in one operation.
-**Today:** We notice that $XW$ did not merely *store* numbers — it moved every point out of one space and into another. We find out what that movement actually is.
-**Next:** Most directions get twisted by a transformation. A few survive pointing exactly where they started, and those turn out to matter enormously.
+We can now store thousands of examples in a matrix.
 
----
+But a matrix is more than a spreadsheet. It can **change a vector**.
+
+Stretch it. Rotate it. Compress it. Mix its features together.
+
+> **What is a matrix actually doing to the space around us?**
+
+**Next → Transformations.**
 
 ## 1. The Problem: What Did the Matrix Actually Do?
 

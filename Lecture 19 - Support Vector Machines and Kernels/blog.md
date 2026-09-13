@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Ensembles combined many trees. Forests reduced instability by averaging diversified models; boosting built a model through successive corrections.
-**Today:** We return to geometry. Instead of asking for many boundaries, we ask which single boundary separates two classes with the largest possible margin. Then we discover the kernel trick: work with similarity without explicitly writing every transformed feature.
-**Next:** A model can have a beautiful separating boundary and still fail outside its training sample. We need to learn how to tell whether our model really learned.
+We just learned **Support Vector Machines and Kernels**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **How Do We Know If Our Model Really Learned**.
+
+**Next → How Do We Know If Our Model Really Learned.**
 
 ## 1. The Problem: Many Lines Can Separate the Same Data
 

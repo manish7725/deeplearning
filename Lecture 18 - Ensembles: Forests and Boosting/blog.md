@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** A decision tree learned a sequence of questions such as “is area greater than 1000?” until each leaf could make a prediction.
-**Today:** We discover why one tree is unstable, then build two different ways to combine weak or unstable models: **random forests** and **boosting**.
-**Next:** Ensembles can be remarkably strong on tables. But there is another idea hiding underneath linear models: find a separator with the largest possible margin. That takes us to **support vector machines**.
+We just learned **Ensembles: Forests and Boosting**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Support Vector Machines and Kernels**.
+
+**Next → Support Vector Machines and Kernels.**
 
 ## 1. The Problem: One Tree Changes Its Mind
 
