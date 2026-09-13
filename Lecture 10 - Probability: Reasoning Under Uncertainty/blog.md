@@ -6,11 +6,15 @@
 
 ## Where We Are
 
-**Previously:** Chapter 9 taught us to describe scatter — mean, standard deviation, correlation, and the bell shape that keeps appearing. All of it describes numbers we already have.
-**Today:** We build the language for numbers we do *not* have yet, and discover that it obeys strict arithmetic rather than vague intuition.
-**Next:** We will be able to compute the chance of evidence given a cause — and find we usually want the opposite.
+We just learned **Probability: Reasoning Under Uncertainty**.
 
----
+But using it creates a new question.
+
+> **What problem does this idea still leave us unable to solve?**
+
+That question leads naturally to **Maximum Likelihood: Where Loss Functions Come From**.
+
+**Next → Maximum Likelihood: Where Loss Functions Come From.**
 
 ## 1. The Problem: A Question About a Sale That Has Not Happened
 

@@ -12,9 +12,9 @@ But using it creates a new question.
 
 > **What problem does this idea still leave us unable to solve?**
 
-That question leads naturally to **Maximum Likelihood: Where Loss Functions Come From**.
+That question leads naturally to **Probability: Reasoning Under Uncertainty**.
 
-**Next → Maximum Likelihood: Where Loss Functions Come From.**
+**Next → Probability: Reasoning Under Uncertainty.**
 
 ## 1. The Problem: Ten Identical Houses, Ten Different Prices
 
