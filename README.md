@@ -1,31 +1,31 @@
 # Deep Learning — From First Principles
 
 A course that starts at Class-7 intuition and ends at research-level understanding.
-Sixty chapters, written as one continuous argument: **every chapter answers the question the
-previous one left open.**
+Sixty chapters, written as one continuous argument: **every chapter answers the question
+the previous one left open.**
 
-> Blog = the lecture. Notebook = the laboratory. Nothing is asserted that is not derived, and
-> nothing is claimed in the lecture that the notebook does not check.
+> Blog = the lecture. Notebook = the laboratory. Nothing is asserted that is not derived,
+> and nothing is claimed in the lecture that the notebook does not check.
 
 ## How to use a chapter
 
-Each chapter is one folder holding two files — `blog.md` and `notebook.ipynb`.
+Each chapter is one folder holding `blog.md` and `notebook.ipynb`.
 
 1. Read `blog.md` — the story, the mathematics, the derivations.
 2. Recalculate its smallest numerical example by hand.
 3. Open `notebook.ipynb` in Colab and **predict each result before running it**.
 4. Change one variable, break it deliberately, and explain what happened.
 
-Chapters are authored with the [`write-chapter`](.claude/skills/write-chapter/SKILL.md) skill,
-which carries the writing standard, the full spine and the verification rules.
-
-## Chapters
+Chapters are authored with the [`write-chapter`](.claude/skills/write-chapter/SKILL.md)
+skill, which carries the writing standard, the full spine and the verification rules.
 
 | | Status |
 |---|---|
 | ✅ | written to the current standard |
-| 📄 | drafted — earlier material, awaiting rewrite |
+| 📄 | drafted — awaiting rewrite to the standard |
 | ○ | planned — not yet written |
+
+## Chapters
 
 ### Part 0 — The Idea
 
@@ -35,13 +35,13 @@ which carries the writing standard, the full spine and the verification rules.
 
 02 ✅ [Numbers Become Vectors](<Lecture 02 - Numbers Become Vectors/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2002%20-%20Numbers%20Become%20Vectors/notebook.ipynb)  
 03 ✅ [Matrices: The Spreadsheet of Mathematics](<Lecture 03 - Matrices: The Spreadsheet of Mathematics/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2003%20-%20Matrices%3A%20The%20Spreadsheet%20of%20Mathematics/notebook.ipynb)  
-04 📄 [A Matrix Can Transform Space](<Lecture 04 - A Matrix Can Transform Space/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2004%20-%20A%20Matrix%20Can%20Transform%20Space/notebook.ipynb)  
-05 ○ Eigenvectors: What a Transformation Leaves Alone  
+04 ✅ [A Matrix Can Transform Space](<Lecture 04 - A Matrix Can Transform Space/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2004%20-%20A%20Matrix%20Can%20Transform%20Space/notebook.ipynb)  
+05 ✅ [Eigenvectors: What a Transformation Leaves Alone](<Lecture 05 - Eigenvectors: What a Transformation Leaves Alone/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2005%20-%20Eigenvectors%3A%20What%20a%20Transformation%20Leaves%20Alone/notebook.ipynb)  
 
 ### Part II — The Mathematics of Change
 
 06 📄 [Derivatives: The Compass for Learning](<Lecture 06 - Derivatives: The Compass for Learning/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2006%20-%20Derivatives%3A%20The%20Compass%20for%20Learning/notebook.ipynb)  
-07 ○ Partial Derivatives, Gradients and the Chain Rule  
+07 📄 [Partial Derivatives, Gradients and the Chain Rule](<Lecture 07 - Partial Derivatives, Gradients and the Chain Rule/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2007%20-%20Partial%20Derivatives%2C%20Gradients%20and%20the%20Chain%20Rule/notebook.ipynb)  
 08 📄 [Gradient Descent: Teaching a Model to Improve](<Lecture 08 - Gradient Descent: Teaching a Model to Improve/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2008%20-%20Gradient%20Descent%3A%20Teaching%20a%20Model%20to%20Improve/notebook.ipynb)  
 
 ### Part III — Uncertainty
@@ -49,17 +49,17 @@ which carries the writing standard, the full spine and the verification rules.
 09 ○ Describing Data: Mean, Variance, Distributions  
 10 ○ Probability: Reasoning Under Uncertainty  
 11 ○ Bayes' Rule: What Evidence Does to Belief  
-12 ○ Maximum Likelihood: Where Loss Functions Come From  
+12 📄 [Maximum Likelihood: Where Loss Functions Come From](<Lecture 12 - Maximum Likelihood: Where Loss Functions Come From/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2012%20-%20Maximum%20Likelihood%3A%20Where%20Loss%20Functions%20Come%20From/notebook.ipynb)  
 
 ### Part IV — Classical Machine Learning
 
-13 ○ Linear Regression, Properly  
-14 ○ Logistic Regression: The One-Neuron Network  
-15 ○ Softmax and Cross-Entropy  
-16 ○ Nearest Neighbours and the Curse of Dimensionality  
-17 ○ Decision Trees: Learning by Asking Questions  
-18 ○ Ensembles: Forests and Boosting  
-19 ○ Support Vector Machines and Kernels  
+13 📄 [Linear Regression, Properly](<Lecture 13 - Linear Regression, Properly/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2013%20-%20Linear%20Regression%2C%20Properly/notebook.ipynb)  
+14 📄 [Logistic Regression: The One-Neuron Network](<Lecture 14 - Logistic Regression: The One-Neuron Network/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2014%20-%20Logistic%20Regression%3A%20The%20One-Neuron%20Network/notebook.ipynb)  
+15 📄 [Softmax and Cross-Entropy](<Lecture 15 - Softmax and Cross-Entropy/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2015%20-%20Softmax%20and%20Cross-Entropy/notebook.ipynb)  
+16 📄 [Nearest Neighbours and the Curse of Dimensionality](<Lecture 16 - Nearest Neighbours and the Curse of Dimensionality/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2016%20-%20Nearest%20Neighbours%20and%20the%20Curse%20of%20Dimensionality/notebook.ipynb)  
+17 📄 [Decision Trees](<Lecture 17 - Decision Trees/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2017%20-%20Decision%20Trees/notebook.ipynb)  
+18 📄 [Ensembles: Forests and Boosting](<Lecture 18 - Ensembles: Forests and Boosting/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2018%20-%20Ensembles%3A%20Forests%20and%20Boosting/notebook.ipynb)  
+19 📄 [Support Vector Machines and Kernels](<Lecture 19 - Support Vector Machines and Kernels/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2019%20-%20Support%20Vector%20Machines%20and%20Kernels/notebook.ipynb)  
 
 ### Part V — Doing ML Honestly
 
@@ -74,7 +74,7 @@ which carries the writing standard, the full spine and the verification rules.
 25 📄 [Why Does a Neuron Need an Activation Function](<Lecture 25 - Why Does a Neuron Need an Activation Function/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2025%20-%20Why%20Does%20a%20Neuron%20Need%20an%20Activation%20Function/notebook.ipynb)  
 26 📄 [Neural Networks as Function Approximators](<Lecture 26 - Neural Networks as Function Approximators/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2026%20-%20Neural%20Networks%20as%20Function%20Approximators/notebook.ipynb)  
 27 📄 [Backpropagation: Sending the Error Backward](<Lecture 27 - Backpropagation: Sending the Error Backward/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2027%20-%20Backpropagation%3A%20Sending%20the%20Error%20Backward/notebook.ipynb)  
-28 ○ Matrix Backpropagation: dW, db and dX by Hand  
+28 📄 [Matrix Backpropagation: dW, db, dX by Hand](<Lecture 28 - Matrix Backpropagation: dW, db, dX by Hand/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2028%20-%20Matrix%20Backpropagation%3A%20dW%2C%20db%2C%20dX%20by%20Hand/notebook.ipynb)  
 29 📄 [Tensors: Numbers in Many Dimensions](<Lecture 29 - Tensors: Numbers in Many Dimensions/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2029%20-%20Tensors%3A%20Numbers%20in%20Many%20Dimensions/notebook.ipynb)  
 30 📄 [Build a Tiny Neural Network From Scratch](<Lecture 30 - Build a Tiny Neural Network From Scratch/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2030%20-%20Build%20a%20Tiny%20Neural%20Network%20From%20Scratch/notebook.ipynb)  
 31 📄 [Automatic Differentiation](<Lecture 31 - Automatic Differentiation/blog.md>) · [Colab](https://colab.research.google.com/github/manish7725/deeplearning/blob/main/Lecture%2031%20-%20Automatic%20Differentiation/notebook.ipynb)  
@@ -128,4 +128,4 @@ which carries the writing standard, the full spine and the verification rules.
 
 ---
 
-**3 written · 33 drafted · 24 planned · 60 total**
+**5 written · 42 drafted · 13 planned · 60 total**
