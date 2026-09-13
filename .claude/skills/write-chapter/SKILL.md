@@ -72,6 +72,16 @@ know which way to move). Chapter 02 runs it twice. Each failure creates the next
 ## 🔭 Bridge to Chapter NN+1
 ```
 
+### Length
+
+A chapter's `blog.md` may run to **about 1500 lines** when the material needs it. Do not
+compress to stay short. If a concept needs a full derivation, another discovery cycle, more
+worked numbers or an extra failure case, include them — completeness and Class-8 accessibility
+beat brevity every time. Chapters 01–03 are long *because* they derive rather than declare.
+
+The one thing never to pad is prose. Length should come from more mathematics worked in full,
+more hand calculations, more failure analysis — never from restating an idea a second time.
+
 ### Exercise levels
 
 | Level | Asks the learner to | Lives in |
